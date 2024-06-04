@@ -49,7 +49,7 @@ class MenuButton(Button):
 
         self.surface = pygame.Surface(self.size, pygame.SRCALPHA)
         bg_color = self.highlighted_bg if self.highlighted else self.bg
-        self.surface.fill(g.TRANSPARENT)  # Fill the surface with transparent color
+        self.surface.fill(g.TRANSPARENT)  
         pygame.draw.rect(
             self.surface, bg_color, (0, 0, self.width, self.height), border_radius=self.border_radius
         )
