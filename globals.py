@@ -4,16 +4,24 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 TASKBAR_HEIGHT = 72  # Height of the taskbar
 
+# common factors 10, 20, 25, 40, 50, 100, 200
+CELLSIZE = 40
+
+BOARD_WIDTH = SCREEN_WIDTH // CELLSIZE
+BOARD_HEIGHT = SCREEN_HEIGHT // CELLSIZE
+
 # Game settings
 GAME_TITLE = 'Snake 2'
 FRAME_RATE = 60
 
 # Main Colors
 BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (0,240,25)
 BACKGROUND_COLOR = (136, 175, 146)
 GREEN_BLACK = (24, 30, 40) 
 TRANSPARENT = (0, 0, 0, 0)
-
+GRID_COLOR = GREEN_BLACK
 # Inhereted Colors
 TITLE_COLOR = GREEN_BLACK
 
@@ -40,3 +48,11 @@ BUTTON_PADDING = 10
 BORDER_THICKNESS = 5
 BORDER_RECT_WIDTH = 800
 BORDER_RECT_HEIGHT = 600
+
+# Direction mappings
+directions = {
+    "U": (0, -1),
+    "D": (0, 1),
+    "L": (-1, 0),
+    "R": (1, 0)
+}

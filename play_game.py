@@ -16,7 +16,6 @@ class PlayGame:
     def update_game_elements(self):
         self.screen_width, self.screen_height = self.screen.get_size()
         self.back_button.rect.topleft = (g.BUTTON_PADDING, g.BUTTON_PADDING)
-        # Update positions of game elements based on new screen size
 
     def draw_border(self):
         pygame.draw.rect(
@@ -30,7 +29,7 @@ class PlayGame:
             ),
             g.BORDER_THICKNESS,
         )
-
+    
     def run(self):
         while self.running:
             self.handle_events()
@@ -54,7 +53,7 @@ class PlayGame:
                 self.return_to_menu = True
 
     def update(self):
-        # Add game logic updates here
+        
         pass
 
     def draw(self):
