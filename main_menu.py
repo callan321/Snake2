@@ -13,10 +13,19 @@ class MainMenu:
         self.title_text = self.title_font.render(g.GAME_TITLE, True, g.TITLE_COLOR)
         self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * g.BUTTON_Y_OFFSET))
 
+        # Load sounds
+        self.hover_sound = pygame.mixer.Sound('hover.wav')
+        self.click_sound = pygame.mixer.Sound('play.wav')
+
         button_labels = ['Play', '2 Player', 'Settings', 'Quit']
         self.buttons = []
         for i, label in enumerate(button_labels):
-            button = MenuButton(label, (self.center_w, self.center_h + (i * 2 - 3) * g.BUTTON_Y_OFFSET))
+            button = MenuButton(
+                label, 
+                (self.center_w, self.center_h + (i * 2 - 3) * g.BUTTON_Y_OFFSET), 
+                hover_sound=self.hover_sound,
+                click_sound=self.click_sound
+            )
             self.buttons.append(button)
 
     def update_button_positions(self):
@@ -54,5 +63,3 @@ class MainMenu:
                 for button in self.buttons:
                     if button.click(event):
                         return button.text_string.lower()  # Use the text_string attribute for comparison
-
-
