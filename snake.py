@@ -48,6 +48,12 @@ class Snake:
             return True
 
         if self.get_size() > 4:
-            return self.body.check(self.get_head())
+            return self.check_self()
 
         return False
+    
+    def check_self(self): 
+        return self.body.check1(self.get_head())
+    
+    def check_other(self, pos): 
+        return self.body.check0(pos)

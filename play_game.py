@@ -6,6 +6,7 @@ import globals as g
 from game_ui import GameUI
 from game_renderer import GameRenderer
 import pygame_gui
+from controller import GameController
 
 class PlayGame:
     def __init__(self, screen, mode="singleplayer", size=10):
@@ -22,11 +23,13 @@ class PlayGame:
         snake_size = 3
 
         self.cell_size = g.CELLSIZE
-        self.last_move = "D"
         self.snake = Snake(start_pos, snake_size)
         self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
         self.food = Food()
-
+        
+        #
+        self.controller = GameController()
+        
         self.screen = screen
         self.clock = pygame.time.Clock()
         self.screen_width, self.screen_height = self.screen.get_size()
@@ -34,7 +37,7 @@ class PlayGame:
         # Time management
         self.last_update_time = pygame.time.get_ticks()
 
-        # Initialize GameUI and GameRenderer
+        # Initialize GameUI, GameRenderer, and GameController
         self.ui = GameUI(screen)
         self.renderer = GameRenderer(
             screen,
@@ -44,6 +47,7 @@ class PlayGame:
             self.width,
             self.height,
         )
+        
 
     def update_game_elements(self):
         self.ui.update_dimensions()
@@ -64,7 +68,7 @@ class PlayGame:
             self.ui.update(time_delta)
             self.update_game_elements()
             if self.running:
-                self.renderer.draw(self.snake, self.food, self.last_move)
+                self.renderer.draw(self.snake, self.food, self.controller.current_move)
             self.ui.draw()
             pygame.display.flip()
 
@@ -72,7 +76,6 @@ class PlayGame:
                 return "menu"
 
     def handle_events(self):
-        changed_direction = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -90,22 +93,8 @@ class PlayGame:
                         self.speed = new_speed
 
             if event.type == pygame.KEYDOWN:
-                if not changed_direction:
-                    new_direction = None
-                    if event.key == pygame.K_RIGHT and self.last_move != "L":
-                        new_direction = "R"
-                    elif event.key == pygame.K_LEFT and self.last_move != "R":
-                        new_direction = "L"
-                    elif event.key == pygame.K_DOWN and self.last_move != "U":
-                        new_direction = "D"
-                    elif event.key == pygame.K_UP and self.last_move != "D":
-                        new_direction = "U"
-
-                    if new_direction:
-                        next_position = self.get_next_head_position(new_direction)
-                        if not self.snake_collides_with_self(next_position):
-                            self.last_move = new_direction
-                            changed_direction = True
+                if not self.controller.changed_direction:
+                    self.controller.handle_keydown(event)
 
             self.ui.handle_events(event)
             if (
@@ -114,23 +103,12 @@ class PlayGame:
             ):
                 self.speed = int(event.value)
 
-    def get_next_head_position(self, direction):
-        head_x, head_y = self.snake.get_head()
-        if direction == "R":
-            return (head_x + 1, head_y)
-        elif direction == "L":
-            return (head_x - head_y)
-        elif direction == "D":
-            return (head_x, head_y + 1)
-        elif direction == "U":
-            return (head_x, head_y - 1)
-
-    def snake_collides_with_self(self, next_position):
-        return next_position in self.snake.get_body()
-
     def update(self):
-        direction = g.directions[self.last_move]
-        self.snake.update(direction, self.food.get_position())
+       
+
+        self.controller.reset_changed_direction()
+        
+        self.snake.update(self.controller.direction, self.food.get_position())
         head_pos = self.snake.get_head()
         tail_pos = self.snake.get_last_tail()
 
@@ -144,3 +122,7 @@ class PlayGame:
 
         if self.snake.check_collision(self.width, self.height):
             self.running = False
+
+
+
+

@@ -35,8 +35,11 @@ class HashQueue:
     def peak_back(self) -> Any:
         return self.data[-1]
 
-    def check(self, element: Any) -> bool:
+    def check1(self, element: Any) -> bool:
         return self.hash_map.get(element, 0) > 1
+    
+    def check0(self, element: Any) -> bool:
+        return self.hash_map.get(element, 0) > 0
 
     def get_data(self) -> Deque[Any]:
         return self.data
