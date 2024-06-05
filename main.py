@@ -1,5 +1,4 @@
 import pygame
-import sys
 from main_menu import MainMenu
 from play_game import PlayGame
 from settings import Settings
@@ -21,7 +20,7 @@ def main():
                 continue
         elif choice == '2player':
             # Handle 2 player mode
-            game = PlayGame(screen, mode='2player')
+            game = PlayGame(screen)
             if game.run() == 'menu':
                 continue
         elif choice == 'settings':

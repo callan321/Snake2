@@ -62,4 +62,4 @@ class MainMenu:
                     self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
                 for button in self.buttons:
                     if button.click(event):
-                        return button.text_string.lower()  # Use the text_string attribute for comparison
+                        return button.text_string.lower()  
