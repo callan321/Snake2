@@ -4,7 +4,6 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 TASKBAR_HEIGHT = 72  # Height of the taskbar
 
-# common factors 1, 2, 4, 5, 8, 10, 20, 25, 40, 50, 100, 200
 
 GAME_TITLE = 'Snake 2'
 

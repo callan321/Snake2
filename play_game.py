@@ -6,10 +6,10 @@ import globals as g
 from game_ui import GameUI
 from game_renderer import GameRenderer
 import pygame_gui
-from controller import AIController
+from controller import Controller
 
 class PlayGame:
-    def __init__(self, screen, number_of_cells = 10):
+    def __init__(self, screen, number_of_cells=10, controller_type='AI'):
         cell_size = min(g.SCREEN_WIDTH, g.SCREEN_HEIGHT) // number_of_cells
         self.width = g.SCREEN_WIDTH // cell_size
         self.height = g.SCREEN_HEIGHT // cell_size
@@ -27,15 +27,13 @@ class PlayGame:
         self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
         self.food = Food()
 
-        # Use AI controller by default
-        self.controller = AIController()
+        # Choose the controller based on the passed argument using the Controller class
+        self.controller = Controller.choose(controller_type)
 
         self.screen = screen
         self.clock = pygame.time.Clock()
         self.last_update_time = pygame.time.get_ticks()
         
-
-
         self.ui = GameUI(screen)
         self.renderer = GameRenderer(
             screen,
@@ -43,8 +41,6 @@ class PlayGame:
             self.width,
             self.height,
         )
-
-
 
     def run(self):
         while self.running:
@@ -112,7 +108,6 @@ class PlayGame:
             if event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED and event.ui_element == self.ui.speed_slider:
                 self.base_speed = int(event.value)
                 self.speed = self.base_speed if not pygame.key.get_pressed()[pygame.K_SPACE] else self.base_speed * 2
-
 
     def update_game_elements(self):
         self.ui.update_dimensions()

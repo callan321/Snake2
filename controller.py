@@ -1,6 +1,22 @@
 import pygame
 import globals as g
 
+
+class Controller:
+    @staticmethod
+    def choose(controller_type):
+        if controller_type == 'AI':
+            return AIController()
+        elif controller_type == 'Arrow':
+            return ArrowKeyController()
+        elif controller_type == 'WASD':
+            return WASDController()
+        elif controller_type == 'Combined':
+            return CombinedController()
+        else:
+            raise ValueError(f"Unknown controller type: {controller_type}")
+        
+        
 class BaseController:
     def __init__(self):
         self.current_move = "D"
