@@ -3,22 +3,30 @@ import pygame
 import sys
 from button import MenuButton
 from snake import Snake
-from food import Food
+from food import Food, SpawnGenerator
 import globals as g
 
 class PlayGame:
     def __init__(self, screen):
-        self.screen = screen
+        # Flags
         self.running = True
+        self.return_to_menu = False
+        
+        # Game Logic
+        self.width, self.height  = g.BOARD_WIDTH, g.BOARD_HEIGHT
+        start_pos = (0, 0)
+        snake_size = 1
+
+        self.last_move = "D"
+        self.snake = Snake(start_pos, snake_size)
+        self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
+        self.food = Food()
+        
+        # UI logic
+        self.screen = screen
         self.clock = pygame.time.Clock()
         self.screen_width, self.screen_height = self.screen.get_size()
-        self.back_button = MenuButton("Back", (g.BUTTON_PADDING, g.BUTTON_PADDING))
-        self.return_to_menu = False
-        self.width, self.height  = g.BOARD_WIDTH, g.BOARD_HEIGHT
-        positions = self.get_board_positions(self.width, self.height)
-        self.last_move = "D"
-        self.snake = Snake((5, 5), 1)
-        self.food = Food(positions)
+        self.back_button = MenuButton("Back", (g.BUTTON_PADDING, g.BUTTON_PADDING))    
         self.off_x = (self.screen_width - g.BORDER_RECT_WIDTH) // 2
         self.off_y = (self.screen_height - g.BORDER_RECT_HEIGHT) // 2
 
@@ -83,7 +91,14 @@ class PlayGame:
     def update(self):
         direction = g.directions[self.last_move]
         self.snake.update(direction, self.food.get_position())
-        self.food.update(self.snake)
+        head_pos = self.snake.get_head()
+        tail_pos = self.snake.get_last_tail()
+        
+        self.spawn_generator.insert(tail_pos)
+        self.spawn_generator.remove(head_pos)
+        
+        self.food.update(head_pos, self.spawn_generator)
+        
         if self.snake.check_collision(self.width, self.height):
             self.running = False
 
@@ -123,5 +138,4 @@ class PlayGame:
         rect = pygame.Rect(position, size)
         pygame.draw.rect(self.screen, g.FOOD_COLOR, rect, border_radius=g.FOOD_BORDER_RADIUS)
 
-    def get_board_positions(self, width, height):
-        return {(x, y) for x in range(width) for y in range(height)}
+

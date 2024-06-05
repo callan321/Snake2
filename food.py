@@ -1,24 +1,19 @@
-# food.py
-import random
-class AvailablePositions:
-    def __init__(self) -> None:
-        pass
-    
+from typing import Tuple, Dict, List, Optional
+from spawn_generator import SpawnGenerator
+
+
 class Food:
-    def __init__(self, positions):
-        self.pos = None
-        self.positions = positions
+    def __init__(self) -> None:
+        self.pos: Tuple[int, int] = None
 
-    def update(self, snake):
-        if self.pos == snake.get_head():
+    def update(self, snake_pos: Tuple[int, int], generator: SpawnGenerator) -> None:
+        if self.pos == snake_pos:
             self.pos = None
-        elif self.pos is None:
-            self.respawn(snake)
+        if self.pos is None:
+            self.respawn(generator.get_random())
 
-    def respawn(self, snake):
-        snake_body_set = set(snake.get_body())
-        available_positions = self.positions - snake_body_set
-        self.pos = random.choice(list(available_positions)) if available_positions else None
+    def respawn(self, pos: Tuple[int, int]) -> None:
+        self.pos = pos
 
-    def get_position(self):
+    def get_position(self) -> Tuple[int, int]:
         return self.pos

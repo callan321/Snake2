@@ -5,14 +5,14 @@ SCREEN_HEIGHT = 600
 TASKBAR_HEIGHT = 72  # Height of the taskbar
 
 # common factors 1, 2, 4, 5, 8, 10, 20, 25, 40, 50, 100, 200
-CELLSIZE = 40
+CELLSIZE = 200
 
 BOARD_WIDTH = SCREEN_WIDTH // CELLSIZE
 BOARD_HEIGHT = SCREEN_HEIGHT // CELLSIZE
 
 # Game settings
 GAME_TITLE = 'Snake 2'
-FRAME_RATE = 8
+FRAME_RATE = 1
 
 # Main Colors
 BLACK = (0, 0, 0)
