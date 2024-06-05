@@ -8,6 +8,8 @@ class GameRenderer:
         self.width = width
         self.height = height
         self.update_offsets()
+        self.SNAKE_BORDER_RADIUS = cell_size // 3
+        self.FOOD_SIZE = cell_size // 6
 
     def update_offsets(self):
         screen_width, screen_height = self.screen.get_size()
@@ -46,7 +48,7 @@ class GameRenderer:
                     pos[1] * self.cell_size + self.off_y + half_diff,
                 )
                 rect = pygame.Rect(position, (size, size))
-                border_radius = min(size // 2, g.SNAKE_BORDER_RADIUS)
+                border_radius = min(size // 2, self.SNAKE_BORDER_RADIUS)
 
                 if i == 0:
                     pygame.draw.rect(self.screen, g.BLACK, rect, border_radius=border_radius)
@@ -81,10 +83,10 @@ class GameRenderer:
             return
         x, y = food.get_position()
         position = (
-            x * self.cell_size + self.off_x + g.FOOD_SIZE // 2,
-            y * self.cell_size + self.off_y + g.FOOD_SIZE // 2,
+            x * self.cell_size + self.off_x + self.FOOD_SIZE // 2,
+            y * self.cell_size + self.off_y + self.FOOD_SIZE // 2,
         )
-        size = (self.cell_size - g.FOOD_SIZE, self.cell_size - g.FOOD_SIZE)
+        size = (self.cell_size - self.FOOD_SIZE, self.cell_size - self.FOOD_SIZE)
         rect = pygame.Rect(position, size)
         pygame.draw.rect(self.screen, g.FOOD_COLOR, rect, border_radius=g.FOOD_BORDER_RADIUS)
 
