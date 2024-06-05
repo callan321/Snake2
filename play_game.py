@@ -11,8 +11,10 @@ from controller import AIController
 class PlayGame:
     def __init__(self, screen):
         self.running = True
+        self.paused = False
         self.return_to_menu = False
-        self.speed = 10
+        self.base_speed = 10
+        self.speed = self.base_speed
 
         self.width, self.height = g.BOARD_WIDTH, g.BOARD_HEIGHT
         start_pos = (0, 0)
@@ -46,7 +48,7 @@ class PlayGame:
         while self.running:
             time_delta = self.clock.tick(60) / 1000.0
             current_time = pygame.time.get_ticks()
-            if current_time - self.last_update_time > 1000 // self.speed:
+            if not self.paused and current_time - self.last_update_time > 1000 // self.speed:
                 self.last_update_time = current_time
                 self.update()
 
@@ -74,11 +76,23 @@ class PlayGame:
                 else:
                     new_speed = self.ui.handle_speed_slider(event)
                     if new_speed is not None:
-                        self.speed = new_speed
+                        self.base_speed = new_speed
+                        self.speed = new_speed if not pygame.key.get_pressed()[pygame.K_SPACE] else new_speed * 2
+
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    self.paused = not self.paused
+                elif event.key == pygame.K_SPACE:
+                    self.speed = self.base_speed * 2
+
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    self.speed = self.base_speed
 
             self.ui.handle_events(event)
             if event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED and event.ui_element == self.ui.speed_slider:
-                self.speed = int(event.value)
+                self.base_speed = int(event.value)
+                self.speed = self.base_speed if not pygame.key.get_pressed()[pygame.K_SPACE] else self.base_speed * 2
 
     def update(self):
         self.controller.reset_changed_direction()
