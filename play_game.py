@@ -6,7 +6,7 @@ import globals as g
 from game_ui import GameUI
 from game_renderer import GameRenderer
 import pygame_gui
-from controller import CombinedController
+from controller import AIController
 
 class PlayGame:
     def __init__(self, screen):
@@ -23,8 +23,8 @@ class PlayGame:
         self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
         self.food = Food()
 
-        # Use combined controller by default
-        self.controller = CombinedController()
+        # Use AI controller by default
+        self.controller = AIController()
 
         self.screen = screen
         self.clock = pygame.time.Clock()
@@ -76,15 +76,13 @@ class PlayGame:
                     if new_speed is not None:
                         self.speed = new_speed
 
-            if event.type == pygame.KEYDOWN and not self.controller.changed_direction:
-                self.controller.handle_keydown(event)
-
             self.ui.handle_events(event)
             if event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED and event.ui_element == self.ui.speed_slider:
                 self.speed = int(event.value)
 
     def update(self):
         self.controller.reset_changed_direction()
+        self.controller.update_direction(self.snake.get_head(), self.food.get_position())
         self.snake.update(self.controller.direction, self.food.get_position())
         head_pos = self.snake.get_head()
         tail_pos = self.snake.get_last_tail()
