@@ -6,7 +6,7 @@ import globals as g
 from game_ui import GameUI
 from game_renderer import GameRenderer
 import pygame_gui
-from controller import GameController
+from controller import CombinedController
 
 class PlayGame:
     def __init__(self, screen):
@@ -22,7 +22,9 @@ class PlayGame:
         self.snake = Snake(start_pos, snake_size)
         self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
         self.food = Food()
-        self.controller = GameController()
+
+        # Use combined controller by default
+        self.controller = CombinedController()
 
         self.screen = screen
         self.clock = pygame.time.Clock()
