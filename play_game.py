@@ -1,4 +1,3 @@
-# play_game.py
 import pygame
 import sys
 from button import MenuButton
@@ -70,8 +69,9 @@ class PlayGame:
                 self.screen = pygame.display.set_mode(
                     (event.w, event.h), pygame.RESIZABLE
                 )
-            elif self.back_button.click(event):
-                self.return_to_menu = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if self.back_button.click(event):
+                    self.return_to_menu = True
 
             if event.type == pygame.KEYDOWN:
                 if not changed_direction:
@@ -109,7 +109,6 @@ class PlayGame:
         self.back_button.update_highlight(mouse_pos)
         self.back_button.show(self.screen)
 
-        # self.draw_grid()
         self.draw_snake()
         self.draw_food()
         pygame.display.flip()
@@ -137,5 +136,3 @@ class PlayGame:
         size = (g.CELLSIZE - g.FOOD_SIZE, g.CELLSIZE - g.FOOD_SIZE)
         rect = pygame.Rect(position, size)
         pygame.draw.rect(self.screen, g.FOOD_COLOR, rect, border_radius=g.FOOD_BORDER_RADIUS)
-
-
