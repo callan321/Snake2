@@ -7,7 +7,7 @@ from food import Food, SpawnGenerator
 import globals as g
 
 class PlayGame:
-    def __init__(self, screen, mode='singleplayer'):
+    def __init__(self, screen, mode='singleplayer', size = 10):
         # Flags
         self.running = True
         self.return_to_menu = False
