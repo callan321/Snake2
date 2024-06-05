@@ -9,7 +9,11 @@ import pygame_gui
 from controller import AIController
 
 class PlayGame:
-    def __init__(self, screen):
+    def __init__(self, screen, number_of_cells = 20):
+        g.CELLSIZE = min(g.SCREEN_WIDTH, g.SCREEN_HEIGHT) // number_of_cells
+        g.BOARD_WIDTH = g.SCREEN_WIDTH // g.CELLSIZE
+        g.BOARD_HEIGHT = g.SCREEN_HEIGHT // g.CELLSIZE
+        g.SNAKE_BORDER_RADIUS = g.CELLSIZE // 3
         self.running = True
         self.paused = False
         self.return_to_menu = False
@@ -31,6 +35,8 @@ class PlayGame:
         self.screen = screen
         self.clock = pygame.time.Clock()
         self.last_update_time = pygame.time.get_ticks()
+        
+
 
         self.ui = GameUI(screen)
         self.renderer = GameRenderer(
