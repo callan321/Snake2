@@ -1,6 +1,5 @@
 from typing import Tuple, Optional
-from hash_queue import HashQueue
-
+from game_objects.hash_queue import HashQueue
 
 class Snake:
     def __init__(self, start_pos: Tuple[int, int], size: int = 3):
@@ -9,11 +8,14 @@ class Snake:
         for _ in range(size - 1):
             self.grow()
         self.last_tail: Optional[Tuple[int, int]] = None
+        self.ate = False
 
     def update(self, direction: Tuple[int, int], food_pos: Tuple[int, int]) -> None:
+        self.ate = False
         self.move(direction)
         if self.check_food(food_pos):
             self.grow()
+            self.ate = True
 
     def grow(self) -> None:
         tail_x, tail_y = self.body.peak_back()
@@ -51,9 +53,12 @@ class Snake:
             return self.check_self()
 
         return False
-    
-    def check_self(self): 
+
+    def check_self(self) -> bool:
         return self.body.check1(self.get_head())
-    
-    def check_other(self, pos): 
+
+    def check_other(self, pos: Tuple[int, int]) -> bool:
         return self.body.check0(pos)
+
+    def check_ate(self) -> bool:
+        return self.ate

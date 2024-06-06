@@ -48,11 +48,3 @@ BUTTON_PADDING = 10
 BORDER_THICKNESS = 5
 BORDER_RECT_WIDTH = 800
 BORDER_RECT_HEIGHT = 600
-
-# Direction mappings
-directions = {
-    "U": (0, -1),
-    "D": (0, 1),
-    "L": (-1, 0),
-    "R": (1, 0)
-}
