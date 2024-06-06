@@ -3,7 +3,7 @@ import globals as g
 from ui.button import Button
 
 class SpeedButton(Button):
-    def __init__(self, text, pos):
+    def __init__(self, pos, initial_speed=10):
         self.font = pygame.font.Font(None, g.BUTTON_FONT_SIZE)
         self.bg = g.BACKGROUND_COLOR
         self.text_color = g.TEXT_COLOR
@@ -11,9 +11,11 @@ class SpeedButton(Button):
         self.highlighted_text_color = g.BACKGROUND_COLOR
         self.size = (g.MB_WIDTH, g.MB_HEIGHT)
         self.width, self.height = self.size
-        self.border_radius = g.MB_BORDER_RADIUS 
-        super().__init__(text, pos)
-        self.current_speed = 10
+        self.border_radius = g.MB_BORDER_RADIUS
+        speed = initial_speed//2 - 1
+        super().__init__("Speed: {speed}", pos)
+        self.current_speed = initial_speed
+        self.change_text(f"Speed: {self.current_speed // 5 - 1}")
 
     def change_text(self, text):
         self.text_string = text
@@ -40,8 +42,7 @@ class SpeedButton(Button):
         self.current_speed += 5
         if self.current_speed > 30:
             self.current_speed = 10
-        self.change_text(f"Speed: {self.current_speed//5 - 1}")
+        self.change_text(f"Speed: {self.current_speed // 5 - 1}")
 
     def get_speed(self):
         return self.current_speed
-

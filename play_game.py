@@ -6,16 +6,16 @@ from controller import HumanController
 from game_logic import GameLogic
 
 class PlayGame(GameLogic):
-    def __init__(self, screen, width, height, cell_size):
+    def __init__(self, screen, width, height, cell_size, initial_speed=10):
         super().__init__(width, height)
         self.cell_size = cell_size
         self.last_update_time = pygame.time.get_ticks()
-        self.base_speed = 10
+        self.base_speed = initial_speed
         self.speed = self.base_speed
         self.screen = screen
         self.clock = pygame.time.Clock()
         
-        self.ui = GameUI(screen)
+        self.ui = GameUI(screen, initial_speed)
         self.renderer = GameRenderer(screen, self.cell_size, self.width, self.height)
 
         self.return_to_menu = False
@@ -50,10 +50,9 @@ class PlayGame(GameLogic):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.ui.handle_back_button(event):
                     self.return_to_menu = True
-                else:
-                    if self.ui.handle_speed_button(event):
-                        self.base_speed = self.ui.get_current_speed()
-                        self.speed = self.base_speed if not pygame.key.get_pressed()[pygame.K_SPACE] else self.base_speed * 2
+                elif self.ui.handle_speed_button(event):
+                    self.base_speed = self.ui.get_current_speed()
+                    self.speed = self.base_speed if not pygame.key.get_pressed()[pygame.K_SPACE] else self.base_speed * 2
 
             elif event.type == pygame.KEYDOWN:
                 if isinstance(self.controller, HumanController):

@@ -15,7 +15,7 @@ class MainMenu:
         )  # Choose a font and size for the title
         self.title_text = self.title_font.render(g.GAME_TITLE, True, g.TEXT_COLOR)
         self.title_rect = self.title_text.get_rect(
-            center=(self.center_w, self.center_h - 5 * g.BUTTON_Y_OFFSET)
+            center=(self.center_w, self.center_h - g.TITLE_Y_OFFSET_MULTIPLIER * g.BUTTON_Y_OFFSET)
         )
 
         button_labels = ["Play", "2 Player", "Settings", "Replay", "Quit"]
@@ -23,7 +23,7 @@ class MainMenu:
         for i, label in enumerate(button_labels):
             button = MenuButton(
                 label,
-                (self.center_w, self.center_h + (i * 2 - 3) * g.BUTTON_Y_OFFSET),
+                (self.center_w, self.center_h + (i * g.BUTTON_Y_OFFSET_MULTIPLIER - g.BUTTON_Y_OFFSET_SHIFT) * g.BUTTON_Y_OFFSET),
             )
             self.buttons.append(button)
 
@@ -32,12 +32,12 @@ class MainMenu:
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
         self.title_rect = self.title_text.get_rect(
-            center=(self.center_w, self.center_h - 5 * g.BUTTON_Y_OFFSET)
+            center=(self.center_w, self.center_h - g.TITLE_Y_OFFSET_MULTIPLIER * g.BUTTON_Y_OFFSET)
         )
 
         for i, button in enumerate(self.buttons):
             button.x = self.center_w - button.width // 2
-            button.y = self.center_h + (i * 2 - 3) * g.BUTTON_Y_OFFSET
+            button.y = self.center_h + (i * g.BUTTON_Y_OFFSET_MULTIPLIER - g.BUTTON_Y_OFFSET_SHIFT) * g.BUTTON_Y_OFFSET
             button.rect.topleft = (button.x, button.y)
 
     def display_menu(self):

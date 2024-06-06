@@ -16,7 +16,7 @@ def main():
     while True:
         choice = main_menu.run()
         if choice == 'play':
-            number_of_cells = 20
+            number_of_cells = 50
             cell_size = g.GAME_WIDTH // number_of_cells
             width = g.GAME_WIDTH // cell_size
             height = g.GAME_HEIGHT // cell_size

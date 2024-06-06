@@ -3,27 +3,25 @@ from ui.menu_button import MenuButton
 from ui.speed_button import SpeedButton
 import globals as g
 
+
 class GameUI:
-    def __init__(self, screen):
+    def __init__(self, screen, initial_speed):
         self.screen = screen
         self.screen_width, self.screen_height = self.screen.get_size()
 
-
         self.back_button = MenuButton("Back", (g.BUTTON_PADDING, g.BUTTON_PADDING))
         self.speed_button = SpeedButton(
-            "Speed: 1", 
-            (self.screen_width // 2 - 75, 10),
+            (((self.screen_width // 2) - (g.SPEED_BUTTON_WIDTH)), g.SPEED_BUTTON_PADDING_TOP),
+            initial_speed=initial_speed
         )
 
     def update_dimensions(self):
         self.screen_width, self.screen_height = self.screen.get_size()
         self.back_button.rect.topleft = (g.BUTTON_PADDING, g.BUTTON_PADDING)
-        self.speed_button.rect.topleft = (self.screen_width // 2 - 75, 10)
+        self.speed_button.rect.topleft = (self.screen_width // 2 - g.SPEED_BUTTON_WIDTH // 2, g.SPEED_BUTTON_PADDING_TOP)
 
     def handle_back_button(self, event):
-        if self.back_button.click(event):
-            return True
-        return False
+        return self.back_button.click(event)
 
     def handle_speed_button(self, event):
         if self.speed_button.click(event):
