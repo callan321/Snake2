@@ -45,16 +45,17 @@ class Snake:
         return self.last_tail
 
     def check_collision(self, width: int, height: int) -> bool:
-        x, y = self.get_head()
-
-        if x < 0 or x >= width or y < 0 or y >= height:
+        if self.check_bounds(width, height, self.get_head()):
             return True
 
         if self.get_size() > 4:
             return self.check_self()
-
         return False
-
+    
+    def check_bounds(self , width: int, height: int,pos):
+        x, y = pos
+        return x < 0 or x >= width or y < 0 or y >= height
+         
     def check_self(self) -> bool:
         return self.body.check1(self.get_head())
 

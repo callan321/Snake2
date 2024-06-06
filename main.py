@@ -18,7 +18,7 @@ def main():
     screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
     config = GameConfig(screen.get_width(), screen.get_height())
     
-    number_of_cells = 25
+    number_of_cells = 8
 
     main_menu = MainMenu(screen, config)
     while True:

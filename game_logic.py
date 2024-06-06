@@ -14,7 +14,7 @@ class GameLogicAI:
         self.snake = Snake(start_pos, snake_size)
         self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
         self.food = Food()
-        self.controller = Controller.select(controller_type)
+        self.controller = Controller.select(controller_type, self.width, self.height)
         
 
     def update(self) -> None:
@@ -26,7 +26,7 @@ class GameLogicAI:
         self.check_collisions()
 
     def get_direction(self) -> Tuple[int, int]:
-        return self.controller.get_direction(self.snake.get_head(), self.food.get_position())
+        return self.controller.get_direction(self.snake, self.food.get_position(), self.width, self.height)
 
     def manage_snake_movement(self) -> None:
         head_pos = self.snake.get_head()
@@ -48,11 +48,11 @@ class GameLogicAI:
 
 
 class GameLogic(GameLogicAI):
-    def __init__(self, width: int, height: int, controller_type: str = 'Combined', snake_size: int = 3) -> None:
+    def __init__(self, width: int, height: int, controller_type: str = 'AI', snake_size: int = 3) -> None:
         super().__init__(width, height, controller_type, snake_size)
 
     def get_direction(self) -> Tuple[int, int]:
         if isinstance(self.controller, AIController):
-            return self.controller.get_direction(self.snake.get_head(), self.food.get_position())
+            return self.controller.get_direction(self.snake, self.food.get_position())
         return self.controller.get_direction()
 

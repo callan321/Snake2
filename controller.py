@@ -1,4 +1,5 @@
 import pygame
+from game_objects.snake import Snake
 
 # Direction Constants
 RIGHT = "R"
@@ -8,6 +9,8 @@ UP = "U"
 
 # Direction mappings
 DIRECTIONS = {UP: (0, -1), DOWN: (0, 1), LEFT: (-1, 0), RIGHT: (1, 0)}
+
+AIDIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1)]  # right  # left  # down  # up
 
 
 class Controller:
@@ -24,7 +27,7 @@ class Controller:
         return self.direction
 
     @staticmethod
-    def select(controller_type: str) -> 'Controller':
+    def select(controller_type: str, width, height) -> "Controller":
         """Select and return the appropriate controller based on type.
 
         Args:
@@ -43,7 +46,7 @@ class Controller:
             "Combined": CombinedController,
         }
         if controller_type in controllers:
-            return controllers[controller_type]()
+            return controllers[controller_type](width, height)
         else:
             raise ValueError(f"Unknown controller type: {controller_type}")
 
@@ -113,39 +116,39 @@ class AIController(Controller):
 
 
 class TESTController(AIController):
-    def __init__(self):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.last_move = (0, 1)  # Initialize last move
         super().__init__()
 
-    def get_direction(self, snake_head: tuple[int, int], food_pos: tuple[int, int] | None) -> tuple[int, int]:
-        """Determine the direction based on snake head and food positions.
+    def get_direction(self, snake: Snake, food_pos: tuple[int, int] | None) -> tuple[int, int]:
+        head = snake.get_head()
+        best_distance = float('inf')
+        
+        # Define opposite directions to prevent moving backwards
+        opposite_direction = (-self.last_move[0], -self.last_move[1])
+        
+        for direction in AIDIRECTIONS:
+            # Skip the direction if it's the opposite of the last move
+            if direction == opposite_direction:
+                continue
+                
+            next_position = tuple(sum(x) for x in zip(head, direction))
+            
+            if not snake.check_collision(self.width, self.height):
+                if food_pos is None:
+                    self.last_move = direction
+                    return self.last_move
+                distance = self.heuristic(next_position, food_pos)
+                
+                if distance < best_distance:
+                    best_distance = distance
+                    self.last_move = direction
+        
+        return self.last_move
+    
+    def heuristic(self, target: tuple[int, int], goal: tuple[int, int]) -> int:
+        return abs(target[0] - goal[0]) + abs(target[1] - goal[1])
 
-        Args:
-            snake_head (tuple[int, int]): The current position of the snake's head.
-            food_pos (tuple[int, int] | None): The position of the food. None if no food is present.
 
-        Returns:
-            tuple[int, int]: The new direction as a tuple of (x, y) coordinates.
-        """
-        head_x, head_y = snake_head
-
-        if food_pos is None:
-            self.current_move = DOWN
-            self.direction = DIRECTIONS[self.current_move]
-            return self.direction
-
-        food_x, food_y = food_pos
-
-        if head_x < food_x:
-            new_direction = RIGHT
-        elif head_x > food_x:
-            new_direction = LEFT
-        elif head_y < food_y:
-            new_direction = DOWN
-        elif head_y > food_y:
-            new_direction = UP
-        else:
-            new_direction = self.current_move
-
-        self.current_move = new_direction
-        self.direction = DIRECTIONS.get(self.current_move, (0, 1))  # Default to moving down if direction not found
-        return self.direction
