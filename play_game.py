@@ -1,12 +1,9 @@
 import pygame
 import sys
 from game_ui import GameUI
-import pygame_gui
 from game_renderer import GameRenderer
 from controller import HumanController
 from game_logic import GameLogic
-
-
 
 class PlayGame(GameLogic):
     def __init__(self, screen, width, height, cell_size):
@@ -54,10 +51,9 @@ class PlayGame(GameLogic):
                 if self.ui.handle_back_button(event):
                     self.return_to_menu = True
                 else:
-                    new_speed = self.ui.handle_speed_slider(event)
-                    if new_speed is not None:
-                        self.base_speed = new_speed
-                        self.speed = new_speed if not pygame.key.get_pressed()[pygame.K_SPACE] else new_speed * 2
+                    if self.ui.handle_speed_button(event):
+                        self.base_speed = self.ui.get_current_speed()
+                        self.speed = self.base_speed if not pygame.key.get_pressed()[pygame.K_SPACE] else self.base_speed * 2
 
             elif event.type == pygame.KEYDOWN:
                 if isinstance(self.controller, HumanController):
@@ -72,12 +68,7 @@ class PlayGame(GameLogic):
                     self.speed = self.base_speed
 
             self.ui.handle_events(event)
-            if event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED and event.ui_element == self.ui.speed_slider:
-                self.base_speed = int(event.value)
-                self.speed = self.base_speed if not pygame.key.get_pressed()[pygame.K_SPACE] else self.base_speed * 2
 
     def update_game_elements(self):
         self.ui.update_dimensions()
         self.renderer.update_screen_size()
-
-

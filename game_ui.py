@@ -1,6 +1,5 @@
 import pygame
-import pygame_gui
-from button import MenuButton
+from button import MenuButton, SpeedButton
 import globals as g
 
 class GameUI:
@@ -13,53 +12,41 @@ class GameUI:
         self.click_sound = pygame.mixer.Sound('play.wav')
         
         self.back_button = MenuButton("Back", (g.BUTTON_PADDING, g.BUTTON_PADDING), hover_sound=self.hover_sound, click_sound=self.click_sound)
-        
-        # Pygame GUI Manager
-        self.manager = pygame_gui.UIManager((self.screen_width, self.screen_height))
-        
-        # Slider
-        self.speed_slider = pygame_gui.elements.UIHorizontalSlider(
-            relative_rect=pygame.Rect((self.screen_width // 2 - 150, 10), (300, 50)),
-            start_value=10,  # Default speed
-            value_range=(5, 30),
-            manager=self.manager
+        self.speed_button = SpeedButton(
+            f"Speed: 10", 
+            (self.screen_width // 2 - 75, 10),
+            hover_sound=self.hover_sound,
+            click_sound=self.click_sound
         )
 
     def update_dimensions(self):
         self.screen_width, self.screen_height = self.screen.get_size()
         self.back_button.rect.topleft = (g.BUTTON_PADDING, g.BUTTON_PADDING)
-        self.manager.set_window_resolution((self.screen_width, self.screen_height))
-        self.speed_slider.set_relative_position((self.screen_width // 2 - 150, 10))
+        self.speed_button.rect.topleft = (self.screen_width // 2 - 75, 10)
 
     def handle_back_button(self, event):
         if self.back_button.click(event):
             return True
         return False
 
-    def handle_speed_slider(self, event):
-        if self.speed_slider.rect.collidepoint(event.pos):
-            relative_x = event.pos[0] - self.speed_slider.rect.left
-            percentage = relative_x / self.speed_slider.rect.width
-            new_speed = (
-                percentage
-                * (
-                    self.speed_slider.value_range[1]
-                    - self.speed_slider.value_range[0]
-                )
-                + self.speed_slider.value_range[0]
-            )
-            self.speed_slider.set_current_value(new_speed)
-            return int(new_speed)
-        return None
+    def handle_speed_button(self, event):
+        if self.speed_button.click(event):
+            self.speed_button.update_speed()
+            return True
+        return False
+
+    def get_current_speed(self):
+        return self.speed_button.get_speed()
 
     def handle_events(self, event):
-        self.manager.process_events(event)
+        pass  # No need for a manager here anymore
 
     def update(self, time_delta):
-        self.manager.update(time_delta)
+        pass  # No need for a manager update
 
     def draw(self):
-        self.manager.draw_ui(self.screen)
         mouse_pos = pygame.mouse.get_pos()
         self.back_button.update_highlight(mouse_pos)
         self.back_button.show(self.screen)
+        self.speed_button.update_highlight(mouse_pos)
+        self.speed_button.show(self.screen)
