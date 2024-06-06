@@ -3,37 +3,27 @@ import sys
 from ui.menu_button import MenuButton
 import globals as g
 
-
 class MainMenu:
     def __init__(self, screen):
         self.screen = screen
         self.screen_width, self.screen_height = screen.get_size()
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
-        self.title_font = pygame.font.Font(
-            None, g.TITLE_FONT_SIZE
-        )  # Choose a font and size for the title
+        self.title_font = pygame.font.Font(None, g.TITLE_FONT_SIZE)
         self.title_text = self.title_font.render(g.GAME_TITLE, True, g.TEXT_COLOR)
-        self.title_rect = self.title_text.get_rect(
-            center=(self.center_w, self.center_h - g.TITLE_Y_OFFSET_MULTIPLIER * g.BUTTON_Y_OFFSET)
-        )
+        self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - g.TITLE_Y_OFFSET_MULTIPLIER * g.BUTTON_Y_OFFSET))
 
         button_labels = ["Play", "2 Player", "Settings", "Replay", "Quit"]
         self.buttons = []
         for i, label in enumerate(button_labels):
-            button = MenuButton(
-                label,
-                (self.center_w, self.center_h + (i * g.BUTTON_Y_OFFSET_MULTIPLIER - g.BUTTON_Y_OFFSET_SHIFT) * g.BUTTON_Y_OFFSET),
-            )
+            button = MenuButton(label, (self.center_w, self.center_h + (i * g.BUTTON_Y_OFFSET_MULTIPLIER - g.BUTTON_Y_OFFSET_SHIFT) * g.BUTTON_Y_OFFSET))
             self.buttons.append(button)
 
     def update_button_positions(self):
         self.screen_width, self.screen_height = self.screen.get_size()
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
-        self.title_rect = self.title_text.get_rect(
-            center=(self.center_w, self.center_h - g.TITLE_Y_OFFSET_MULTIPLIER * g.BUTTON_Y_OFFSET)
-        )
+        self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - g.TITLE_Y_OFFSET_MULTIPLIER * g.BUTTON_Y_OFFSET))
 
         for i, button in enumerate(self.buttons):
             button.x = self.center_w - button.width // 2
@@ -60,9 +50,11 @@ class MainMenu:
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.VIDEORESIZE:
-                    self.screen = pygame.display.set_mode(
-                        (event.w, event.h), pygame.RESIZABLE
-                    )
-                for button in self.buttons:
-                    if button.click(event):
-                        return button.text_string.lower()
+                    self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                else:
+                    for button in self.buttons:
+                        if button.click(event):
+                            if button.text_string.lower() == "quit":
+                                running = False
+                            else:
+                                return button.text_string.lower()

@@ -11,7 +11,7 @@ class MenuButton(Button):
         self.highlighted_text_color = g.BACKGROUND_COLOR
         self.size = (g.MB_WIDTH, g.MB_HEIGHT)
         self.width, self.height = self.size
-        self.border_radius = g.MB_BORDER_RADIUS 
+        self.border_radius = g.MB_BORDER_RADIUS
         super().__init__(text, pos)
 
     def change_text(self, text):
@@ -34,5 +34,3 @@ class MenuButton(Button):
             ),
         )
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-
-

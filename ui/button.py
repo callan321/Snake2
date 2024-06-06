@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 import globals as g 
 
 class Button(ABC):
-    def __init__(self, text, pos, hover_sound= g.HOVER_SOUND, click_sound=g.CLICK_SOUND):
+    def __init__(self, text, pos, hover_sound=g.HOVER_SOUND, click_sound=g.CLICK_SOUND):
         self.x, self.y = pos
         self.text_string = text
         self.highlighted = False
@@ -45,7 +45,3 @@ class Button(ABC):
 
     def update_surface(self):
         pass
-
-
-
-

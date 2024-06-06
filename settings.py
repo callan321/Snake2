@@ -9,8 +9,8 @@ class Settings:
         self.screen_width, self.screen_height = screen.get_size()
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
-        self.title_font = pygame.font.Font(None, g.TITAL_FONT_SIZE)
-        self.title_text = self.title_font.render("Settings", True, g.TITLE_COLOR)
+        self.title_font = pygame.font.Font(None, g.TITLE_FONT_SIZE)
+        self.title_text = self.title_font.render("Settings", True, g.TEXT_COLOR)
         self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * g.BUTTON_Y_OFFSET))
 
         self.buttons = []
