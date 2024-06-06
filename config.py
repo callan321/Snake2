@@ -29,15 +29,15 @@ class GameConfig:
         self.SPEED_BUTTON_PADDING_TOP = self.scale_value(10, self.base_height, self.screen_height)
 
         # MENU BUTTON SCALE SETTINGS
-        self.MB_HEIGHT = self.scale_value(72, self.base_height, self.screen_height)
-        self.MB_WIDTH = self.scale_value(260, self.base_width, self.screen_width)  # Increased button width
+        self.MB_HEIGHT = self.scale_value(96, self.base_height, self.screen_height)
+        self.MB_WIDTH = self.scale_value(440, self.base_width, self.screen_width)  
         self.MB_BORDER_RADIUS = self.scale_value(12, self.base_width, self.screen_width)
         self.BUTTON_Y_OFFSET = self.scale_value(48, self.base_height, self.screen_height)
         self.BUTTON_FONT_SIZE = self.scale_value(72, self.base_height, self.screen_height)
         self.BUTTON_PADDING = self.scale_value(10, self.base_width, self.screen_width)
 
         # Add other config as necessary
-        self.GAME_TITLE = "Snake 2"
+        self.GAME_TITLE = "Snake AI 2"
         self.TITLE_FONT_SIZE = self.scale_value(144, self.base_height, self.screen_height)
         self.TEXT_COLOR = (24, 30, 40)
         self.BACKGROUND_COLOR = (136, 175, 146)
