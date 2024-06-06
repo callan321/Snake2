@@ -9,7 +9,7 @@ import pygame_gui
 from controller import Controller, AIController, HumanController
 
 class PlayGame:
-    def __init__(self, screen, number_of_cells=20, controller_type='AI'):
+    def __init__(self, screen, number_of_cells=20, controller_type='Combined'):
         cell_size = min(g.SCREEN_WIDTH, g.SCREEN_HEIGHT) // number_of_cells
         self.width = g.SCREEN_WIDTH // cell_size
         self.height = g.SCREEN_HEIGHT // cell_size
