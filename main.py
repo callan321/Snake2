@@ -15,7 +15,11 @@ def main():
     while True:
         choice = main_menu.run()
         if choice == 'play':
-            game = PlayGame(screen)
+            number_of_cells = 20
+            cell_size = g.SCREEN_WIDTH // number_of_cells
+            width = g.SCREEN_WIDTH // cell_size
+            height = g.SCREEN_HEIGHT // cell_size
+            game = PlayGame(screen, width, height, cell_size)
             if game.run() == 'menu':
                 continue
         elif choice == '2player':

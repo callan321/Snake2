@@ -9,26 +9,18 @@ import pygame_gui
 from controller import Controller, AIController, HumanController
 
 class GameLogic:
-    def __init__(self, number_of_cells=20, controller_type='Combined'):
-        self.cell_size = min(g.SCREEN_WIDTH, g.SCREEN_HEIGHT) // number_of_cells
-        self.width = g.SCREEN_WIDTH // self.cell_size
-        self.height = g.SCREEN_HEIGHT // self.cell_size
-
-        self.running = True
-        self.paused = False
-        self.base_speed = 10
-        self.speed = self.base_speed
-
-        start_x = number_of_cells // 2        
+    def __init__(self, width, height, controller_type='Combined', snake_size = 3):
+        adjust_start_x = lambda x: x - 1 if width % 2 == 0 else x
+        start_x = adjust_start_x(width // 2)
         start_pos = (start_x, 0)
-        snake_size = 3
-
+        self.width, self.height =  width, height
+        
         self.snake = Snake(start_pos, snake_size)
         self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
         self.food = Food()
-
+        
         self.controller = Controller.select(controller_type)
-        self.last_update_time = pygame.time.get_ticks()
+
 
     def update(self):
         if isinstance(self.controller, AIController):
@@ -56,9 +48,12 @@ class GameLogic:
 
 
 class PlayGame(GameLogic):
-    def __init__(self, screen, number_of_cells=20, controller_type='Combined'):
-        super().__init__(number_of_cells, controller_type)
-
+    def __init__(self, screen, width, height, cell_size):
+        super().__init__(width, height)
+        self.cell_size = cell_size
+        self.last_update_time = pygame.time.get_ticks()
+        self.base_speed = 10
+        self.speed = self.base_speed
         self.screen = screen
         self.clock = pygame.time.Clock()
         
@@ -66,6 +61,8 @@ class PlayGame(GameLogic):
         self.renderer = GameRenderer(screen, self.cell_size, self.width, self.height)
 
         self.return_to_menu = False
+        self.running = True
+        self.paused = False
 
     def run(self):
         while self.running:
