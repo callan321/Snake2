@@ -7,9 +7,7 @@ class Settings:
     def __init__(self, screen, config: GameConfig):
         self.screen = screen
         self.config = config
-        self.screen_width, self.screen_height = screen.get_size()
-        self.center_w = self.screen_width // 2
-        self.center_h = self.screen_height // 2
+        self.update_dimensions()
         self.title_font = pygame.font.Font(None, self.config.TITLE_FONT_SIZE)
         self.title_text = self.title_font.render("Settings", True, self.config.TEXT_COLOR)
         self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * self.config.BUTTON_Y_OFFSET))
@@ -23,19 +21,23 @@ class Settings:
             button = MenuButton(label, (self.center_w, self.center_h + i * 2 * self.config.BUTTON_Y_OFFSET), self.config)
             self.buttons.append(button)
 
-    def update_button_positions(self):
+    def update_dimensions(self):
         self.screen_width, self.screen_height = self.screen.get_size()
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
+
+    def update_button_positions(self):
+        self.update_dimensions()
         self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * self.config.BUTTON_Y_OFFSET))
-        
+
         for i, button in enumerate(self.buttons):
             button.x = self.center_w - button.width // 2
             button.y = self.center_h + i * 2 * self.config.BUTTON_Y_OFFSET
             button.rect.topleft = (button.x, button.y)
+            button.update_surface()
 
     def display_settings(self):
-        self.screen.fill(self.config.BACKGROUND_COLOR)  # Use the config background color
+        self.screen.fill(self.config.BACKGROUND_COLOR)
         self.screen.blit(self.title_text, self.title_rect)
         for button in self.buttons:
             button.show(self.screen)

@@ -30,7 +30,7 @@ class GameConfig:
 
         # MENU BUTTON SCALE SETTINGS
         self.MB_HEIGHT = self.scale_value(72, self.base_height, self.screen_height)
-        self.MB_WIDTH = self.scale_value(244, self.base_width, self.screen_width)
+        self.MB_WIDTH = self.scale_value(260, self.base_width, self.screen_width)  # Increased button width
         self.MB_BORDER_RADIUS = self.scale_value(12, self.base_width, self.screen_width)
         self.BUTTON_Y_OFFSET = self.scale_value(48, self.base_height, self.screen_height)
         self.BUTTON_FONT_SIZE = self.scale_value(72, self.base_height, self.screen_height)

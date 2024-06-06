@@ -2,7 +2,6 @@ import pygame
 from main_menu import MainMenu
 from play_game import PlayGame
 from settings import Settings
-import config as g
 from config import GameConfig
 
 def calculate_grid_dimensions(number_of_cells: int, config: GameConfig):
@@ -15,10 +14,9 @@ def main():
     pygame.init()
     pygame.mixer.init()
     screen_info = pygame.display.Info()
-    width, height = screen_info.current_w, screen_info.current_h*14/15
+    width, height = screen_info.current_w, int(screen_info.current_h * 14 / 15)
     screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
     config = GameConfig(screen.get_width(), screen.get_height())
-    
     
     number_of_cells = 25
 

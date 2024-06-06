@@ -9,6 +9,7 @@ from config import GameConfig
 class PlayGame(GameLogic):
     def __init__(self, screen, width, height, cell_size, config: GameConfig, initial_speed=10):
         super().__init__(width, height)
+        self.config = config
         self.cell_size = cell_size
         self.last_update_time = pygame.time.get_ticks()
         self.base_speed = initial_speed
@@ -48,6 +49,7 @@ class PlayGame(GameLogic):
                 sys.exit()
             elif event.type == pygame.VIDEORESIZE:
                 self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                self.config.update_config(event.w, event.h)
                 self.ui.update_dimensions()
                 self.renderer.update_screen_size()
             elif event.type == pygame.MOUSEBUTTONDOWN:

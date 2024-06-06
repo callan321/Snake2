@@ -20,7 +20,9 @@ class GameUI:
     def update_dimensions(self):
         self.screen_width, self.screen_height = self.screen.get_size()
         self.back_button.rect.topleft = (self.config.BUTTON_PADDING, self.config.BUTTON_PADDING)
+        self.back_button.update_surface()
         self.speed_button.rect.topleft = (self.screen_width // 2 - self.config.SPEED_BUTTON_WIDTH // 2, self.config.SPEED_BUTTON_PADDING_TOP)
+        self.speed_button.update_surface()
 
     def handle_back_button(self, event):
         return self.back_button.click(event)

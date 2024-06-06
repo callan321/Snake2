@@ -5,17 +5,20 @@ from ui.button import Button
 class SpeedButton(Button):
     def __init__(self, pos, initial_speed, config: GameConfig):
         self.config = config
-        self.font = pygame.font.Font(None, config.BUTTON_FONT_SIZE)
-        self.bg = config.BACKGROUND_COLOR
-        self.text_color = config.TEXT_COLOR
-        self.highlighted_bg = config.TEXT_COLOR
-        self.highlighted_text_color = config.BACKGROUND_COLOR
-        self.size = (config.MB_WIDTH, config.MB_HEIGHT)
-        self.width, self.height = self.size
-        self.border_radius = config.MB_BORDER_RADIUS
         self.current_speed = initial_speed
+        self.update_button_size()
         super().__init__(f"Speed: {self.current_speed // 5 - 1}", pos, config)
         self.change_text(f"Speed: {self.current_speed // 5 - 1}")
+
+    def update_button_size(self):
+        self.size = (self.config.MB_WIDTH, self.config.MB_HEIGHT)
+        self.width, self.height = self.size
+        self.border_radius = self.config.MB_BORDER_RADIUS
+        self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
+        self.bg = self.config.BACKGROUND_COLOR
+        self.text_color = self.config.TEXT_COLOR
+        self.highlighted_bg = self.config.TEXT_COLOR
+        self.highlighted_text_color = self.config.BACKGROUND_COLOR
 
     def change_text(self, text):
         self.text_string = text
@@ -24,6 +27,7 @@ class SpeedButton(Button):
         self.update_surface()
 
     def update_surface(self):
+        self.update_button_size()
         self.surface = pygame.Surface(self.size, pygame.SRCALPHA)
         bg_color = self.highlighted_bg if self.highlighted else self.bg
         pygame.draw.rect(

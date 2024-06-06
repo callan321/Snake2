@@ -1,7 +1,7 @@
 import pygame
 import sys
 from ui.menu_button import MenuButton
-from config import GameConfig
+
 
 class MainMenu:
     def __init__(self, screen, config):
@@ -28,6 +28,7 @@ class MainMenu:
         self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - self.config.TITLE_Y_OFFSET_MULTIPLIER * self.config.BUTTON_Y_OFFSET))
 
         for i, button in enumerate(self.buttons):
+            button.update_button_size()
             button.x = self.center_w - button.width // 2
             button.y = self.center_h + (i * self.config.BUTTON_Y_OFFSET_MULTIPLIER - self.config.BUTTON_Y_OFFSET_SHIFT) * self.config.BUTTON_Y_OFFSET
             button.rect.topleft = (button.x, button.y)
@@ -62,3 +63,4 @@ class MainMenu:
                                 running = False
                             else:
                                 return button.text_string.lower()
+

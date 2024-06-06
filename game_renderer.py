@@ -9,16 +9,20 @@ class GameRenderer:
         self.height = height
         self.config = config
         self.update_offsets()
-        self.SNAKE_BORDER_RADIUS = cell_size // 3
-        self.FOOD_SIZE = cell_size // 6
+        self.update_sizes()
 
     def update_offsets(self):
         screen_width, screen_height = self.screen.get_size()
         self.off_x = (screen_width - self.width * self.cell_size) // 2
         self.off_y = (screen_height - self.height * self.cell_size) // 2
 
+    def update_sizes(self):
+        self.SNAKE_BORDER_RADIUS = self.cell_size // 3
+        self.FOOD_SIZE = self.cell_size // 6
+
     def update_screen_size(self):
         self.update_offsets()
+        self.update_sizes()
 
     def draw_border(self):
         pygame.draw.rect(
