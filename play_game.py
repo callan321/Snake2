@@ -8,38 +8,64 @@ from game_renderer import GameRenderer
 import pygame_gui
 from controller import Controller, AIController, HumanController
 
-class PlayGame:
-    def __init__(self, screen, number_of_cells=20, controller_type='Combined'):
-        cell_size = min(g.SCREEN_WIDTH, g.SCREEN_HEIGHT) // number_of_cells
-        self.width = g.SCREEN_WIDTH // cell_size
-        self.height = g.SCREEN_HEIGHT // cell_size
-        
+class GameLogic:
+    def __init__(self, number_of_cells=20, controller_type='Combined'):
+        self.cell_size = min(g.SCREEN_WIDTH, g.SCREEN_HEIGHT) // number_of_cells
+        self.width = g.SCREEN_WIDTH // self.cell_size
+        self.height = g.SCREEN_HEIGHT // self.cell_size
+
         self.running = True
         self.paused = False
-        self.return_to_menu = False
         self.base_speed = 10
         self.speed = self.base_speed
 
-        start_pos = (0, 0)
+        start_x = number_of_cells // 2        
+        start_pos = (start_x, 0)
         snake_size = 3
-        
+
         self.snake = Snake(start_pos, snake_size)
         self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
         self.food = Food()
 
         self.controller = Controller.select(controller_type)
+        self.last_update_time = pygame.time.get_ticks()
+
+    def update(self):
+        if isinstance(self.controller, AIController):
+            direction = self.controller.get_direction(self.snake.get_head(), self.food.get_position())
+        else:
+            direction = self.controller.get_direction()
+
+        self.snake.update((direction), self.food.get_position())
+        head_pos = self.snake.get_head()
+        tail_pos = self.snake.get_last_tail()
+
+        if head_pos == self.food.get_position():
+            # Assuming there's a method to play a sound in the logic class
+            self.handle_food_collision()
+
+        self.spawn_generator.insert(tail_pos)
+        self.spawn_generator.remove(head_pos)
+        self.food.update(head_pos, self.spawn_generator)
+
+        if self.snake.check_collision(self.width, self.height):
+            self.running = False
+
+    def handle_food_collision(self):
+        pass  # Implement sound handling or other logic here
+
+
+class PlayGame(GameLogic):
+    def __init__(self, screen, number_of_cells=20, controller_type='Combined'):
+        super().__init__(number_of_cells, controller_type)
 
         self.screen = screen
         self.clock = pygame.time.Clock()
-        self.last_update_time = pygame.time.get_ticks()
         
         self.ui = GameUI(screen)
-        self.renderer = GameRenderer(
-            screen,
-            cell_size,
-            self.width,
-            self.height,
-        )
+        self.renderer = GameRenderer(screen, self.cell_size, self.width, self.height)
+
+        self.return_to_menu = False
 
     def run(self):
         while self.running:
@@ -52,33 +78,12 @@ class PlayGame:
             self.handle_events()
             self.ui.update(time_delta)
             self.update_game_elements()
-            if self.running:
-                self.renderer.draw(self.snake, self.food, self.controller.current_move)
+            self.renderer.draw(self.snake, self.food, self.controller.current_move)
             self.ui.draw()
             pygame.display.flip()
 
             if self.return_to_menu:
                 return "menu"
-
-    def update(self):
-        if isinstance(self.controller, AIController):
-            direction = self.controller.get_direction(self.snake.get_head(), self.food.get_position())
-        else:
-            direction = self.controller.get_direction()     
-        
-        self.snake.update((direction), self.food.get_position())
-        head_pos = self.snake.get_head()
-        tail_pos = self.snake.get_last_tail()
-
-        if head_pos == self.food.get_position():
-            self.ui.back_button.click_sound.play()
-
-        self.spawn_generator.insert(tail_pos)
-        self.spawn_generator.remove(head_pos)
-        self.food.update(head_pos, self.spawn_generator)
-
-        if self.snake.check_collision(self.width, self.height):
-            self.running = False
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -116,3 +121,5 @@ class PlayGame:
     def update_game_elements(self):
         self.ui.update_dimensions()
         self.renderer.update_screen_size()
+
+
