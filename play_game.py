@@ -4,9 +4,10 @@ from ui.game_ui import GameUI
 from game_renderer import GameRenderer
 from controller import HumanController
 from game_logic import GameLogic
+from config import GameConfig
 
 class PlayGame(GameLogic):
-    def __init__(self, screen, width, height, cell_size, initial_speed=10):
+    def __init__(self, screen, width, height, cell_size, config: GameConfig, initial_speed=10):
         super().__init__(width, height)
         self.cell_size = cell_size
         self.last_update_time = pygame.time.get_ticks()
@@ -15,8 +16,8 @@ class PlayGame(GameLogic):
         self.screen = screen
         self.clock = pygame.time.Clock()
         
-        self.ui = GameUI(screen, initial_speed)
-        self.renderer = GameRenderer(screen, self.cell_size, self.width, self.height)
+        self.ui = GameUI(screen, initial_speed, config)
+        self.renderer = GameRenderer(screen, self.cell_size, self.width, self.height, config)
 
         self.return_to_menu = False
         self.running = True
@@ -47,6 +48,8 @@ class PlayGame(GameLogic):
                 sys.exit()
             elif event.type == pygame.VIDEORESIZE:
                 self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                self.ui.update_dimensions()
+                self.renderer.update_screen_size()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.ui.handle_back_button(event):
                     self.return_to_menu = True

@@ -1,12 +1,13 @@
 import pygame
-import globals as g
+from config import GameConfig
 
 class GameRenderer:
-    def __init__(self, screen, cell_size, width, height):
+    def __init__(self, screen, cell_size, width, height, config: GameConfig):
         self.screen = screen
         self.cell_size = cell_size
         self.width = width
         self.height = height
+        self.config = config
         self.update_offsets()
         self.SNAKE_BORDER_RADIUS = cell_size // 3
         self.FOOD_SIZE = cell_size // 6
@@ -22,14 +23,14 @@ class GameRenderer:
     def draw_border(self):
         pygame.draw.rect(
             self.screen,
-            g.BORDER_COLOR,
+            self.config.BORDER_COLOR,
             pygame.Rect(
-                self.off_x - g.BORDER_THICKNESS,
-                self.off_y - g.BORDER_THICKNESS,
-                self.width * self.cell_size + g.BORDER_THICKNESS * 2,
-                self.height * self.cell_size + g.BORDER_THICKNESS * 2,
+                self.off_x - self.config.BORDER_THICKNESS,
+                self.off_y - self.config.BORDER_THICKNESS,
+                self.width * self.cell_size + self.config.BORDER_THICKNESS * 2,
+                self.height * self.cell_size + self.config.BORDER_THICKNESS * 2,
             ),
-            g.BORDER_THICKNESS,
+            self.config.BORDER_THICKNESS,
         )
 
     def draw_snake(self, snake, last_move):
@@ -51,10 +52,9 @@ class GameRenderer:
                 border_radius = min(size // 2, self.SNAKE_BORDER_RADIUS)
 
                 if i == 0:
-                    pygame.draw.rect(self.screen, g.BORDER_COLOR, rect, border_radius=border_radius)
+                    pygame.draw.rect(self.screen, self.config.BORDER_COLOR, rect, border_radius=border_radius)
                     outline_surface = pygame.Surface((size, size), pygame.SRCALPHA)
-                    ### check ###
-                    pygame.draw.rect(outline_surface, g.BORDER_COLOR, outline_surface.get_rect(), 2, border_radius=border_radius)
+                    pygame.draw.rect(outline_surface, self.config.BORDER_COLOR, outline_surface.get_rect(), 2, border_radius=border_radius)
                     self.screen.blit(outline_surface, position)
                     eye_width = size // 5
                     eye_height = size // 10
@@ -71,12 +71,12 @@ class GameRenderer:
                     elif last_move == "U":
                         left_eye = pygame.Rect(position[0] + eye_height, position[1] + size - eye_offset - eye_width, eye_height, eye_width)
                         right_eye = pygame.Rect(position[0] + size - 2 * eye_height, position[1] + size - eye_offset - eye_width, eye_height, eye_width)
-                    pygame.draw.rect(self.screen, g.GREEN_SNAKE, left_eye)
-                    pygame.draw.rect(self.screen, g.GREEN_SNAKE, right_eye)
+                    pygame.draw.rect(self.screen, self.config.GREEN_SNAKE, left_eye)
+                    pygame.draw.rect(self.screen, self.config.GREEN_SNAKE, right_eye)
                 else:
-                    pygame.draw.rect(self.screen, g.GREEN_SNAKE, rect, border_radius=border_radius)
+                    pygame.draw.rect(self.screen, self.config.GREEN_SNAKE, rect, border_radius=border_radius)
                     outline_surface = pygame.Surface((size, size), pygame.SRCALPHA)
-                    pygame.draw.rect(outline_surface, (*g.BORDER_COLOR, g.SNAKE_TRANS), outline_surface.get_rect(), 2, border_radius=border_radius)
+                    pygame.draw.rect(outline_surface, (*self.config.BORDER_COLOR, self.config.SNAKE_TRANS), outline_surface.get_rect(), 2, border_radius=border_radius)
                     self.screen.blit(outline_surface, position)
 
     def draw_food(self, food):
@@ -89,10 +89,10 @@ class GameRenderer:
         )
         size = (self.cell_size - self.FOOD_SIZE, self.cell_size - self.FOOD_SIZE)
         rect = pygame.Rect(position, size)
-        pygame.draw.rect(self.screen, g.FOOD_COLOR, rect)
+        pygame.draw.rect(self.screen, self.config.FOOD_COLOR, rect)
 
     def draw(self, snake, food, last_move):
-        self.screen.fill(g.BACKGROUND_COLOR)
+        self.screen.fill(self.config.BACKGROUND_COLOR)
         self.draw_border()
         self.draw_snake(snake, last_move)
         self.draw_food(food)

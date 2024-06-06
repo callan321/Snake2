@@ -1,20 +1,20 @@
 import pygame
-import globals as g
+from config import GameConfig
 from ui.button import Button
 
 class SpeedButton(Button):
-    def __init__(self, pos, initial_speed=10):
-        self.font = pygame.font.Font(None, g.BUTTON_FONT_SIZE)
-        self.bg = g.BACKGROUND_COLOR
-        self.text_color = g.TEXT_COLOR
-        self.highlighted_bg = g.TEXT_COLOR
-        self.highlighted_text_color = g.BACKGROUND_COLOR
-        self.size = (g.MB_WIDTH, g.MB_HEIGHT)
+    def __init__(self, pos, initial_speed, config: GameConfig):
+        self.config = config
+        self.font = pygame.font.Font(None, config.BUTTON_FONT_SIZE)
+        self.bg = config.BACKGROUND_COLOR
+        self.text_color = config.TEXT_COLOR
+        self.highlighted_bg = config.TEXT_COLOR
+        self.highlighted_text_color = config.BACKGROUND_COLOR
+        self.size = (config.MB_WIDTH, config.MB_HEIGHT)
         self.width, self.height = self.size
-        self.border_radius = g.MB_BORDER_RADIUS
-        speed = initial_speed//2 - 1
-        super().__init__("Speed: {speed}", pos)
+        self.border_radius = config.MB_BORDER_RADIUS
         self.current_speed = initial_speed
+        super().__init__(f"Speed: {self.current_speed // 5 - 1}", pos, config)
         self.change_text(f"Speed: {self.current_speed // 5 - 1}")
 
     def change_text(self, text):

@@ -1,18 +1,19 @@
 import pygame
-import globals as g
+from config import GameConfig
 from ui.button import Button
 
 class MenuButton(Button):
-    def __init__(self, text, pos):
-        self.font = pygame.font.Font(None, g.BUTTON_FONT_SIZE)
-        self.bg = g.BACKGROUND_COLOR
-        self.text_color = g.TEXT_COLOR
-        self.highlighted_bg = g.TEXT_COLOR
-        self.highlighted_text_color = g.BACKGROUND_COLOR
-        self.size = (g.MB_WIDTH, g.MB_HEIGHT)
+    def __init__(self, text, pos, config: GameConfig):
+        self.config = config
+        self.font = pygame.font.Font(None, config.BUTTON_FONT_SIZE)
+        self.bg = config.BACKGROUND_COLOR
+        self.text_color = config.TEXT_COLOR
+        self.highlighted_bg = config.TEXT_COLOR
+        self.highlighted_text_color = config.BACKGROUND_COLOR
+        self.size = (config.MB_WIDTH, config.MB_HEIGHT)
         self.width, self.height = self.size
-        self.border_radius = g.MB_BORDER_RADIUS
-        super().__init__(text, pos)
+        self.border_radius = config.MB_BORDER_RADIUS
+        super().__init__(text, pos, config)
 
     def change_text(self, text):
         self.text_string = text

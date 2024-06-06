@@ -1,17 +1,18 @@
 import pygame
 import sys
 from ui.menu_button import MenuButton
-import globals as g
+from config import GameConfig
 
 class Settings:
-    def __init__(self, screen):
+    def __init__(self, screen, config: GameConfig):
         self.screen = screen
+        self.config = config
         self.screen_width, self.screen_height = screen.get_size()
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
-        self.title_font = pygame.font.Font(None, g.TITLE_FONT_SIZE)
-        self.title_text = self.title_font.render("Settings", True, g.TEXT_COLOR)
-        self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * g.BUTTON_Y_OFFSET))
+        self.title_font = pygame.font.Font(None, self.config.TITLE_FONT_SIZE)
+        self.title_text = self.title_font.render("Settings", True, self.config.TEXT_COLOR)
+        self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * self.config.BUTTON_Y_OFFSET))
 
         self.buttons = []
         self.create_buttons()
@@ -19,22 +20,22 @@ class Settings:
     def create_buttons(self):
         button_labels = ['Back']
         for i, label in enumerate(button_labels):
-            button = MenuButton(label, (self.center_w, self.center_h + i * 2 * g.BUTTON_Y_OFFSET))
+            button = MenuButton(label, (self.center_w, self.center_h + i * 2 * self.config.BUTTON_Y_OFFSET), self.config)
             self.buttons.append(button)
 
     def update_button_positions(self):
         self.screen_width, self.screen_height = self.screen.get_size()
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
-        self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * g.BUTTON_Y_OFFSET))
+        self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * self.config.BUTTON_Y_OFFSET))
         
         for i, button in enumerate(self.buttons):
             button.x = self.center_w - button.width // 2
-            button.y = self.center_h + i * 2 * g.BUTTON_Y_OFFSET
+            button.y = self.center_h + i * 2 * self.config.BUTTON_Y_OFFSET
             button.rect.topleft = (button.x, button.y)
 
     def display_settings(self):
-        self.screen.fill(g.BACKGROUND_COLOR)  # Use the global background color
+        self.screen.fill(self.config.BACKGROUND_COLOR)  # Use the config background color
         self.screen.blit(self.title_text, self.title_rect)
         for button in self.buttons:
             button.show(self.screen)
@@ -54,9 +55,9 @@ class Settings:
                     sys.exit()
                 elif event.type == pygame.VIDEORESIZE:
                     self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                    self.config.update_config(event.w, event.h)
+                    self.update_button_positions()
                 for button in self.buttons:
                     if button.click(event):
                         if button.text_string == 'Back':
                             return 'menu'
-
-
