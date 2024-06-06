@@ -17,7 +17,7 @@ class MainMenu:
         self.hover_sound = sounds['hover']
         self.click_sound = sounds['click']
 
-        button_labels = ['Play', '2 Player', 'Settings', 'Quit']
+        button_labels = ['Play', '2 Player', 'Settings', 'Replay', 'Quit']
         self.buttons = []
         for i, label in enumerate(button_labels):
             button = MenuButton(

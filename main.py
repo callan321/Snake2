@@ -35,9 +35,12 @@ def main():
             settings = Settings(screen)
             if settings.run() == 'menu':
                 continue
+        elif choice == 'replay':
+            # Handle replay functionality
+            # Add your replay logic here
+            pass
         else:
             break
-    
     
 if __name__ == "__main__":
     main()
