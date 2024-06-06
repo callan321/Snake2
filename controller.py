@@ -10,7 +10,10 @@ UP = "U"
 # Direction mappings
 DIRECTIONS = {UP: (0, -1), DOWN: (0, 1), LEFT: (-1, 0), RIGHT: (1, 0)}
 
-AIDIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1)]  # right  # left  # down  # up
+moves = [RIGHT,
+LEFT,
+DOWN ,
+UP ]
 
 
 class Controller:
@@ -40,7 +43,7 @@ class Controller:
             ValueError: If the controller type is unknown.
         """
         controllers = {
-            "AI": TESTController,
+            "AI": BFSController,
             "Arrow": ArrowKeyController,
             "WASD": WASDController,
             "Combined": CombinedController,
@@ -115,7 +118,7 @@ class AIController(Controller):
         pass
 
 
-class TESTController(AIController):
+class BFSController(AIController):
     def __init__(self, width, height):
         self.width = width
         self.height = height
@@ -127,28 +130,32 @@ class TESTController(AIController):
         best_distance = float('inf')
         
         # Define opposite directions to prevent moving backwards
-        opposite_direction = (-self.last_move[0], -self.last_move[1])
+        opposite_direction = (-self.direction[0], -self.direction[1])
         
-        for direction in AIDIRECTIONS:
+        for move in moves:
             # Skip the direction if it's the opposite of the last move
-            if direction == opposite_direction:
+            if DIRECTIONS[move] == opposite_direction:
                 continue
                 
-            next_position = tuple(sum(x) for x in zip(head, direction))
+            next_position = tuple(sum(x) for x in zip(head, DIRECTIONS[move]))
             
-            if not snake.check_collision(self.width, self.height):
+            if not snake.check_other(next_position) and  not snake.check_bounds(self.width, self.height, next_position):
                 if food_pos is None:
-                    self.last_move = direction
-                    return self.last_move
+                    self.move = move
+                    self.direction = DIRECTIONS[move]
+                    return self.direction 
                 distance = self.heuristic(next_position, food_pos)
                 
                 if distance < best_distance:
                     best_distance = distance
-                    self.last_move = direction
+                    self.move = move
+                    self.direction = DIRECTIONS[move]
         
-        return self.last_move
+        return self.direction
+    
     
     def heuristic(self, target: tuple[int, int], goal: tuple[int, int]) -> int:
         return abs(target[0] - goal[0]) + abs(target[1] - goal[1])
 
 
+    
