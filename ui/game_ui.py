@@ -1,5 +1,6 @@
 import pygame
-from button import MenuButton, SpeedButton
+from ui.menu_button import MenuButton
+from ui.speed_button import SpeedButton
 import globals as g
 
 class GameUI:
@@ -13,7 +14,7 @@ class GameUI:
         
         self.back_button = MenuButton("Back", (g.BUTTON_PADDING, g.BUTTON_PADDING), hover_sound=self.hover_sound, click_sound=self.click_sound)
         self.speed_button = SpeedButton(
-            f"Speed: 10", 
+            f"Speed: 1", 
             (self.screen_width // 2 - 75, 10),
             hover_sound=self.hover_sound,
             click_sound=self.click_sound

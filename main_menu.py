@@ -1,6 +1,6 @@
 import pygame
 import sys
-from button import MenuButton
+from ui.menu_button import MenuButton
 import globals as g
 
 class MainMenu:
