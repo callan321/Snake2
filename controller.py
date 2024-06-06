@@ -7,13 +7,13 @@ DOWN = "D"
 UP = "U"
 
 # Direction mappings
-directions = {UP: (0, -1), DOWN: (0, 1), LEFT: (-1, 0), RIGHT: (1, 0)}
+DIRECTIONS = {UP: (0, -1), DOWN: (0, 1), LEFT: (-1, 0), RIGHT: (1, 0)}
 
 
 class Controller:
     def __init__(self):
         self.current_move = DOWN
-        self.direction = directions[self.current_move]
+        self.direction = DIRECTIONS[self.current_move]
 
     def handle_keydown(self, event: pygame.event.EventType) -> None:
         """Handle keydown events. Should be overridden by subclasses."""
@@ -66,7 +66,7 @@ class HumanController(Controller):
 
         if new_direction:
             self.current_move = new_direction
-            self.direction = directions[self.current_move]
+            self.direction = DIRECTIONS[self.current_move]
             self.changed_direction = True
 
     def get_direction(self) -> tuple[int, int]:
@@ -130,7 +130,7 @@ class TESTController(AIController):
 
         if food_pos is None:
             self.current_move = DOWN
-            self.direction = directions[self.current_move]
+            self.direction = DIRECTIONS[self.current_move]
             return self.direction
 
         food_x, food_y = food_pos
@@ -147,5 +147,5 @@ class TESTController(AIController):
             new_direction = self.current_move
 
         self.current_move = new_direction
-        self.direction = directions.get(self.current_move, (0, 1))  # Default to moving down if direction not found
+        self.direction = DIRECTIONS.get(self.current_move, (0, 1))  # Default to moving down if direction not found
         return self.direction

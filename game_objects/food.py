@@ -1,10 +1,11 @@
 from typing import Tuple, Optional
 
+
 class Food:
     def __init__(self) -> None:
         self.pos: Optional[Tuple[int, int]] = None
 
-    def update(self, pos) -> None:
+    def update(self, pos: Tuple[int, int]) -> None:
         if self.pos is None:
             self.respawn(pos)
 

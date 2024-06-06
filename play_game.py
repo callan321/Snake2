@@ -1,10 +1,9 @@
 import pygame
 import sys
-
 from game_ui import GameUI
-from game_renderer import GameRenderer
 import pygame_gui
-from controller import Controller, AIController, HumanController
+from game_renderer import GameRenderer
+from controller import HumanController
 from game_logic import GameLogic
 
 

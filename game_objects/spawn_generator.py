@@ -1,6 +1,7 @@
 from typing import Tuple, List, Dict, Optional
 from random import choice
 
+
 class SpawnGenerator:
     def __init__(self, width: int, height: int, start_pos: Tuple[int, int]) -> None:
         self.list: List[Tuple[int, int]] = []
@@ -9,9 +10,7 @@ class SpawnGenerator:
         self.remove(start_pos)
 
     def insert(self, coord: Tuple[int, int]) -> bool:
-        if coord is None:
-            return False
-        if coord in self.map:
+        if coord is None or coord in self.map:
             return False
         self.map[coord] = len(self.list)
         self.list.append(coord)

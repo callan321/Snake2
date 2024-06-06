@@ -1,8 +1,9 @@
 from typing import Deque, Dict, Any, Optional
 from collections import deque
 
+
 class HashQueue:
-    def __init__(self):
+    def __init__(self) -> None:
         self.data: Deque[Any] = deque()
         self.hash_map: Dict[Any, int] = {}
 
