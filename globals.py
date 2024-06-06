@@ -3,30 +3,25 @@
     SCALES   
 -----------------------------------------------
 """
-
+# WINDOW SCALE SETTINGS
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
 TASKBAR_HEIGHT = 72  # Height of the taskbar
 
-# Border settings
+# GAME SCALE SETTING
 BORDER_THICKNESS = 5
 GAME_WIDTH = 800
 GAME_HEIGHT = 600
 
+# MENU BUTTON SCALE SETTINGS
 MB_HEIGHT = 72
 MB_WIDTH = 244
 MB_BORDER_RADIUS = 12
-
-FOOD_BORDER_RADIUS = 12
-
-TITAL_FONT_SIZE = 144
-
-
-# Button settings
 BUTTON_Y_OFFSET = 48
 BUTTON_FONT_SIZE = 72
 BUTTON_PADDING = 10
 
+# TITAL
 TITLE_FONT_SIZE = 144
 
 """
@@ -34,7 +29,8 @@ TITLE_FONT_SIZE = 144
 """
 GAME_TITLE = "Snake 2"
 
-
+HOVER_SOUND = 'sounds/hover_sound.wav'
+CLICK_SOUND = 'sounds/click_sound.wav'
 """
 -----------------------------------------------
     COLOURS   

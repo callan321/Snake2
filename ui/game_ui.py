@@ -4,20 +4,15 @@ from ui.speed_button import SpeedButton
 import globals as g
 
 class GameUI:
-    def __init__(self, screen, sounds):
+    def __init__(self, screen):
         self.screen = screen
         self.screen_width, self.screen_height = self.screen.get_size()
 
-        # Unpack sounds
-        self.hover_sound = sounds['hover']
-        self.click_sound = sounds['click']
-        
-        self.back_button = MenuButton("Back", (g.BUTTON_PADDING, g.BUTTON_PADDING), hover_sound=self.hover_sound, click_sound=self.click_sound)
+
+        self.back_button = MenuButton("Back", (g.BUTTON_PADDING, g.BUTTON_PADDING))
         self.speed_button = SpeedButton(
-            f"Speed: 1", 
+            "Speed: 1", 
             (self.screen_width // 2 - 75, 10),
-            hover_sound=self.hover_sound,
-            click_sound=self.click_sound
         )
 
     def update_dimensions(self):

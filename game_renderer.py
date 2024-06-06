@@ -89,7 +89,7 @@ class GameRenderer:
         )
         size = (self.cell_size - self.FOOD_SIZE, self.cell_size - self.FOOD_SIZE)
         rect = pygame.Rect(position, size)
-        pygame.draw.rect(self.screen, g.FOOD_COLOR, rect, border_radius=g.FOOD_BORDER_RADIUS)
+        pygame.draw.rect(self.screen, g.FOOD_COLOR, rect)
 
     def draw(self, snake, food, last_move):
         self.screen.fill(g.BACKGROUND_COLOR)

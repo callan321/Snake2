@@ -1,14 +1,14 @@
 import pygame
 from abc import ABC, abstractmethod
-
+import globals as g 
 
 class Button(ABC):
-    def __init__(self, text, pos, hover_sound=None, click_sound=None):
+    def __init__(self, text, pos, hover_sound= g.HOVER_SOUND, click_sound=g.CLICK_SOUND):
         self.x, self.y = pos
         self.text_string = text
         self.highlighted = False
-        self.hover_sound = hover_sound
-        self.click_sound = click_sound
+        self.hover_sound = pygame.mixer.Sound(hover_sound) 
+        self.click_sound = pygame.mixer.Sound(click_sound)
         self.change_text(text)
         self.update_surface()
         self.rect = pygame.Rect(self.x, self.y, *self.size)

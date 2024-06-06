@@ -6,7 +6,7 @@ from controller import HumanController
 from game_logic import GameLogic
 
 class PlayGame(GameLogic):
-    def __init__(self, screen, width, height, cell_size, sounds):
+    def __init__(self, screen, width, height, cell_size):
         super().__init__(width, height)
         self.cell_size = cell_size
         self.last_update_time = pygame.time.get_ticks()
@@ -15,7 +15,7 @@ class PlayGame(GameLogic):
         self.screen = screen
         self.clock = pygame.time.Clock()
         
-        self.ui = GameUI(screen, sounds)
+        self.ui = GameUI(screen)
         self.renderer = GameRenderer(screen, self.cell_size, self.width, self.height)
 
         self.return_to_menu = False

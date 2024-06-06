@@ -3,7 +3,7 @@ import globals as g
 from ui.button import Button
 
 class SpeedButton(Button):
-    def __init__(self, text, pos, hover_sound=None, click_sound=None):
+    def __init__(self, text, pos):
         self.font = pygame.font.Font(None, g.BUTTON_FONT_SIZE)
         self.bg = g.BACKGROUND_COLOR
         self.text_color = g.TEXT_COLOR
@@ -12,7 +12,7 @@ class SpeedButton(Button):
         self.size = (g.MB_WIDTH, g.MB_HEIGHT)
         self.width, self.height = self.size
         self.border_radius = g.MB_BORDER_RADIUS 
-        super().__init__(text, pos, hover_sound, click_sound)
+        super().__init__(text, pos)
         self.current_speed = 10
 
     def change_text(self, text):
