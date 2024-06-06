@@ -6,10 +6,10 @@ import globals as g
 from game_ui import GameUI
 from game_renderer import GameRenderer
 import pygame_gui
-from controller import Controller
+from controller import Controller, AIController, HumanController
 
 class PlayGame:
-    def __init__(self, screen, number_of_cells=10, controller_type='AI'):
+    def __init__(self, screen, number_of_cells=20, controller_type='AI'):
         cell_size = min(g.SCREEN_WIDTH, g.SCREEN_HEIGHT) // number_of_cells
         self.width = g.SCREEN_WIDTH // cell_size
         self.height = g.SCREEN_HEIGHT // cell_size
@@ -27,8 +27,7 @@ class PlayGame:
         self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
         self.food = Food()
 
-        # Choose the controller based on the passed argument using the Controller class
-        self.controller = Controller.choose(controller_type)
+        self.controller = Controller.select(controller_type)
 
         self.screen = screen
         self.clock = pygame.time.Clock()
@@ -62,9 +61,12 @@ class PlayGame:
                 return "menu"
 
     def update(self):
-        self.controller.reset_changed_direction()
-        self.controller.update_direction(self.snake.get_head(), self.food.get_position())
-        self.snake.update(self.controller.direction, self.food.get_position())
+        if isinstance(self.controller, AIController):
+            direction = self.controller.get_direction(self.snake.get_head(), self.food.get_position())
+        else:
+            direction = self.controller.get_direction()     
+        
+        self.snake.update((direction), self.food.get_position())
         head_pos = self.snake.get_head()
         tail_pos = self.snake.get_last_tail()
 
@@ -95,6 +97,8 @@ class PlayGame:
                         self.speed = new_speed if not pygame.key.get_pressed()[pygame.K_SPACE] else new_speed * 2
 
             elif event.type == pygame.KEYDOWN:
+                if isinstance(self.controller, HumanController):
+                    self.controller.handle_keydown(event)
                 if event.key == pygame.K_p:
                     self.paused = not self.paused
                 elif event.key == pygame.K_SPACE:
