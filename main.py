@@ -20,9 +20,9 @@ def main():
         choice = main_menu.run()
         if choice == 'play':
             number_of_cells = 20
-            cell_size = g.SCREEN_WIDTH // number_of_cells
-            width = g.SCREEN_WIDTH // cell_size
-            height = g.SCREEN_HEIGHT // cell_size
+            cell_size = g.GAME_WIDTH // number_of_cells
+            width = g.GAME_WIDTH // cell_size
+            height = g.GAME_HEIGHT // cell_size
             game = PlayGame(screen, width, height, cell_size, sounds)
             if game.run() == 'menu':
                 continue

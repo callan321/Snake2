@@ -10,7 +10,7 @@ class MainMenu:
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
         self.title_font = pygame.font.Font(None, g.TITLE_FONT_SIZE)  # Choose a font and size for the title
-        self.title_text = self.title_font.render(g.GAME_TITLE, True, g.TITLE_COLOR)
+        self.title_text = self.title_font.render(g.GAME_TITLE, True, g.TEXT_COLOR)
         self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * g.BUTTON_Y_OFFSET))
 
         # Unpack sounds
@@ -40,7 +40,7 @@ class MainMenu:
             button.rect.topleft = (button.x, button.y)
 
     def display_menu(self):
-        self.screen.fill(g.BACKGROUND_COLOR)  # Use the global background color
+        self.screen.fill(g.BACKGROUND_COLOR)  
         self.screen.blit(self.title_text, self.title_rect)
         for button in self.buttons:
             button.show(self.screen)

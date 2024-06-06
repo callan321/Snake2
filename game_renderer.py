@@ -51,9 +51,10 @@ class GameRenderer:
                 border_radius = min(size // 2, self.SNAKE_BORDER_RADIUS)
 
                 if i == 0:
-                    pygame.draw.rect(self.screen, g.BLACK, rect, border_radius=border_radius)
+                    pygame.draw.rect(self.screen, g.BORDER_COLOR, rect, border_radius=border_radius)
                     outline_surface = pygame.Surface((size, size), pygame.SRCALPHA)
-                    pygame.draw.rect(outline_surface, (*g.GREEN_BLACK, 128), outline_surface.get_rect(), 2, border_radius=border_radius)
+                    ### check ###
+                    pygame.draw.rect(outline_surface, g.BORDER_COLOR, outline_surface.get_rect(), 2, border_radius=border_radius)
                     self.screen.blit(outline_surface, position)
                     eye_width = size // 5
                     eye_height = size // 10
@@ -75,7 +76,7 @@ class GameRenderer:
                 else:
                     pygame.draw.rect(self.screen, g.GREEN_SNAKE, rect, border_radius=border_radius)
                     outline_surface = pygame.Surface((size, size), pygame.SRCALPHA)
-                    pygame.draw.rect(outline_surface, (*g.BLACK, 128), outline_surface.get_rect(), 2, border_radius=border_radius)
+                    pygame.draw.rect(outline_surface, (*g.BORDER_COLOR, g.SNAKE_TRANS), outline_surface.get_rect(), 2, border_radius=border_radius)
                     self.screen.blit(outline_surface, position)
 
     def draw_food(self, food):
