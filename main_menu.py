@@ -4,18 +4,18 @@ from ui.menu_button import MenuButton
 import globals as g
 
 class MainMenu:
-    def __init__(self, screen):
+    def __init__(self, screen, sounds):
         self.screen = screen
         self.screen_width, self.screen_height = screen.get_size()
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
-        self.title_font = pygame.font.Font(None, g.TITAL_FONT_SIZE)  # Choose a font and size for the title
+        self.title_font = pygame.font.Font(None, g.TITLE_FONT_SIZE)  # Choose a font and size for the title
         self.title_text = self.title_font.render(g.GAME_TITLE, True, g.TITLE_COLOR)
         self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * g.BUTTON_Y_OFFSET))
 
-        # Load sounds
-        self.hover_sound = pygame.mixer.Sound('hover.wav')
-        self.click_sound = pygame.mixer.Sound('play.wav')
+        # Unpack sounds
+        self.hover_sound = sounds['hover']
+        self.click_sound = sounds['click']
 
         button_labels = ['Play', '2 Player', 'Settings', 'Quit']
         self.buttons = []
@@ -62,4 +62,4 @@ class MainMenu:
                     self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
                 for button in self.buttons:
                     if button.click(event):
-                        return button.text_string.lower()  
+                        return button.text_string.lower()

@@ -4,13 +4,13 @@ from ui.speed_button import SpeedButton
 import globals as g
 
 class GameUI:
-    def __init__(self, screen):
+    def __init__(self, screen, sounds):
         self.screen = screen
         self.screen_width, self.screen_height = self.screen.get_size()
 
-        # Load sounds
-        self.hover_sound = pygame.mixer.Sound('hover.wav')
-        self.click_sound = pygame.mixer.Sound('play.wav')
+        # Unpack sounds
+        self.hover_sound = sounds['hover']
+        self.click_sound = sounds['click']
         
         self.back_button = MenuButton("Back", (g.BUTTON_PADDING, g.BUTTON_PADDING), hover_sound=self.hover_sound, click_sound=self.click_sound)
         self.speed_button = SpeedButton(

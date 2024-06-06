@@ -3,6 +3,7 @@ from main_menu import MainMenu
 from play_game import PlayGame
 from settings import Settings
 import globals as g
+from sounds.load_sounds import load_sounds
 
 def main():
     pygame.init()
@@ -11,7 +12,10 @@ def main():
     screen = pygame.display.set_mode((width, height - g.TASKBAR_HEIGHT), pygame.RESIZABLE)
     pygame.display.set_caption(g.GAME_TITLE)
     
-    main_menu = MainMenu(screen)
+    # Load sounds
+    sounds = load_sounds()
+    
+    main_menu = MainMenu(screen, sounds)
     while True:
         choice = main_menu.run()
         if choice == 'play':
@@ -19,7 +23,7 @@ def main():
             cell_size = g.SCREEN_WIDTH // number_of_cells
             width = g.SCREEN_WIDTH // cell_size
             height = g.SCREEN_HEIGHT // cell_size
-            game = PlayGame(screen, width, height, cell_size)
+            game = PlayGame(screen, width, height, cell_size, sounds)
             if game.run() == 'menu':
                 continue
         elif choice == '2player':
@@ -33,6 +37,7 @@ def main():
                 continue
         else:
             break
-
+    
+    
 if __name__ == "__main__":
     main()

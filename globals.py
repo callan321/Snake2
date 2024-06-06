@@ -7,6 +7,7 @@ TASKBAR_HEIGHT = 72  # Height of the taskbar
 
 GAME_TITLE = 'Snake 2'
 
+TITLE_FONT_SIZE = 144
 
 # Main Colors
 BLACK = (0, 0, 0)
