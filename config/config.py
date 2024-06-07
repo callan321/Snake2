@@ -26,8 +26,18 @@ class GameConfig:
         with open(self.settings_file, 'w') as file:
             json.dump(self.settings, file, indent=4)
 
-    def scale_value(self, base_value, base_screen_size, current_screen_size):
-        return int(base_value * current_screen_size / base_screen_size)
+    #def scale_value(self, base_value, base_screen_size, current_screen_size):
+    #    return int(base_value * current_screen_size / base_screen_size)
+    
+    def scale_value(self, base_value, screen_width, screen_height):
+        width_scale = screen_width / self.screen_width
+        height_scale = screen_height / self.screen_height
+        
+        # Use the minimum scale factor to maintain aspect ratio
+        min_scale = min(width_scale, height_scale)
+        
+        scaled_value = base_value * min_scale
+        return int(scaled_value)
 
     def update_config(self, screen_width, screen_height):
         self.screen_width = screen_width
@@ -46,16 +56,16 @@ class GameConfig:
         # MENU SCALES
         menu_scales = self.settings['menu_scales']
         self.TITLE_Y_OFFSET_MULTIPLIER = menu_scales['TITLE_Y_OFFSET_MULTIPLIER']
-        self.BUTTON_Y_OFFSET_MULTIPLIER = menu_scales['BUTTON_Y_OFFSET_MULTIPLIER']
-        self.BUTTON_Y_OFFSET_SHIFT = menu_scales['BUTTON_Y_OFFSET_SHIFT']
         self.TITLE_FONT_SIZE = self.scale_value(menu_scales['TITLE_FONT_SIZE'], self.base_height, self.screen_height)
-        self.BUTTON_Y_OFFSET = self.scale_value(menu_scales['BUTTON_Y_OFFSET'], self.base_height, self.screen_height)
         
         # menu button
         menu_buttons = menu_scales['menu_button']
-        self.MB_BORDER_RADIUS = self.scale_value(menu_buttons['BORDER_RADIUS'], self.base_width, self.screen_width)
-        self.BUTTON_FONT_SIZE = self.scale_value(menu_buttons['FONT_SIZE'], self.base_height, self.screen_height)
+        self.MB_WIDTH = self.scale_value(menu_buttons['MB_WIDTH'], self.base_width, self.screen_width)
+        self.MB_HEIGHT = self.scale_value(menu_buttons['MB_HEIGHT'], self.base_height, self.screen_height)
+        self.MB_BORDER_RADIUS = self.scale_value(menu_buttons['MB_BORDER_RADIUS'], self.base_width, self.screen_width)
+        self.BUTTON_FONT_SIZE = self.scale_value(menu_buttons['MB_FONT_SIZE'], self.base_height, self.screen_height)
         
+        # game buttons
         game_size_buttons = menu_scales['game_size_button']
         self.GAME_SIZE_BUTTON_HEIGHT = self.scale_value(game_size_buttons['BUTTON_HEIGHT'], self.base_height, self.screen_height)
         self.GAME_SIZE_BUTTON_WIDTH = self.scale_value(game_size_buttons['BUTTON_WIDTH'], self.base_width, self.screen_width)

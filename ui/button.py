@@ -3,24 +3,20 @@ from abc import ABC, abstractmethod
 from config.config import GameConfig
 
 class Button(ABC):
-    def __init__(self, text, pos, config: GameConfig):
+    def __init__(self, config: GameConfig):
         self.config = config
-        self.x, self.y = pos
-        self.text_string = text
         self.highlighted = False
-        self.hover_sound = pygame.mixer.Sound(config.HOVER_SOUND) 
+        self.hover_sound = pygame.mixer.Sound(config.HOVER_SOUND)
         self.click_sound = pygame.mixer.Sound(config.CLICK_SOUND)
-        self.size = (0, 0)
-        self.change_text(text)
-        self.update_surface()
-        self.rect = pygame.Rect(self.x, self.y, *self.size)
+        self.rect = pygame.Rect(0, 0, 0, 0)  # Initial rect with zero size
+        self.surface = pygame.Surface((0, 0), pygame.SRCALPHA)  # Initialize surface with zero size
 
     @abstractmethod
     def change_text(self, text):
         pass
 
     def show(self, screen):
-        screen.blit(self.surface, (self.x, self.y))
+        screen.blit(self.surface, self.rect.topleft)
 
     def click(self, event):
         x, y = pygame.mouse.get_pos()
@@ -45,5 +41,6 @@ class Button(ABC):
 
         self.change_text(self.text_string)
 
-    def update_surface(self):
+    @abstractmethod
+    def update(self, new_pos):
         pass

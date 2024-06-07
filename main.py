@@ -4,6 +4,7 @@ from interfaces.play_game import PlayGame
 from interfaces.options import Options
 from config.config import GameConfig
 
+
 def main():
     pygame.init()
     pygame.mixer.init()
@@ -28,7 +29,7 @@ def main():
         elif choice == '2 player':
             # Handle 2 player mode
             pass
-        elif choice == 'settings':
+        elif choice == 'option':
             settings = Options(screen, config)
             if settings.run() == 'menu':
                 # Reload config to reflect changes in settings
