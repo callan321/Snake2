@@ -74,5 +74,5 @@
     ],
     "HOVER_SOUND": "sounds/hover_sound.wav",
     "CLICK_SOUND": "sounds/click_sound.wav",
-    "number_of_cells": 10
+    "number_of_cells": 20
 }

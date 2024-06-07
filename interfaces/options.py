@@ -1,9 +1,10 @@
 import pygame
 import sys
 from ui.menu_button import MenuButton
+from ui.game_size_button import GameSizeButton
 from config.config import GameConfig
 
-class Settings:
+class Options:
     def __init__(self, screen, config: GameConfig):
         self.screen = screen
         self.config = config
@@ -18,7 +19,7 @@ class Settings:
     def create_buttons(self):
         button_labels = ['10', '20', '30', '40', '50']
         for i, label in enumerate(button_labels):
-            button = MenuButton(label, (self.center_w + (i - 2) * 2 * self.config.BUTTON_WIDTH, self.center_h), self.config)
+            button = GameSizeButton(label, (self.center_w + (i - 2) * (self.config.MB_WIDTH + 20), self.center_h), self.config)
             self.buttons.append(button)
         back_button = MenuButton('Back', (self.center_w, self.center_h + 2 * self.config.BUTTON_Y_OFFSET), self.config)
         self.buttons.append(back_button)
@@ -33,7 +34,7 @@ class Settings:
         self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * self.config.BUTTON_Y_OFFSET))
 
         for i, button in enumerate(self.buttons[:-1]):  # Update cell selection buttons
-            button.x = self.center_w + (i - 2) * 2 * self.config.BUTTON_WIDTH - button.width // 2
+            button.x = self.center_w + (i - 2) * (self.config.MB_WIDTH + 20) - button.width // 2
             button.y = self.center_h
             button.rect.topleft = (button.x, button.y)
             button.update_surface()
@@ -77,4 +78,4 @@ class Settings:
                             self.config.save_settings()
                             self.config.number_of_cells = int(button.text_string)
 
-# Ensure to import and adjust `MenuButton` and other dependencies as necessary.
+# Ensure to import and adjust `MenuButton`, `GameSizeButton`, and other dependencies as necessary.

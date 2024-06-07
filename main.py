@@ -1,7 +1,7 @@
 import pygame
 from interfaces.main_menu import MainMenu
 from interfaces.play_game import PlayGame
-from interfaces.options import Settings
+from interfaces.options import Options
 from config.config import GameConfig
 
 def main():
@@ -29,7 +29,7 @@ def main():
             # Handle 2 player mode
             pass
         elif choice == 'settings':
-            settings = Settings(screen, config)
+            settings = Options(screen, config)
             if settings.run() == 'menu':
                 # Reload config to reflect changes in settings
                 config = GameConfig(screen.get_width(), screen.get_height(), settings_file='config/settings.json')
