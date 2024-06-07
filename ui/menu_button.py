@@ -1,54 +1,17 @@
-import pygame
 from config.config import GameConfig
-from ui.button import Button
+from ui.hover_button import HoverButton
 
-
-class MenuButton(Button):
+class MenuButton(HoverButton):
     def __init__(self, text: str, pos: tuple[int, int], config: GameConfig) -> None:
         """Initialize a menu button with text, position, and configuration."""
-        super().__init__(config)
-        self.text_string = text
-        self._x, self._y = pos
-        self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
-        self.update_surface()
+        super().__init__(text, pos, config)
+        self.config = config
 
-    def update_button_size(self) -> None:
-        """Update the button size based on the configuration."""
-        self.size = (self.config.MB_WIDTH, self.config.MB_HEIGHT)
-        self.width, self.height = self.size
+    def get_size(self):
+        """Get the size of the menu button."""
+        return self.config.MB_WIDTH, self.config.MB_HEIGHT
 
-    def change_text(self, text: str) -> None:
-        """Change the button text and update the surface."""
-        self.text_string = text
-        self.update_surface()
+    def get_default_colors(self):
+        """Get the default text and background colors of the menu button."""
+        return self.config.TEXT_COLOR, self.config.BACKGROUND_COLOR
 
-    def update_surface(self) -> None:
-        """Update the button surface with the current text and size."""
-        self.update_button_size()
-        self.surface = pygame.Surface(self.size, pygame.SRCALPHA)
-        bg_color = (
-            self.config.TEXT_COLOR if self.highlighted else self.config.BACKGROUND_COLOR
-        )
-        text_color = (
-            self.config.BACKGROUND_COLOR if self.highlighted else self.config.TEXT_COLOR
-        )
-        pygame.draw.rect(
-            self.surface,
-            bg_color,
-            (0, 0, self.width, self.height),
-            border_radius=self.config.MB_BORDER_RADIUS,
-        )
-        text_surface = self.font.render(self.text_string, True, text_color)
-        self.surface.blit(
-            text_surface,
-            (
-                self.width // 2 - text_surface.get_width() // 2,
-                self.height // 2 - text_surface.get_height() // 2,
-            ),
-        )
-        self.rect = pygame.Rect(self._x, self._y, self.width, self.height)
-
-    def update(self, new_pos: tuple[int, int]) -> None:
-        """Update the button position and surface."""
-        self._x, self._y = new_pos
-        self.update_surface()

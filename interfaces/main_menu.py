@@ -41,7 +41,6 @@ class MainMenu:
         """Update button positions when the screen is resized."""
         self.update_positions()
         for i, button in enumerate(self.buttons):
-            button.update_button_size()
             button.update((self.center_w - self.config.MB_WIDTH // 2, self.center_h + i * self.config.MB_HEIGHT - self.config.MB_Y_OFFSET * self.config.MB_HEIGHT))
 
     def display_menu(self) -> None:
