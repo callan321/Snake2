@@ -7,6 +7,7 @@ class GameConfig:
         self.base_width = self.settings['base_width']
         self.base_height = self.settings['base_height']
         self.update_config(screen_width, screen_height)
+        self.number_of_cells = self.settings.get("number_of_cells", 55)
 
     def load_settings(self, file_path):
         if not os.path.exists(file_path):
@@ -14,6 +15,10 @@ class GameConfig:
         
         with open(file_path, 'r') as file:
             return json.load(file)
+
+    def save_settings(self, file_path='config/settings.json'):
+        with open(file_path, 'w') as file:
+            json.dump(self.settings, file, indent=4)
 
     def scale_value(self, base_value, base_screen_size, current_screen_size):
         return int(base_value * current_screen_size / base_screen_size)
@@ -46,7 +51,8 @@ class GameConfig:
         self.BUTTON_Y_OFFSET = self.scale_value(self.settings['BUTTON_Y_OFFSET'], self.base_height, self.screen_height)
         self.BUTTON_FONT_SIZE = self.scale_value(self.settings['BUTTON_FONT_SIZE'], self.base_height, self.screen_height)
         self.BUTTON_PADDING = self.scale_value(self.settings['BUTTON_PADDING'], self.base_width, self.screen_width)
-
+        self.BUTTON_WIDTH = self.scale_value(self.settings['BUTTON_WIDTH'], self.base_width, self.screen_width)
+        
         # Add other config as necessary
         self.GAME_TITLE = self.settings['GAME_TITLE']
         self.TITLE_FONT_SIZE = self.scale_value(self.settings['TITLE_FONT_SIZE'], self.base_height, self.screen_height)

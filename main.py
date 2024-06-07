@@ -16,14 +16,12 @@ def main():
     except FileNotFoundError as e:
         print(e)
         return
-    
-    number_of_cells = 55
 
     main_menu = MainMenu(screen, config)
     while True:
         choice = main_menu.run()
         if choice == 'play':
-            grid_width, grid_height, cell_size = config.calculate_grid_dimensions(number_of_cells)
+            grid_width, grid_height, cell_size = config.calculate_grid_dimensions(config.number_of_cells)
             game = PlayGame(screen, grid_width, grid_height, cell_size, config)
             if game.run() == 'menu':
                 continue
@@ -33,6 +31,8 @@ def main():
         elif choice == 'settings':
             settings = Settings(screen, config)
             if settings.run() == 'menu':
+                # Reload config to reflect changes in settings
+                config = GameConfig(screen.get_width(), screen.get_height(), settings_file='config/settings.json')
                 continue
         elif choice == 'replay':
             # Handle replay mode

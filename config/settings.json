@@ -18,19 +18,61 @@
     "BUTTON_Y_OFFSET": 48,
     "BUTTON_FONT_SIZE": 72,
     "BUTTON_PADDING": 10,
+    "BUTTON_WIDTH": 175,
     "GAME_TITLE": "Snake AI 2",
     "TITLE_FONT_SIZE": 144,
-    "TEXT_COLOR": [24, 30, 40],
-    "BACKGROUND_COLOR": [136, 175, 146],
-    "BACKGROUND_GREEN": [136, 175, 146],
-    "GREEN_BLACK": [24, 30, 40],
-    "DARK_GREEN": [8, 71, 57],
-    "RED": [191, 47, 55],
-    "GRID_COLOR": [24, 30, 40],
-    "GREEN_SNAKE": [8, 71, 57],
+    "TEXT_COLOR": [
+        24,
+        30,
+        40
+    ],
+    "BACKGROUND_COLOR": [
+        136,
+        175,
+        146
+    ],
+    "BACKGROUND_GREEN": [
+        136,
+        175,
+        146
+    ],
+    "GREEN_BLACK": [
+        24,
+        30,
+        40
+    ],
+    "DARK_GREEN": [
+        8,
+        71,
+        57
+    ],
+    "RED": [
+        191,
+        47,
+        55
+    ],
+    "GRID_COLOR": [
+        24,
+        30,
+        40
+    ],
+    "GREEN_SNAKE": [
+        8,
+        71,
+        57
+    ],
     "SNAKE_TRANS": 200,
-    "FOOD_COLOR": [191, 47, 55],
-    "BORDER_COLOR": [24, 30, 40],
+    "FOOD_COLOR": [
+        191,
+        47,
+        55
+    ],
+    "BORDER_COLOR": [
+        24,
+        30,
+        40
+    ],
     "HOVER_SOUND": "sounds/hover_sound.wav",
-    "CLICK_SOUND": "sounds/click_sound.wav"
+    "CLICK_SOUND": "sounds/click_sound.wav",
+    "number_of_cells": 10
 }
