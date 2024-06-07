@@ -12,15 +12,16 @@ class GameUI:
         # Initialize buttons with the initial positions
         self.back_button = MenuButton("Back", (self.config.BUTTON_PADDING, self.config.BUTTON_PADDING), config)
         self.speed_button = SpeedButton(
-            (self.screen_width // 2 - self.config.SPEED_BUTTON_WIDTH*1.5, self.config.SPEED_BUTTON_PADDING_TOP),
+            (self.config.screen_width // 2 - self.config.SPEED_BUTTON_WIDTH*1.5, self.config.SPEED_BUTTON_PADDING_TOP),
             config=config
         )
 
     def update_dimensions(self):
-        self.screen_width, self.screen_height = self.screen.get_size()
         self.back_button.rect.topleft = (self.config.BUTTON_PADDING, self.config.BUTTON_PADDING)
         self.back_button.update_surface()
-        self.speed_button.rect.topleft = (self.screen_width // 2 - self.config.SPEED_BUTTON_WIDTH*1.5, self.config.SPEED_BUTTON_PADDING_TOP)
+        self.back_button.update_button_size()
+        self.speed_button.rect.topleft = (self.config.screen_width // 2 - self.config.SPEED_BUTTON_WIDTH*1.5, self.config.SPEED_BUTTON_PADDING_TOP)
+        
         self.speed_button.update_surface()
 
     def handle_back_button(self, event):
@@ -31,17 +32,6 @@ class GameUI:
             self.speed_button.update_speed()
             return True
         return False
-
-    def get_current_speed(self):
-        return self.speed_button.get_speed()
-
-    def handle_events(self, event):
-        # Handle any additional events if needed
-        pass
-
-    def update(self, time_delta):
-        # Update any additional logic if needed
-        pass
 
     def draw(self):
         mouse_pos = pygame.mouse.get_pos()

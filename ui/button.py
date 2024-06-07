@@ -10,6 +10,7 @@ class Button(ABC):
         self.highlighted = False
         self.hover_sound = pygame.mixer.Sound(config.HOVER_SOUND) 
         self.click_sound = pygame.mixer.Sound(config.CLICK_SOUND)
+        self.size = (0, 0)
         self.change_text(text)
         self.update_surface()
         self.rect = pygame.Rect(self.x, self.y, *self.size)

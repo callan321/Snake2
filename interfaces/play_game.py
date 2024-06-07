@@ -23,14 +23,13 @@ class PlayGame(GameLogic):
 
     def run(self):
         while self.running:
-            time_delta = self.clock.tick(60) / 1000.0
+            self.clock.tick(60)
             current_time = pygame.time.get_ticks()
             if not self.paused and current_time - self.last_update_time > 1000 // self.speed:
                 self.last_update_time = current_time
                 self.update()
 
             self.handle_events()
-            self.ui.update(time_delta)
             self.update_game_elements()
             self.renderer.draw(self.snake, self.food, self.controller.current_move)
             self.ui.draw()
@@ -62,14 +61,13 @@ class PlayGame(GameLogic):
                 if event.key == pygame.K_p:
                     self.paused = not self.paused
                 elif event.key == pygame.K_SPACE:
-                    self.speed = self.speed * 2
+                    self.speed = self.speed * 4
 
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
-                    self.speed = self.speed // 2
+                    self.speed = self.speed // 4
 
-            self.ui.handle_events(event)
-
+            
     def update_game_elements(self):
         self.ui.update_dimensions()
         self.renderer.update_screen_size()

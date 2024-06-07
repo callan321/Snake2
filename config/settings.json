@@ -45,12 +45,12 @@
                     "snake_size": 3
                 },
                 "M": {
-                    "number_of_cells": 30,
+                    "number_of_cells": 25,
                     "snake_size": 3
                 },
                 "L": {
-                    "number_of_cells": 44,
-                    "snake_size": 5
+                    "number_of_cells": 36,
+                    "snake_size": 4
                 },
                 "XL": {
                     "number_of_cells": 64,
