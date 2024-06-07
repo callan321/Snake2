@@ -1,30 +1,29 @@
 import pygame
 from interfaces.main_menu import MainMenu
 from interfaces.play_game import PlayGame
-from interfaces.settings import Settings
+from interfaces.options import Settings
 from config.config import GameConfig
-
-def calculate_grid_dimensions(number_of_cells: int, config: GameConfig):
-    cell_size = min(config.GAME_WIDTH, config.GAME_HEIGHT) // number_of_cells
-    width = config.GAME_WIDTH // cell_size
-    height = config.GAME_HEIGHT // cell_size
-    return width, height, cell_size
 
 def main():
     pygame.init()
     pygame.mixer.init()
-    screen_info = pygame.display.Info()
-    width, height = screen_info.current_w, int(screen_info.current_h * 14 / 15)
-    screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-    config = GameConfig(screen.get_width(), screen.get_height())
     
-    number_of_cells = 8
+    try:
+        screen_info = pygame.display.Info()
+        width, height = screen_info.current_w, int(screen_info.current_h * 14 / 15)
+        screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+        config = GameConfig(screen.get_width(), screen.get_height(), settings_file='config/settings.json')
+    except FileNotFoundError as e:
+        print(e)
+        return
+    
+    number_of_cells = 55
 
     main_menu = MainMenu(screen, config)
     while True:
         choice = main_menu.run()
         if choice == 'play':
-            grid_width, grid_height, cell_size = calculate_grid_dimensions(number_of_cells, config)
+            grid_width, grid_height, cell_size = config.calculate_grid_dimensions(number_of_cells)
             game = PlayGame(screen, grid_width, grid_height, cell_size, config)
             if game.run() == 'menu':
                 continue
