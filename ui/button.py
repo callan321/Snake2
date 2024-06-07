@@ -30,9 +30,14 @@ class Button(ABC):
     def click(self, event: pygame.event.Event) -> bool:
         """Handle button click event."""
         x, y = pygame.mouse.get_pos()
+        print(f"Mouse position: {x}, {y}")  # Debug print
+        print(f"Mouse pressed: {pygame.mouse.get_pressed()}")  # Debug print
         if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+            print("Mouse button down detected")  # Debug print
             if self.rect.collidepoint(x, y):
+                print("Mouse click inside button rect")  # Debug print
                 if self.click_sound:
+                    print("Playing click sound")  # Debug print
                     self.click_sound.play()
                 self.handle_click()  # Call the button's specific click handling
                 return True

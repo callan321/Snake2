@@ -8,6 +8,6 @@ class BackButton(MenuButton):
         self.config = config
         self.update()
 
-    def handle_click(self):
+    def handle_click(self) -> bool:
         """Handle the click event for the menu button."""
-        return self.config.MENU
+        return True

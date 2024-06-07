@@ -33,22 +33,28 @@ class PlayGame:
     def run(self) -> str:
         """Run the main game loop."""
         while self.running:
-            self.clock.tick(60)
+            self.clock.tick(self.config.FPS)
             current_time = pygame.time.get_ticks()
             if not self.paused and current_time - self.last_update_time > 1000 // self.speed:
                 self.last_update_time = current_time
                 self.logic.update()
 
             self.event_handler.handle_events()
-            self.update_game_elements()
-            self.renderer.draw(self.logic.snake, self.logic.food, self.logic.controller.current_move)
-            self.ui.draw()
-            pygame.display.flip()
 
             if self.return_to_menu:
                 return self.config.MENU
+
+            self.update_game_elements()
+            self.draw()
 
     def update_game_elements(self) -> None:
         """Update game elements such as UI and renderer dimensions."""
         self.ui.update_dimensions()
         self.renderer.update_screen_size()
+
+
+    def draw(self) -> None:
+        """Draw the game elements."""
+        self.renderer.draw(self.logic.snake, self.logic.food, self.logic.controller.current_move)
+        self.ui.draw()
+        pygame.display.flip()

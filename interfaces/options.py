@@ -44,8 +44,7 @@ class Options:
             button.snake_size = values['snake_size']
             self.buttons.append(button)
 
-        back_button = BackButton(self.config.BACK, (self.center_w - self.config.MB_WIDTH // 2, self.center_h + 2 * self.config.GS_BUTTON_HEIGHT), self.config)
-        self.buttons.append(back_button)
+        self.back_button = BackButton(self.config.BACK, (self.center_w - self.config.MB_WIDTH // 2, self.center_h + 2 * self.config.GS_BUTTON_HEIGHT), self.config)
 
     def update_button_positions(self) -> None:
         """Update button positions when the screen is resized."""
@@ -54,12 +53,10 @@ class Options:
         total_width = len(self.config.GAME_SIZE_BUTTONS) * button_width
         start_x = self.center_w - (total_width // 2) + (button_width // 2)
 
-        for i, button in enumerate(self.buttons[:-1]):  # Update cell selection buttons
+        for i, button in enumerate(self.buttons):  # Update cell selection buttons
             button.update((start_x + i * button_width - button_width // 2, self.center_h))
 
-        # Update position of the 'Back' button
-        back_button = self.buttons[-1]
-        back_button.update((self.center_w - self.config.MB_WIDTH // 2, self.center_h + 2 * self.config.GS_BUTTON_HEIGHT))
+        self.back_button.update((self.center_w - self.config.MB_WIDTH // 2, self.center_h + 2 * self.config.GS_BUTTON_HEIGHT))
 
     def display_menu(self) -> None:
         """Display the options menu with the title and buttons."""
@@ -67,6 +64,7 @@ class Options:
         self.screen.blit(self.title_text, self.title_rect)
         for button in self.buttons:
             button.show(self.screen)
+        self.back_button.show(self.screen)  # Ensure back button is displayed
         pygame.display.flip()
 
     def run(self) -> str:
@@ -80,11 +78,15 @@ class Options:
 
             for button in self.buttons:
                 button.update_highlight(mouse_pos)
+            self.back_button.update_highlight(mouse_pos)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                elif self.back_button.click(event):
+                    if self.back_button.handle_click():
+                        return self.config.MENU
                 elif event.type == pygame.VIDEORESIZE:
                     self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
                     self.config.update_config(event.w, event.h)
@@ -92,8 +94,6 @@ class Options:
                 else:
                     for button in self.buttons:
                         if button.click(event):
-                            result = button.handle_click()
-                            if result == self.config.MENU:
-                                return result
+                            button.handle_click()
 
             clock.tick(self.config.FPS)
