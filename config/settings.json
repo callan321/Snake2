@@ -2,7 +2,7 @@
     "game_settings": {
         "number_of_cells": 8,
         "snake_size": 2,
-        "game_speed": 30
+        "game_speed": 10
     },
     "base_sacles": {
         "SCREEN_WIDTH": 1920,
@@ -22,11 +22,9 @@
         "BUTTON_Y_OFFSET_MULTIPLIER": 2,
         "BUTTON_Y_OFFSET_SHIFT": 3,
         "TITLE_FONT_SIZE": 144,
+        "BUTTON_Y_OFFSET": 48,
         "menu_button": {
-            "HEIGHT": 96,
-            "WIDTH": 440,
-            "MB_BORDER_RADIUS": 12,
-            "BUTTON_Y_OFFSET": 48,
+            "BORDER_RADIUS": 12,
             "BUTTON_FONT_SIZE": 72,
             "BUTTON_PADDING": 10
         },

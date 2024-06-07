@@ -49,12 +49,11 @@ class GameConfig:
         self.BUTTON_Y_OFFSET_MULTIPLIER = menu_scales['BUTTON_Y_OFFSET_MULTIPLIER']
         self.BUTTON_Y_OFFSET_SHIFT = menu_scales['BUTTON_Y_OFFSET_SHIFT']
         self.TITLE_FONT_SIZE = self.scale_value(menu_scales['TITLE_FONT_SIZE'], self.base_height, self.screen_height)
-
+        self.BUTTON_Y_OFFSET = self.scale_value(menu_scales['BUTTON_Y_OFFSET'], self.base_height, self.screen_height)
+        
         menu_buttons = menu_scales['menu_button']
-        self.MB_HEIGHT = self.scale_value(menu_buttons['HEIGHT'], self.base_height, self.screen_height)
-        self.MB_WIDTH = self.scale_value(menu_buttons['WIDTH'], self.base_width, self.screen_width)
-        self.MB_BORDER_RADIUS = self.scale_value(menu_buttons['MB_BORDER_RADIUS'], self.base_width, self.screen_width)
-        self.BUTTON_Y_OFFSET = self.scale_value(menu_buttons['BUTTON_Y_OFFSET'], self.base_height, self.screen_height)
+
+        self.MB_BORDER_RADIUS = self.scale_value(menu_buttons['BORDER_RADIUS'], self.base_width, self.screen_width)
         self.BUTTON_FONT_SIZE = self.scale_value(menu_buttons['BUTTON_FONT_SIZE'], self.base_height, self.screen_height)
         self.BUTTON_PADDING = self.scale_value(menu_buttons['BUTTON_PADDING'], self.base_width, self.screen_width)
    

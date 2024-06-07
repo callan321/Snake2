@@ -1,10 +1,11 @@
 import pygame
 import sys
 from ui.menu_button import MenuButton
+from config.config import GameConfig
 
-
+# button y offset 48
 class MainMenu:
-    def __init__(self, screen, config):
+    def __init__(self, screen, config : GameConfig):
         self.screen = screen
         self.config = config
         self.update_positions()
