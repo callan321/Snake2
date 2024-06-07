@@ -18,8 +18,9 @@
         }
     },
     "menu_scales": {
-        "TITLE_Y_OFFSET_MULTIPLIER": 3,
         "TITLE_FONT_SIZE": 144,
+        "TITLE_Y_OFFSET_MULTIPLIER": 3,
+        "MB_Y_OFFSET": 2,
         "menu_button": {
             "MB_WIDTH": 192,
             "MB_HEIGHT": 108,
@@ -56,15 +57,15 @@
         }
     },
     "globals": {
-        "MENU" : "Menu",
-        "PLAY" : "Play",
-        "PLAY2" : "2 Player",
-        "OPTIONS" : "Options",
-        "REPLAY" : "Replay",
-        "QUIT" : "Quit",
-        "FPS" : 60
+        "MENU": "Menu",
+        "PLAY": "Play",
+        "PLAY2": "2 Player",
+        "OPTIONS": "Options",
+        "REPLAY": "Replay",
+        "QUIT": "Quit",
+        "FPS": 60
     },
-    "menu_text":{ 
+    "menu_text": {
         "GAME_TITLE": "Snake AI 2"
     },
     "game_text": {},
