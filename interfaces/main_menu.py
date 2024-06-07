@@ -3,7 +3,15 @@ import sys
 from ui.menu_button import MenuButton
 from config.config import GameConfig
 
-# button y offset 48
+
+'''
+        "TITLE_Y_OFFSET_MULTIPLIER": 5,
+        "BUTTON_Y_OFFSET_MULTIPLIER": 2,
+        "BUTTON_Y_OFFSET_SHIFT": 3,
+        "TITLE_FONT_SIZE": 144,
+        "BUTTON_Y_OFFSET": 48,
+        
+'''
 class MainMenu:
     def __init__(self, screen, config : GameConfig):
         self.screen = screen

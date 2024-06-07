@@ -25,8 +25,7 @@
         "BUTTON_Y_OFFSET": 48,
         "menu_button": {
             "BORDER_RADIUS": 12,
-            "BUTTON_FONT_SIZE": 72,
-            "BUTTON_PADDING": 10
+            "FONT_SIZE": 72
         },
         "game_size_button": {
             "BUTTON_HEIGHT": 50,
