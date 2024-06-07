@@ -55,6 +55,7 @@ class GameConfig:
         self.TITLE_FONT_SIZE = self.scale_value(menu_scales['TITLE_FONT_SIZE'], self.base_height, self.screen_height)
         self.TITLE_Y_OFFSET_MULTIPLIER = menu_scales['TITLE_Y_OFFSET_MULTIPLIER']
         self.MB_Y_OFFSET = self.scale_value(menu_scales['MB_Y_OFFSET'], self.base_height, self.screen_height)
+        
         # menu button
         menu_buttons = menu_scales['menu_button']
         self.MB_WIDTH = self.scale_value(menu_buttons['MB_WIDTH'], self.base_width, self.screen_width)
@@ -81,6 +82,7 @@ class GameConfig:
         self.REPLAY = globals['REPLAY']
         self.QUIT = globals['QUIT']
         self.FPS = globals["FPS"]
+        self.BACK = globals["BACK"]
         
         # menu 
         menu_text = self.settings['menu_text']

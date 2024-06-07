@@ -1,7 +1,7 @@
 {
     "game_settings": {
-        "number_of_cells": 64,
-        "snake_size": 8,
+        "number_of_cells": 25,
+        "snake_size": 3,
         "game_speed": 10
     },
     "base_sacles": {
@@ -29,8 +29,8 @@
         },
         "game_size_button": {
             "GS_FONT_SIZE": 36,
-            "GS_BUTTON_HEIGHT": 54,
-            "GS_BUTTON_WIDTH": 240,
+            "GS_BUTTON_HEIGHT": 98,
+            "GS_BUTTON_WIDTH": 144,
             "GS_BORDER_RADIUS": 5,
             "buttons": {
                 "XS": {
@@ -63,6 +63,7 @@
         "OPTIONS": "Options",
         "REPLAY": "Replay",
         "QUIT": "Quit",
+        "BACK": "Back",
         "FPS": 60
     },
     "menu_text": {

@@ -4,7 +4,6 @@ from ui.menu_button import MenuButton
 from config.config import GameConfig
 from typing import List
 
-
 class MainMenu:
     def __init__(self, screen: pygame.Surface, config: GameConfig) -> None:
         """Initialize the main menu with screen and configuration."""
@@ -74,9 +73,10 @@ class MainMenu:
                 else:
                     for button in self.buttons:
                         if button.click(event):
-                            if button.text_string == self.config.QUIT:
+                            result = button.handle_click()
+                            if result == self.config.MENU:
                                 running = False
                             else:
-                                return button.text_string
+                                return result
 
             clock.tick(self.config.FPS)

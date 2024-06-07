@@ -11,7 +11,13 @@ class Button(ABC):
         self.click_sound = pygame.mixer.Sound(config.CLICK_SOUND)
         self.rect = pygame.Rect(0, 0, 0, 0)  # Initial rect with zero size
         self.surface = pygame.Surface((0, 0), pygame.SRCALPHA)  # Initialize surface with zero size
-
+        self.text_string = ""  # Initialize text_string to an empty string
+    
+    @abstractmethod
+    def handle_click(self):
+        """Handle the button logic."""
+        pass
+    
     @abstractmethod
     def change_text(self, text: str) -> None:
         """Change the button text. Must be implemented in subclasses."""
@@ -28,6 +34,7 @@ class Button(ABC):
             if self.rect.collidepoint(x, y):
                 if self.click_sound:
                     self.click_sound.play()
+                self.handle_click()  # Call the button's specific click handling
                 return True
         return False
 
@@ -46,6 +53,6 @@ class Button(ABC):
         self.change_text(self.text_string)
 
     @abstractmethod
-    def update(self, new_pos: tuple[int, int]) -> None:
+    def update(self, new_pos: tuple[int, int] = None) -> None:
         """Update the button position. Must be implemented in subclasses."""
         pass

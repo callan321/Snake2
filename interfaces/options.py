@@ -1,6 +1,7 @@
 import pygame
 import sys
 from ui.menu_button import MenuButton
+from ui.back_button import BackButton
 from ui.game_size_button import GameSizeButton
 from config.config import GameConfig
 from typing import List
@@ -23,32 +24,42 @@ class Options:
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
         self.title_rect = self.title_text.get_rect(
-            center=(self.center_w, self.center_h - 5 * self.config.MB_HEIGHT)
+            center=(self.center_w, self.center_h - 3 * self.config.GS_BUTTON_HEIGHT)
         )
 
     def create_buttons(self) -> None:
         """Create buttons for the options menu."""
         button_data = self.config.GAME_SIZE_BUTTONS
+        button_width = self.config.GS_BUTTON_WIDTH
+        total_width = len(button_data) * button_width
+        start_x = self.center_w - (total_width // 2) + (button_width // 2)
+
         for i, (label, values) in enumerate(button_data.items()):
             button = GameSizeButton(
                 label,
-                (self.center_w + (i - 2) * (self.config.GS_BUTTON_WIDTH), self.center_h),
+                (start_x + i * button_width - button_width // 2, self.center_h),
                 self.config
             )
             button.number_of_cells = values['number_of_cells']
             button.snake_size = values['snake_size']
             self.buttons.append(button)
-        back_button = MenuButton('Back', (self.center_w, self.center_h + 2 * self.config.MB_HEIGHT), self.config)
+
+        back_button = BackButton(self.config.BACK, (self.center_w - self.config.MB_WIDTH // 2, self.center_h + 2 * self.config.GS_BUTTON_HEIGHT), self.config)
         self.buttons.append(back_button)
 
     def update_button_positions(self) -> None:
         """Update button positions when the screen is resized."""
         self.update_positions()
+        button_width = self.config.GS_BUTTON_WIDTH
+        total_width = len(self.config.GAME_SIZE_BUTTONS) * button_width
+        start_x = self.center_w - (total_width // 2) + (button_width // 2)
+
         for i, button in enumerate(self.buttons[:-1]):  # Update cell selection buttons
-            button.update((self.center_w + (i - 2) * (self.config.GS_BUTTON_WIDTH), self.center_h))
+            button.update((start_x + i * button_width - button_width // 2, self.center_h))
+
         # Update position of the 'Back' button
         back_button = self.buttons[-1]
-        back_button.update((self.center_w, self.center_h + 2 * self.config.MB_HEIGHT))
+        back_button.update((self.center_w - self.config.MB_WIDTH // 2, self.center_h + 2 * self.config.GS_BUTTON_HEIGHT))
 
     def display_menu(self) -> None:
         """Display the options menu with the title and buttons."""
@@ -81,13 +92,8 @@ class Options:
                 else:
                     for button in self.buttons:
                         if button.click(event):
-                            if button.text_string == 'Back':
-                                return 'menu'
-                            else:
-                                self.config.settings['game_settings']['number_of_cells'] = button.number_of_cells
-                                self.config.settings['game_settings']['snake_size'] = button.snake_size
-                                self.config.save_settings()
-                                self.config.number_of_cells = button.number_of_cells
-                                self.config.snake_size = button.snake_size
+                            result = button.handle_click()
+                            if result == self.config.MENU:
+                                return result
 
             clock.tick(self.config.FPS)
