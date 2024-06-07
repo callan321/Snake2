@@ -3,37 +3,22 @@ from config.config import GameConfig
 from ui.button import Button
 
 class MenuButton(Button):
-    def __init__(self, text, pos, config: GameConfig):
-        super().__init__(config)  # Call the superclass constructor first
+    def __init__(self, text: str, pos: tuple[int, int], config: GameConfig) -> None:
+        super().__init__(config)
         self.text_string = text
         self._x, self._y = pos
         self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
         self.update_surface()
 
-    def update_button_size(self):
-        '''
-        Set the size here 
-        '''
+    def update_button_size(self) -> None:
         self.size = (self.config.MB_WIDTH, self.config.MB_HEIGHT)
         self.width, self.height = self.size
-        
-    def get_size(self):
-        return self.size 
-    
-    def get_width(self):
-        return self.width
-    
-    def get_height(self):
-        return self.height
 
-    def change_text(self, text):
+    def change_text(self, text: str) -> None:
         self.text_string = text
         self.update_surface()
 
-    def update_surface(self):
-        '''
-        change the color here 
-        '''
+    def update_surface(self) -> None:
         self.update_button_size()
         self.surface = pygame.Surface(self.size, pygame.SRCALPHA)
         bg_color = self.config.TEXT_COLOR if self.highlighted else self.config.BACKGROUND_COLOR
@@ -43,6 +28,6 @@ class MenuButton(Button):
         self.surface.blit(text_surface, (self.width // 2 - text_surface.get_width() // 2, self.height // 2 - text_surface.get_height() // 2))
         self.rect = pygame.Rect(self._x, self._y, self.width, self.height)
 
-    def update(self, new_pos):
+    def update(self, new_pos: tuple[int, int]) -> None:
         self._x, self._y = new_pos
         self.update_surface()

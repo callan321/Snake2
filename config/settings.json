@@ -5,7 +5,7 @@
         "game_speed": 10
     },
     "base_sacles": {
-        "SCREEN_WIDTH": 1920,
+        "SCREEN_WIDTH": 1792,
         "SCREEN_HEIGHT": 1080
     },
     "game_scales": {
@@ -21,8 +21,8 @@
         "TITLE_Y_OFFSET_MULTIPLIER": 3,
         "TITLE_FONT_SIZE": 144,
         "menu_button": {
-            "MB_WIDTH": 156,
-            "MB_HEIGHT": 94,
+            "MB_WIDTH": 192,
+            "MB_HEIGHT": 108,
             "MB_BORDER_RADIUS": 12,
             "MB_FONT_SIZE": 72
         },
@@ -55,7 +55,16 @@
             }
         }
     },
-    "menu_text": {
+    "globals": {
+        "MENU" : "Menu",
+        "PLAY" : "Play",
+        "PLAY2" : "2 Player",
+        "OPTIONS" : "Options",
+        "REPLAY" : "Replay",
+        "QUIT" : "Quit",
+        "FPS" : 60
+    },
+    "menu_text":{ 
         "GAME_TITLE": "Snake AI 2"
     },
     "game_text": {},

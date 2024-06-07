@@ -12,26 +12,25 @@ class Button(ABC):
         self.surface = pygame.Surface((0, 0), pygame.SRCALPHA)  # Initialize surface with zero size
 
     @abstractmethod
-    def change_text(self, text):
+    def change_text(self, text: str) -> None:
         pass
 
-    def show(self, screen):
+    def show(self, screen: pygame.Surface) -> None:
         screen.blit(self.surface, self.rect.topleft)
 
-    def click(self, event):
+    def click(self, event: pygame.event.Event) -> bool:
         x, y = pygame.mouse.get_pos()
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if pygame.mouse.get_pressed()[0]:
-                if self.rect.collidepoint(x, y):
-                    if self.click_sound:
-                        self.click_sound.play()
-                    return True
+        if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+            if self.rect.collidepoint(x, y):
+                if self.click_sound:
+                    self.click_sound.play()
+                return True
         return False
 
-    def update_highlight(self, mouse_pos):
+    def update_highlight(self, mouse_pos: tuple[int, int]) -> None:
         previously_highlighted = self.highlighted
         self.highlighted = self.rect.collidepoint(mouse_pos)
-        
+
         if self.highlighted and not previously_highlighted:
             if self.hover_sound:
                 self.hover_sound.play()
@@ -42,5 +41,21 @@ class Button(ABC):
         self.change_text(self.text_string)
 
     @abstractmethod
-    def update(self, new_pos):
+    def update(self, new_pos: tuple[int, int]) -> None:
         pass
+
+
+class A:
+    def __init__(self):
+        pass 
+
+class B:
+    def __init__(self, a):
+        self.z = a
+        self.c = C(a)
+class C:
+    def __init__(self, a):
+        self.z = a 
+    
+a = A()
+b = B(a)

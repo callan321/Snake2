@@ -26,14 +26,11 @@ class GameConfig:
         with open(self.settings_file, 'w') as file:
             json.dump(self.settings, file, indent=4)
 
-    #def scale_value(self, base_value, base_screen_size, current_screen_size):
-    #    return int(base_value * current_screen_size / base_screen_size)
     
     def scale_value(self, base_value, screen_width, screen_height):
         width_scale = screen_width / self.screen_width
         height_scale = screen_height / self.screen_height
         
-        # Use the minimum scale factor to maintain aspect ratio
         min_scale = min(width_scale, height_scale)
         
         scaled_value = base_value * min_scale
@@ -74,9 +71,21 @@ class GameConfig:
 
         self.GAME_SIZE_BUTTONS = game_size_buttons['buttons']
 
+        # globals
+        globals = self.settings['globals']
+        self.MENU = globals['MENU']
+        self.PLAY = globals['PLAY']
+        self.PLAY2 = globals['PLAY2']
+        self.OPTIONS = globals['OPTIONS']
+        self.REPLAY = globals['REPLAY']
+        self.QUIT = globals['QUIT']
+        self.FPS = globals["FPS"]
+        
+        # menu 
         menu_text = self.settings['menu_text']
         self.GAME_TITLE = menu_text['GAME_TITLE']
-        
+    
+        # colors
         colors = self.settings['colors']
         self.TEXT_COLOR = tuple(colors['TEXT_COLOR'])
         self.BACKGROUND_COLOR = tuple(colors['BACKGROUND_COLOR'])
