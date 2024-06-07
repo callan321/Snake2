@@ -1,7 +1,7 @@
 from game_objects.snake import Snake
 from game_objects.food import Food
 from game_objects.spawn_generator import SpawnGenerator
-from controller import Controller, AIController
+from logic.controller import Controller, AIController
 from typing import Tuple
 
 

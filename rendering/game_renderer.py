@@ -1,5 +1,5 @@
 import pygame
-from config import GameConfig
+from config.config import GameConfig
 
 class GameRenderer:
     def __init__(self, screen, cell_size, width, height, config: GameConfig):

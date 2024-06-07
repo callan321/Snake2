@@ -1,8 +1,8 @@
 import pygame
-from main_menu import MainMenu
-from play_game import PlayGame
-from settings import Settings
-from config import GameConfig
+from interfaces.main_menu import MainMenu
+from interfaces.play_game import PlayGame
+from interfaces.settings import Settings
+from config.config import GameConfig
 
 def calculate_grid_dimensions(number_of_cells: int, config: GameConfig):
     cell_size = min(config.GAME_WIDTH, config.GAME_HEIGHT) // number_of_cells

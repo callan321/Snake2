@@ -1,6 +1,6 @@
 import pygame
 from abc import ABC, abstractmethod
-from config import GameConfig
+from config.config import GameConfig
 
 class Button(ABC):
     def __init__(self, text, pos, config: GameConfig):

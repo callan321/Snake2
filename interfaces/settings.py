@@ -1,7 +1,7 @@
 import pygame
 import sys
 from ui.menu_button import MenuButton
-from config import GameConfig
+from config.config import GameConfig
 
 class Settings:
     def __init__(self, screen, config: GameConfig):

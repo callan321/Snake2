@@ -1,10 +1,10 @@
 import pygame
 import sys
-from ui.game_ui import GameUI
-from game_renderer import GameRenderer
-from controller import HumanController
-from game_logic import GameLogic
-from config import GameConfig
+from rendering.game_ui import GameUI
+from rendering.game_renderer import GameRenderer
+from logic.controller import HumanController
+from logic.game_logic import GameLogic
+from config.config import GameConfig
 
 class PlayGame(GameLogic):
     def __init__(self, screen, width, height, cell_size, config: GameConfig, initial_speed=10):

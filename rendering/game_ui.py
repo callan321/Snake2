@@ -1,7 +1,7 @@
 import pygame
 from ui.menu_button import MenuButton
 from ui.speed_button import SpeedButton
-from config import GameConfig
+from config.config import GameConfig
 
 class GameUI:
     def __init__(self, screen, initial_speed, config: GameConfig):

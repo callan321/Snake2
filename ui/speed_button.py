@@ -1,5 +1,5 @@
 import pygame
-from config import GameConfig
+from config.config import GameConfig
 from ui.button import Button
 
 class SpeedButton(Button):
