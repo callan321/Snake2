@@ -2,9 +2,9 @@ import pygame
 from config.config import GameConfig
 
 class GameRenderer:
-    def __init__(self, screen, cell_size, width, height, config: GameConfig):
+    def __init__(self, screen, width, height, config: GameConfig):
         self.screen = screen
-        self.cell_size = cell_size
+        self.cell_size = config.cell_size
         self.width = width
         self.height = height
         self.config = config

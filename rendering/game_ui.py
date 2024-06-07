@@ -4,7 +4,7 @@ from ui.speed_button import SpeedButton
 from config.config import GameConfig
 
 class GameUI:
-    def __init__(self, screen, initial_speed, config: GameConfig):
+    def __init__(self, screen, config: GameConfig):
         self.screen = screen
         self.config = config
         self.screen_width, self.screen_height = self.screen.get_size()
@@ -13,7 +13,6 @@ class GameUI:
         self.back_button = MenuButton("Back", (self.config.BUTTON_PADDING, self.config.BUTTON_PADDING), config)
         self.speed_button = SpeedButton(
             (self.screen_width // 2 - self.config.SPEED_BUTTON_WIDTH*1.5, self.config.SPEED_BUTTON_PADDING_TOP),
-            initial_speed=initial_speed,
             config=config
         )
 

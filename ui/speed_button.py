@@ -3,9 +3,9 @@ from config.config import GameConfig
 from ui.button import Button
 
 class SpeedButton(Button):
-    def __init__(self, pos, initial_speed, config: GameConfig):
+    def __init__(self, pos, config: GameConfig):
         self.config = config
-        self.current_speed = initial_speed
+        self.current_speed = self.config.game_speed
         self.update_button_size()
         super().__init__(f"Speed: {self.current_speed // 5 - 1}", pos, config)
         self.change_text(f"Speed: {self.current_speed // 5 - 1}")
@@ -47,6 +47,8 @@ class SpeedButton(Button):
         if self.current_speed > 30:
             self.current_speed = 10
         self.change_text(f"Speed: {self.current_speed // 5 - 1}")
+        self.config.settings['game_settings']['game_speed'] = self.current_speed
+        self.config.save_settings()
 
     def get_speed(self):
         return self.current_speed

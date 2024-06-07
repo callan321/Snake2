@@ -1,7 +1,8 @@
 {
     "game_settings": {
-        "number_of_cells": 10,
-        "snake_size": 1
+        "number_of_cells": 8,
+        "snake_size": 2,
+        "game_speed": 30
     },
     "base_sacles": {
         "SCREEN_WIDTH": 1920,
@@ -36,24 +37,24 @@
             "FONT_SIZE": 36,
             "buttons": {
                 "XS": {
-                    "number_of_cells": 10,
-                    "snake_size": 1
+                    "number_of_cells": 8,
+                    "snake_size": 2
                 },
                 "S": {
-                    "number_of_cells": 20,
-                    "snake_size": 2
+                    "number_of_cells": 16,
+                    "snake_size": 3
                 },
                 "M": {
                     "number_of_cells": 30,
                     "snake_size": 3
                 },
                 "L": {
-                    "number_of_cells": 40,
-                    "snake_size": 4
+                    "number_of_cells": 44,
+                    "snake_size": 5
                 },
                 "XL": {
-                    "number_of_cells": 50,
-                    "snake_size": 5
+                    "number_of_cells": 64,
+                    "snake_size": 8
                 }
             }
         }

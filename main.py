@@ -21,8 +21,8 @@ def main():
     while True:
         choice = main_menu.run()
         if choice == 'play':
-            grid_width, grid_height, cell_size = config.calculate_grid_dimensions(config.number_of_cells)
-            game = PlayGame(screen, grid_width, grid_height, cell_size, config)
+            config.calculate_grid_dimensions()
+            game = PlayGame(screen, config.game_width, config.game_height, config)
             if game.run() == 'menu':
                 continue
         elif choice == '2 player':

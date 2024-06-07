@@ -3,12 +3,14 @@ import os
 
 class GameConfig:
     def __init__(self, screen_width, screen_height, settings_file='config/settings.json'):
+        self.settings_file = settings_file
         self.settings = self.load_settings(settings_file)
         self.base_width = self.settings['base_sacles']['SCREEN_WIDTH']
         self.base_height = self.settings['base_sacles']['SCREEN_HEIGHT']
         self.update_config(screen_width, screen_height)
         self.number_of_cells = self.settings['game_settings'].get("number_of_cells", 20)
         self.snake_size = self.settings['game_settings'].get("snake_size", 1)
+        self.game_speed = self.settings['game_settings'].get("game_speed", 10)
 
     def load_settings(self, file_path):
         if not os.path.exists(file_path):
@@ -17,8 +19,11 @@ class GameConfig:
         with open(file_path, 'r') as file:
             return json.load(file)
 
-    def save_settings(self, file_path='config/settings.json'):
-        with open(file_path, 'w') as file:
+    def update_speed(self):
+        self.game_speed = self.settings['game_settings'].get("game_speed", 10)
+        
+    def save_settings(self):
+        with open(self.settings_file, 'w') as file:
             json.dump(self.settings, file, indent=4)
 
     def scale_value(self, base_value, base_screen_size, current_screen_size):
@@ -52,7 +57,7 @@ class GameConfig:
         self.BUTTON_Y_OFFSET = self.scale_value(menu_buttons['BUTTON_Y_OFFSET'], self.base_height, self.screen_height)
         self.BUTTON_FONT_SIZE = self.scale_value(menu_buttons['BUTTON_FONT_SIZE'], self.base_height, self.screen_height)
         self.BUTTON_PADDING = self.scale_value(menu_buttons['BUTTON_PADDING'], self.base_width, self.screen_width)
-
+   
         
         game_size_buttons = menu_scales['game_size_button']
         self.GAME_SIZE_BUTTON_HEIGHT = self.scale_value(game_size_buttons['BUTTON_HEIGHT'], self.base_height, self.screen_height)
@@ -82,8 +87,7 @@ class GameConfig:
         self.HOVER_SOUND = sounds['HOVER_SOUND']
         self.CLICK_SOUND = sounds['CLICK_SOUND']
 
-    def calculate_grid_dimensions(self, number_of_cells):
-        cell_size = min(self.GAME_WIDTH, self.GAME_HEIGHT) // number_of_cells
-        width = self.GAME_WIDTH // cell_size
-        height = self.GAME_HEIGHT // cell_size
-        return width, height, cell_size
+    def calculate_grid_dimensions(self):
+        self.cell_size = min(self.GAME_WIDTH, self.GAME_HEIGHT) // self.number_of_cells
+        self.game_width = self.GAME_WIDTH // self.cell_size
+        self.game_height = self.GAME_HEIGHT // self.cell_size
