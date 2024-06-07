@@ -6,18 +6,18 @@ class GameSizeButton(Button):
     def __init__(self, text, pos, config: GameConfig):
         self.config = config
         self.update_button_size()
-        self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
+        self.font = pygame.font.Font(None, self.config.GAME_SIZE_BUTTON_FONT_SIZE)
         self.bg = self.config.BACKGROUND_COLOR
         self.text_color = self.config.TEXT_COLOR
         self.highlighted_bg = self.config.TEXT_COLOR
         self.highlighted_text_color = self.config.BACKGROUND_COLOR
-        self.border_radius = self.config.MB_BORDER_RADIUS
+        self.border_radius = self.config.GAME_SIZE_BUTTON_BORDER_RADIUS
         super().__init__(text, pos, config)
 
     def update_button_size(self):
-        self.size = (self.config.BUTTON_WIDTH, self.config.MB_HEIGHT)
+        self.size = (self.config.GAME_SIZE_BUTTON_WIDTH, self.config.GAME_SIZE_BUTTON_HEIGHT)
         self.width, self.height = self.size
-        self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
+        self.font = pygame.font.Font(None, self.config.GAME_SIZE_BUTTON_FONT_SIZE)
 
     def change_text(self, text):
         self.text_string = text

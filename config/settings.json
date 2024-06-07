@@ -1,6 +1,7 @@
 {
     "game_settings": {
-        "number_of_cells": 20
+        "number_of_cells": 10,
+        "snake_size": 1
     },
     "base_sacles": {
         "SCREEN_WIDTH": 1920,
@@ -19,15 +20,42 @@
         "TITLE_Y_OFFSET_MULTIPLIER": 5,
         "BUTTON_Y_OFFSET_MULTIPLIER": 2,
         "BUTTON_Y_OFFSET_SHIFT": 3,
-        "buttons": {
-            "MB_HEIGHT": 96,
-            "MB_WIDTH": 440,
+        "TITLE_FONT_SIZE": 144,
+        "menu_button": {
+            "HEIGHT": 96,
+            "WIDTH": 440,
             "MB_BORDER_RADIUS": 12,
             "BUTTON_Y_OFFSET": 48,
             "BUTTON_FONT_SIZE": 72,
-            "BUTTON_PADDING": 10,
-            "BUTTON_WIDTH": 175,
-            "TITLE_FONT_SIZE": 144
+            "BUTTON_PADDING": 10
+        },
+        "game_size_button": {
+            "BUTTON_HEIGHT": 50,
+            "BUTTON_WIDTH": 100,
+            "BORDER_RADIUS": 5,
+            "FONT_SIZE": 36,
+            "buttons": {
+                "XS": {
+                    "number_of_cells": 10,
+                    "snake_size": 1
+                },
+                "S": {
+                    "number_of_cells": 20,
+                    "snake_size": 2
+                },
+                "M": {
+                    "number_of_cells": 30,
+                    "snake_size": 3
+                },
+                "L": {
+                    "number_of_cells": 40,
+                    "snake_size": 4
+                },
+                "XL": {
+                    "number_of_cells": 50,
+                    "snake_size": 5
+                }
+            }
         }
     },
     "menu_text": {

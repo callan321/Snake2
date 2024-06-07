@@ -17,9 +17,11 @@ class Options:
         self.create_buttons()
 
     def create_buttons(self):
-        button_labels = ['10', '20', '30', '40', '50']
-        for i, label in enumerate(button_labels):
-            button = GameSizeButton(label, (self.center_w + (i - 2) * (self.config.MB_WIDTH + 20), self.center_h), self.config)
+        button_data = self.config.GAME_SIZE_BUTTONS
+        for i, (label, values) in enumerate(button_data.items()):
+            button = GameSizeButton(label, (self.center_w + (i - 2) * (self.config.GAME_SIZE_BUTTON_WIDTH + 20), self.center_h), self.config)
+            button.number_of_cells = values['number_of_cells']
+            button.snake_size = values['snake_size']
             self.buttons.append(button)
         back_button = MenuButton('Back', (self.center_w, self.center_h + 2 * self.config.BUTTON_Y_OFFSET), self.config)
         self.buttons.append(back_button)
@@ -34,7 +36,7 @@ class Options:
         self.title_rect = self.title_text.get_rect(center=(self.center_w, self.center_h - 5 * self.config.BUTTON_Y_OFFSET))
 
         for i, button in enumerate(self.buttons[:-1]):  # Update cell selection buttons
-            button.x = self.center_w + (i - 2) * (self.config.MB_WIDTH + 20) - button.width // 2
+            button.x = self.center_w + (i - 2) * (self.config.GAME_SIZE_BUTTON_WIDTH + 20) - button.width // 2
             button.y = self.center_h
             button.rect.topleft = (button.x, button.y)
             button.update_surface()
@@ -74,8 +76,8 @@ class Options:
                         if button.text_string == 'Back':
                             return 'menu'
                         else:
-                            self.config.settings['number_of_cells'] = int(button.text_string)
+                            self.config.settings['game_settings']['number_of_cells'] = button.number_of_cells
+                            self.config.settings['game_settings']['snake_size'] = button.snake_size
                             self.config.save_settings()
-                            self.config.number_of_cells = int(button.text_string)
-
-# Ensure to import and adjust `MenuButton`, `GameSizeButton`, and other dependencies as necessary.
+                            self.config.number_of_cells = button.number_of_cells
+                            self.config.snake_size = button.snake_size

@@ -8,6 +8,7 @@ class GameConfig:
         self.base_height = self.settings['base_sacles']['SCREEN_HEIGHT']
         self.update_config(screen_width, screen_height)
         self.number_of_cells = self.settings['game_settings'].get("number_of_cells", 20)
+        self.snake_size = self.settings['game_settings'].get("snake_size", 1)
 
     def load_settings(self, file_path):
         if not os.path.exists(file_path):
@@ -42,17 +43,25 @@ class GameConfig:
         self.TITLE_Y_OFFSET_MULTIPLIER = menu_scales['TITLE_Y_OFFSET_MULTIPLIER']
         self.BUTTON_Y_OFFSET_MULTIPLIER = menu_scales['BUTTON_Y_OFFSET_MULTIPLIER']
         self.BUTTON_Y_OFFSET_SHIFT = menu_scales['BUTTON_Y_OFFSET_SHIFT']
+        self.TITLE_FONT_SIZE = self.scale_value(menu_scales['TITLE_FONT_SIZE'], self.base_height, self.screen_height)
 
-        menu_buttons = menu_scales['buttons']
-        self.MB_HEIGHT = self.scale_value(menu_buttons['MB_HEIGHT'], self.base_height, self.screen_height)
-        self.MB_WIDTH = self.scale_value(menu_buttons['MB_WIDTH'], self.base_width, self.screen_width)
+        menu_buttons = menu_scales['menu_button']
+        self.MB_HEIGHT = self.scale_value(menu_buttons['HEIGHT'], self.base_height, self.screen_height)
+        self.MB_WIDTH = self.scale_value(menu_buttons['WIDTH'], self.base_width, self.screen_width)
         self.MB_BORDER_RADIUS = self.scale_value(menu_buttons['MB_BORDER_RADIUS'], self.base_width, self.screen_width)
         self.BUTTON_Y_OFFSET = self.scale_value(menu_buttons['BUTTON_Y_OFFSET'], self.base_height, self.screen_height)
         self.BUTTON_FONT_SIZE = self.scale_value(menu_buttons['BUTTON_FONT_SIZE'], self.base_height, self.screen_height)
         self.BUTTON_PADDING = self.scale_value(menu_buttons['BUTTON_PADDING'], self.base_width, self.screen_width)
-        self.BUTTON_WIDTH = self.scale_value(menu_buttons['BUTTON_WIDTH'], self.base_width, self.screen_width)
-        self.TITLE_FONT_SIZE = self.scale_value(menu_buttons['TITLE_FONT_SIZE'], self.base_height, self.screen_height)
+
         
+        game_size_buttons = menu_scales['game_size_button']
+        self.GAME_SIZE_BUTTON_HEIGHT = self.scale_value(game_size_buttons['BUTTON_HEIGHT'], self.base_height, self.screen_height)
+        self.GAME_SIZE_BUTTON_WIDTH = self.scale_value(game_size_buttons['BUTTON_WIDTH'], self.base_width, self.screen_width)
+        self.GAME_SIZE_BUTTON_BORDER_RADIUS = self.scale_value(game_size_buttons['BORDER_RADIUS'], self.base_width, self.screen_width)
+        self.GAME_SIZE_BUTTON_FONT_SIZE = self.scale_value(game_size_buttons['FONT_SIZE'], self.base_height, self.screen_height)
+
+        self.GAME_SIZE_BUTTONS = game_size_buttons['buttons']
+
         menu_text = self.settings['menu_text']
         self.GAME_TITLE = menu_text['GAME_TITLE']
         

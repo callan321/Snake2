@@ -8,7 +8,7 @@ from config.config import GameConfig
 
 class PlayGame(GameLogic):
     def __init__(self, screen, width, height, cell_size, config: GameConfig, initial_speed=10):
-        super().__init__(width, height)
+        super().__init__(width, height, snake_size= config.snake_size)
         self.config = config
         self.cell_size = cell_size
         self.last_update_time = pygame.time.get_ticks()
