@@ -1,4 +1,3 @@
-import pygame
 from ui.hover_button import HoverButton
 from config.config import GameConfig
 

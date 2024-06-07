@@ -1,52 +1,32 @@
-import pygame
+from ui.hover_button import HoverButton
 from config.config import GameConfig
-from ui.button import Button
 
-class SpeedButton(Button):
-    def __init__(self, pos, config: GameConfig):
-        self.config = config
+class SpeedButton(HoverButton):
+    def __init__(self, text: str, pos: tuple[int, int], config: GameConfig) -> None:
+        """Initialize a speed button with text, position, and configuration."""
+        super().__init__(text, pos, config)
         self.current_speed = self.config.game_speed
-        self.border_radius = self.config.MB_BORDER_RADIUS
-        self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
-        self.bg = self.config.BACKGROUND_COLOR
-        self.text_color = self.config.TEXT_COLOR
-        self.highlighted_bg = self.config.TEXT_COLOR
-        self.highlighted_text_color = self.config.BACKGROUND_COLOR
-        self.highlighted = False
-        super().__init__(f"Speed: {self.current_speed // 5 - 1}", pos, config)
+        self.update()
 
-    def update_button_size(self):
-        self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
-        text_surface = self.font.render(self.text_string, True, self.text_color)
-        self.size = (text_surface.get_width() + 20, text_surface.get_height() + 10)
-        self.width, self.height = self.size
+    def get_size(self) -> tuple[int, int]:
+        """Get the size of the speed button."""
+        return self.config.GS_BUTTON_WIDTH, self.config.GS_BUTTON_HEIGHT
 
-    def change_text(self, text):
-        self.text_string = text
-        color = self.highlighted_text_color if self.highlighted else self.text_color
-        self.text = self.font.render(text, True, color)
-        self.update_surface()
+    def get_default_colors(self) -> tuple[tuple[int, int, int], tuple[int, int, int]]:
+        """Get the default text and background colors of the speed button."""
+        return self.config.TEXT_COLOR, self.config.BACKGROUND_COLOR
 
-    def update_surface(self):
-        self.update_button_size()
-        self.surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
-        bg_color = self.highlighted_bg if self.highlighted else self.bg
-        pygame.draw.rect(
-            self.surface, bg_color, (0, 0, self.width, self.height), border_radius=self.border_radius
-        )
-        self.surface.blit(
-            self.text,
-            (
-                self.width // 2 - self.text.get_width() // 2,
-                self.height // 2 - self.text.get_height() // 2,
-            ),
-        )
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+    def get_border_radius(self) -> int:
+        """Get the border radius of the speed button."""
+        return self.config.MB_BORDER_RADIUS
 
-    def update_speed(self):
+    def handle_click(self) -> bool:
+        """Handle the click event for the speed button."""
+        print("Handling speed button click")
         self.current_speed += 5
         if self.current_speed > 55:
             self.current_speed = 10
         self.change_text(f"Speed: {self.current_speed // 5 - 1}")
         self.config.settings['game_settings']['game_speed'] = self.current_speed
         self.config.save_settings()
+        return True

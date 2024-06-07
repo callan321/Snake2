@@ -1,73 +1,54 @@
 import pygame
-import sys
 from rendering.game_ui import GameUI
 from rendering.game_renderer import GameRenderer
-from logic.controller import HumanController
 from logic.game_logic import GameLogic
 from config.config import GameConfig
+from interfaces.event_handler import EventHandler
 
-class PlayGame(GameLogic):
-    def __init__(self, screen, width, height, config: GameConfig):
-        super().__init__(width, height, snake_size= config.snake_size)
-        self.config = config
-        self.last_update_time = pygame.time.get_ticks()
+class PlayGame:
+    """Manages the main game loop and game state."""
+
+    def __init__(self, screen: pygame.Surface, width: int, height: int, config: GameConfig) -> None:
+        """Initialize the PlayGame class.
+        
+        Args:
+            screen (pygame.Surface): The pygame display surface.
+            width (int): The width of the game area.
+            height (int): The height of the game area.
+            config (GameConfig): The game configuration.
+        """
         self.screen = screen
+        self.config = config
         self.clock = pygame.time.Clock()
         self.ui = GameUI(screen, config)
-        self.renderer = GameRenderer(screen, self.width, self.height, config)
-        self.speed = self.config.game_speed
-        
+        self.renderer = GameRenderer(screen, width, height, config)
+        self.logic = GameLogic(width, height, controller_type='AI', snake_size=config.snake_size)
+        self.speed = config.game_speed
         self.return_to_menu = False
         self.running = True
         self.paused = False
+        self.last_update_time = pygame.time.get_ticks()
+        self.event_handler = EventHandler(self)
 
-    def run(self):
+    def run(self) -> str:
+        """Run the main game loop."""
         while self.running:
             self.clock.tick(60)
             current_time = pygame.time.get_ticks()
             if not self.paused and current_time - self.last_update_time > 1000 // self.speed:
                 self.last_update_time = current_time
-                self.update()
+                self.logic.update()
 
-            self.handle_events()
+            self.event_handler.handle_events()
             self.update_game_elements()
-            self.renderer.draw(self.snake, self.food, self.controller.current_move)
+            self.renderer.draw(self.logic.snake, self.logic.food, self.logic.controller.current_move)
             self.ui.draw()
             pygame.display.flip()
 
             if self.return_to_menu:
-                return "menu"
+                return self.config.MENU
 
-    def handle_events(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.VIDEORESIZE:
-                self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
-                self.config.update_config(event.w, event.h)
-                self.ui.update_dimensions()
-                self.renderer.update_screen_size()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if self.ui.handle_back_button(event):
-                    self.return_to_menu = True
-                elif self.ui.handle_speed_button(event):
-                    self.config.update_speed()
-                    self.speed = self.config.game_speed if not pygame.key.get_pressed()[pygame.K_SPACE] else self.config.game_speed * 2
-
-            elif event.type == pygame.KEYDOWN:
-                if isinstance(self.controller, HumanController):
-                    self.controller.handle_keydown(event)
-                if event.key == pygame.K_p:
-                    self.paused = not self.paused
-                elif event.key == pygame.K_SPACE:
-                    self.speed = self.speed * 4
-
-            elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_SPACE:
-                    self.speed = self.speed // 4
-
-            
-    def update_game_elements(self):
+    def update_game_elements(self) -> None:
+        """Update game elements such as UI and renderer dimensions."""
         self.ui.update_dimensions()
         self.renderer.update_screen_size()
