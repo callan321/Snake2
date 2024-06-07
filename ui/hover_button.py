@@ -24,6 +24,11 @@ class HoverButton(Button, ABC):
     def get_default_colors(self):
         """Get the default text and background colors of the button."""
         pass
+    
+    @abstractmethod
+    def get_border_radius(self):
+        """Get the border radius of the button."""
+        pass
 
     def get_colors(self):
         """Get the text and background colors based on the highlight state."""
@@ -40,11 +45,12 @@ class HoverButton(Button, ABC):
         self.width, self.height = self.size
         self.surface = pygame.Surface(self.size, pygame.SRCALPHA)
         text_color, bg_color = self.get_colors()
+        border_radius = self.get_border_radius()
         pygame.draw.rect(
             self.surface,
             bg_color,
             (0, 0, self.width, self.height),
-            border_radius=self.config.MB_BORDER_RADIUS,
+            border_radius=border_radius,
         )
         text_surface = self.font.render(self.text_string, True, text_color)
         self.surface.blit(

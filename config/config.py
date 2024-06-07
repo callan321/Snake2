@@ -64,10 +64,11 @@ class GameConfig:
         
         # game buttons
         game_size_buttons = menu_scales['game_size_button']
-        self.GAME_SIZE_BUTTON_HEIGHT = self.scale_value(game_size_buttons['BUTTON_HEIGHT'], self.base_height, self.screen_height)
-        self.GAME_SIZE_BUTTON_WIDTH = self.scale_value(game_size_buttons['BUTTON_WIDTH'], self.base_width, self.screen_width)
-        self.GAME_SIZE_BUTTON_BORDER_RADIUS = self.scale_value(game_size_buttons['BORDER_RADIUS'], self.base_width, self.screen_width)
-        self.GAME_SIZE_BUTTON_FONT_SIZE = self.scale_value(game_size_buttons['FONT_SIZE'], self.base_height, self.screen_height)
+        self.GS_FONT_SIZE = self.scale_value(game_size_buttons['GS_FONT_SIZE'], self.base_height, self.screen_height)
+        self.GS_BUTTON_HEIGHT = self.scale_value(game_size_buttons['GS_BUTTON_HEIGHT'], self.base_height, self.screen_height)
+        self.GS_BUTTON_WIDTH = self.scale_value(game_size_buttons['GS_BUTTON_WIDTH'], self.base_width, self.screen_width)
+        self.GS_BORDER_RADIUS = self.scale_value(game_size_buttons['GS_BORDER_RADIUS'], self.base_width, self.screen_width)
+
 
         self.GAME_SIZE_BUTTONS = game_size_buttons['buttons']
 
