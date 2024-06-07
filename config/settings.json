@@ -1,78 +1,95 @@
 {
-    "base_width": 1920,
-    "base_height": 1080,
-    "screen_width": 800,
-    "screen_height": 600,
-    "TASKBAR_HEIGHT": 72,
-    "BORDER_THICKNESS": 5,
-    "GAME_WIDTH": 800,
-    "GAME_HEIGHT": 600,
-    "TITLE_Y_OFFSET_MULTIPLIER": 5,
-    "BUTTON_Y_OFFSET_MULTIPLIER": 2,
-    "BUTTON_Y_OFFSET_SHIFT": 3,
-    "SPEED_BUTTON_WIDTH": 150,
-    "SPEED_BUTTON_PADDING_TOP": 10,
-    "MB_HEIGHT": 96,
-    "MB_WIDTH": 440,
-    "MB_BORDER_RADIUS": 12,
-    "BUTTON_Y_OFFSET": 48,
-    "BUTTON_FONT_SIZE": 72,
-    "BUTTON_PADDING": 10,
-    "BUTTON_WIDTH": 175,
-    "GAME_TITLE": "Snake AI 2",
-    "TITLE_FONT_SIZE": 144,
-    "TEXT_COLOR": [
-        24,
-        30,
-        40
-    ],
-    "BACKGROUND_COLOR": [
-        136,
-        175,
-        146
-    ],
-    "BACKGROUND_GREEN": [
-        136,
-        175,
-        146
-    ],
-    "GREEN_BLACK": [
-        24,
-        30,
-        40
-    ],
-    "DARK_GREEN": [
-        8,
-        71,
-        57
-    ],
-    "RED": [
-        191,
-        47,
-        55
-    ],
-    "GRID_COLOR": [
-        24,
-        30,
-        40
-    ],
-    "GREEN_SNAKE": [
-        8,
-        71,
-        57
-    ],
-    "SNAKE_TRANS": 200,
-    "FOOD_COLOR": [
-        191,
-        47,
-        55
-    ],
-    "BORDER_COLOR": [
-        24,
-        30,
-        40
-    ],
-    "HOVER_SOUND": "sounds/hover_sound.wav",
-    "CLICK_SOUND": "sounds/click_sound.wav",
-    "number_of_cells": 20
+    "game_settings": {
+        "number_of_cells": 20
+    },
+    "base_sacles": {
+        "SCREEN_WIDTH": 1920,
+        "SCREEN_HEIGHT": 1080
+    },
+    "game_scales": {
+        "BORDER_THICKNESS": 5,
+        "GAME_WIDTH": 800,
+        "GAME_HEIGHT": 600,
+        "buttons": {
+            "SPEED_BUTTON_WIDTH": 150,
+            "SPEED_BUTTON_PADDING_TOP": 10
+        }
+    },
+    "menu_scales": {
+        "TITLE_Y_OFFSET_MULTIPLIER": 5,
+        "BUTTON_Y_OFFSET_MULTIPLIER": 2,
+        "BUTTON_Y_OFFSET_SHIFT": 3,
+        "buttons": {
+            "MB_HEIGHT": 96,
+            "MB_WIDTH": 440,
+            "MB_BORDER_RADIUS": 12,
+            "BUTTON_Y_OFFSET": 48,
+            "BUTTON_FONT_SIZE": 72,
+            "BUTTON_PADDING": 10,
+            "BUTTON_WIDTH": 175,
+            "TITLE_FONT_SIZE": 144
+        }
+    },
+    "menu_text": {
+        "GAME_TITLE": "Snake AI 2"
+    },
+    "game_text": {},
+    "colors": {
+        "TEXT_COLOR": [
+            24,
+            30,
+            40
+        ],
+        "BACKGROUND_COLOR": [
+            136,
+            175,
+            146
+        ],
+        "BACKGROUND_GREEN": [
+            136,
+            175,
+            146
+        ],
+        "GREEN_BLACK": [
+            24,
+            30,
+            40
+        ],
+        "DARK_GREEN": [
+            8,
+            71,
+            57
+        ],
+        "RED": [
+            191,
+            47,
+            55
+        ],
+        "GRID_COLOR": [
+            24,
+            30,
+            40
+        ],
+        "GREEN_SNAKE": [
+            8,
+            71,
+            57
+        ],
+        "FOOD_COLOR": [
+            191,
+            47,
+            55
+        ],
+        "BORDER_COLOR": [
+            24,
+            30,
+            40
+        ],
+        "SNAKE_TRANS": 200
+    },
+    "sounds": {
+        "HOVER_SOUND": "sounds/hover_sound.wav",
+        "CLICK_SOUND": "sounds/click_sound.wav"
+    },
+    "number_of_cells": 30
 }
