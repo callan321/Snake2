@@ -1,20 +1,22 @@
 {
     "game_settings": {
-        "number_of_cells": 25,
-        "snake_size": 3,
-        "game_speed": 55
+        "number_of_cells": 8,
+        "snake_size": 2,
+        "game_speed": 35
     },
     "base_sacles": {
-        "SCREEN_WIDTH": 1792,
+        "SCREEN_WIDTH": 1920,
         "SCREEN_HEIGHT": 1080
     },
     "game_scales": {
         "BORDER_THICKNESS": 5,
         "GAME_WIDTH": 800,
         "GAME_HEIGHT": 600,
-        "buttons": {
-            "SPEED_BUTTON_WIDTH": 150,
-            "SPEED_BUTTON_PADDING_TOP": 10
+        "speed_button": {
+            "SB_WIDTH": 192,
+            "SB_HEIGHT": 108,
+            "SB_BORDER_RADIUS": 6,
+            "SB_FONT_SIZE": 64
         }
     },
     "menu_scales": {

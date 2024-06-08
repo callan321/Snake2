@@ -1,11 +1,11 @@
 import pygame
 import sys
 from typing import TYPE_CHECKING
+from logic.controller import HumanController
 
 if TYPE_CHECKING:
     from play_game import PlayGame
-    from logic.controller import HumanController
-    
+
 class EventHandler:
     """Handles all events for the game."""
 
@@ -46,7 +46,8 @@ class EventHandler:
             if self.play_game.ui.back_button.click(event):
                 self.play_game.return_to_menu = True
         elif self.play_game.ui.speed_button.rect.collidepoint(mouse_pos):
-            self.play_game.ui.speed_button.click(event)
+            if self.play_game.ui.speed_button.click(event):
+                self.play_game.speed = self.play_game.ui.speed_button.current_speed
 
     def handle_key_down(self, event: pygame.event.Event) -> None:
         """Handle the key down event."""

@@ -44,6 +44,7 @@ class HoverButton(Button, ABC):
             self._x, self._y = new_pos
         self.size = self.get_size()
         self.width, self.height = self.size
+        self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
         self.surface = pygame.Surface(self.size, pygame.SRCALPHA)
         text_color, bg_color = self.get_colors()
         border_radius = self.get_border_radius()

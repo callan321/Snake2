@@ -46,7 +46,8 @@ class PlayGame:
         current_time = pygame.time.get_ticks()
         if not self.paused and current_time - self.last_update_time > 1000 // self.speed:
             self.last_update_time = current_time
-            self.logic.update()
+            if not self.logic.update():
+                self.running = False
 
     def update_game_elements(self) -> None:
         """Update game elements such as UI and renderer dimensions."""

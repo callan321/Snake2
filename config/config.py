@@ -27,15 +27,15 @@ class GameConfig:
             json.dump(self.settings, file, indent=4)
 
     
-    def scale_value(self, base_value, screen_width, screen_height):
-        width_scale = screen_width / self.screen_width
-        height_scale = screen_height / self.screen_height
+    def scale_value(self, base_value, new_screen_width, new_screen_height):
+        width_scale = new_screen_width / self.screen_width
+        height_scale = new_screen_height / self.screen_height
         
         min_scale = min(width_scale, height_scale)
         
         scaled_value = base_value * min_scale
         return int(scaled_value)
-
+    
     def update_config(self, screen_width, screen_height):
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -46,14 +46,17 @@ class GameConfig:
         self.GAME_WIDTH = self.scale_value(game_scales['GAME_WIDTH'], self.base_width, self.screen_width)
         self.GAME_HEIGHT = self.scale_value(game_scales['GAME_HEIGHT'], self.base_height, self.screen_height)
         
-        game_buttons = game_scales['buttons']
-        self.SPEED_BUTTON_WIDTH = self.scale_value(game_buttons['SPEED_BUTTON_WIDTH'], self.base_width, self.screen_width)
-        self.SPEED_BUTTON_PADDING_TOP = self.scale_value(game_buttons['SPEED_BUTTON_PADDING_TOP'], self.base_height, self.screen_height)
-
+        # speed button
+        speed_button = game_scales['speed_button']
+        self.SB_WIDTH = self.scale_value(speed_button['SB_WIDTH'], self.base_width, self.screen_width)
+        self.SB_HEIGHT = self.scale_value(speed_button['SB_HEIGHT'], self.base_height, self.screen_height)
+        self.SB_BORDER_RADIUS = self.scale_value(speed_button['SB_BORDER_RADIUS'], self.base_width, self.screen_width)
+        self.SB_FONT_SIZE = self.scale_value(speed_button['SB_FONT_SIZE'], self.base_height, self.screen_height)
+        
         # MENU SCALES
         menu_scales = self.settings['menu_scales']
-        self.TITLE_FONT_SIZE = self.scale_value(menu_scales['TITLE_FONT_SIZE'], self.base_height, self.screen_height)
         self.TITLE_Y_OFFSET_MULTIPLIER = menu_scales['TITLE_Y_OFFSET_MULTIPLIER']
+        self.TITLE_FONT_SIZE = self.scale_value(menu_scales['TITLE_FONT_SIZE'], self.base_height, self.screen_height)
         self.MB_Y_OFFSET = self.scale_value(menu_scales['MB_Y_OFFSET'], self.base_height, self.screen_height)
         
         # menu button
@@ -63,7 +66,7 @@ class GameConfig:
         self.MB_BORDER_RADIUS = self.scale_value(menu_buttons['MB_BORDER_RADIUS'], self.base_width, self.screen_width)
         self.BUTTON_FONT_SIZE = self.scale_value(menu_buttons['MB_FONT_SIZE'], self.base_height, self.screen_height)
         
-        # game buttons
+        # size buttons
         game_size_buttons = menu_scales['game_size_button']
         self.GS_FONT_SIZE = self.scale_value(game_size_buttons['GS_FONT_SIZE'], self.base_height, self.screen_height)
         self.GS_BUTTON_HEIGHT = self.scale_value(game_size_buttons['GS_BUTTON_HEIGHT'], self.base_height, self.screen_height)
@@ -110,3 +113,4 @@ class GameConfig:
         self.cell_size = min(self.GAME_WIDTH, self.GAME_HEIGHT) // self.number_of_cells
         self.game_width = self.GAME_WIDTH // self.cell_size
         self.game_height = self.GAME_HEIGHT // self.cell_size
+        

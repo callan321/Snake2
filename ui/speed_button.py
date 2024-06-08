@@ -5,12 +5,12 @@ class SpeedButton(HoverButton):
     def __init__(self, text: str, pos: tuple[int, int], config: GameConfig) -> None:
         """Initialize a speed button with text, position, and configuration."""
         super().__init__(text, pos, config)
-        self.current_speed = self.config.game_speed
+        self.current_speed = config.game_speed
         self.update()
 
     def get_size(self) -> tuple[int, int]:
         """Get the size of the speed button."""
-        return self.config.GS_BUTTON_WIDTH, self.config.GS_BUTTON_HEIGHT
+        return self.config.SB_HEIGHT, self.config.SB_WIDTH
 
     def get_default_colors(self) -> tuple[tuple[int, int, int], tuple[int, int, int]]:
         """Get the default text and background colors of the speed button."""
@@ -18,7 +18,7 @@ class SpeedButton(HoverButton):
 
     def get_border_radius(self) -> int:
         """Get the border radius of the speed button."""
-        return self.config.MB_BORDER_RADIUS
+        return self.config.SB_BORDER_RADIUS
 
     def handle_click(self) -> bool:
         """Handle the click event for the speed button."""

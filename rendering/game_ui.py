@@ -10,8 +10,8 @@ class GameUI:
         self.screen_width, self.screen_height = self.screen.get_size()
         self.back_button = BackButton(self.config.BACK, (0, 0), config)
         self.speed_button = SpeedButton(
-            "Speed: 1",
-            (self.config.screen_width // 2 - self.config.SPEED_BUTTON_WIDTH * 0.75, self.config.SPEED_BUTTON_PADDING_TOP),
+            f"Speed: {config.game_speed // 5 - 1}",
+            (self.screen_width // 2 - self.config.SB_WIDTH * 0.75, self.config.SB_HEIGHT),
             config=config
         )
         self.update_dimensions()
@@ -19,7 +19,7 @@ class GameUI:
     def update_dimensions(self) -> None:
         self.back_button.rect.topleft = (0, 0)
         self.back_button.update()
-        self.speed_button.rect.topleft = (self.config.screen_width // 2 - self.config.SPEED_BUTTON_WIDTH * 0.75, self.config.SPEED_BUTTON_PADDING_TOP)
+        self.speed_button.rect.topleft = (self.screen_width // 2 - self.config.SB_WIDTH * 0.75, self.config.SB_HEIGHT)
         self.speed_button.update()
 
     def draw(self) -> None:
@@ -29,4 +29,3 @@ class GameUI:
         self.speed_button.update_highlight(mouse_pos)
         self.speed_button.show(self.screen)
         pygame.display.flip()
-
