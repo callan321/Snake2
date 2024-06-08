@@ -2,25 +2,22 @@ import pygame
 from ui.back_button import BackButton
 from ui.speed_button import SpeedButton
 from config.config import GameConfig
+from rendering.renderer import Renderer
 
-class GameUI:
+class GameUI(Renderer):
     def __init__(self, screen: pygame.Surface, config: GameConfig) -> None:
-        self.screen = screen
-        self.config = config
-        self.screen_width, self.screen_height = self.screen.get_size()
-        self.back_button = BackButton(self.config.BACK, (0, 0), config)
+        super().__init__(screen, config)
+        self.back_button = BackButton(self.config.BACK, config)
         self.speed_button = SpeedButton(
             f"Speed: {config.game_speed // 5 - 1}",
-            (self.screen_width // 2 - self.config.SB_WIDTH * 0.75, self.config.SB_HEIGHT),
             config=config
         )
-        self.update_dimensions()
+
 
     def update_dimensions(self) -> None:
-        self.back_button.rect.topleft = (0, 0)
-        self.back_button.update()
-        self.speed_button.rect.topleft = (self.screen_width // 2 - self.config.SB_WIDTH * 0.75, self.config.SB_HEIGHT)
-        self.speed_button.update()
+        self.update_positions()
+        self.back_button.update((self.center_w, 0))
+        self.speed_button.update((self.center_w, self.config.GAME_HEIGHT + self.config.SB_HEIGHT))
 
     def draw(self) -> None:
         mouse_pos = pygame.mouse.get_pos()

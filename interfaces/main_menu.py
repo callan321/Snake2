@@ -11,27 +11,22 @@ class MainMenu:
         self.config = config
         self.title_font = pygame.font.Font(None, self.config.TITLE_FONT_SIZE)
         self.title_text = self.title_font.render(self.config.GAME_TITLE, True, self.config.TEXT_COLOR)
-        self.button_labels = [config.PLAY, config.PLAY2, config.OPTIONS, config.REPLAY, config.QUIT]
         self.buttons: List[MenuButton] = []
-
-        self.update_positions()
-        self.create_buttons()
+        self.create_buttons(config)
 
     def update_positions(self) -> None:
         """Update positions of the title and buttons based on screen size."""
         self.screen_width, self.screen_height = self.screen.get_size()
         self.center_w = self.screen_width // 2
         self.center_h = self.screen_height // 2
-        self.title_rect = self.title_text.get_rect(
-            center=(self.center_w, self.center_h - self.config.TITLE_Y_OFFSET_MULTIPLIER * self.config.MB_HEIGHT)
-        )
 
-    def create_buttons(self) -> None:
+
+    def create_buttons(self, config: GameConfig) -> None:
         """Create buttons for the main menu."""
-        for i, label in enumerate(self.button_labels):
+        button_labels = [config.PLAY, config.PLAY2, config.OPTIONS, config.REPLAY, config.QUIT]
+        for label in button_labels:
             button = MenuButton(
                 label,
-                (self.center_w - self.config.MB_WIDTH // 2, self.center_h + i * self.config.MB_HEIGHT - self.config.MB_Y_OFFSET * self.config.MB_HEIGHT),
                 self.config
             )
             self.buttons.append(button)
@@ -39,6 +34,9 @@ class MainMenu:
     def update_button_positions(self) -> None:
         """Update button positions when the screen is resized."""
         self.update_positions()
+        self.title_rect = self.title_text.get_rect(
+            center=(self.center_w, self.center_h - self.config.TITLE_Y_OFFSET_MULTIPLIER * self.config.MB_HEIGHT)
+        )
         for i, button in enumerate(self.buttons):
             button.update((self.center_w - self.config.MB_WIDTH // 2, self.center_h + i * self.config.MB_HEIGHT - self.config.MB_Y_OFFSET * self.config.MB_HEIGHT))
 

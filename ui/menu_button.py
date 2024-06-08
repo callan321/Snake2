@@ -2,11 +2,10 @@ from ui.hover_button import HoverButton
 from config.config import GameConfig
 
 class MenuButton(HoverButton):
-    def __init__(self, text: str, pos: tuple[int, int], config: GameConfig) -> None:
+    def __init__(self, text: str, config: GameConfig) -> None:
         """Initialize a menu button with text, position, and configuration."""
-        super().__init__(text, pos, config)
+        super().__init__(text, config)
         self.config = config
-        self.update()
 
     def get_size(self):
         """Get the size of the menu button."""

@@ -4,6 +4,10 @@ from interfaces.play_game import PlayGame
 from interfaces.options import Options
 from config.config import GameConfig
 
+# fix game ui and render
+# fix resizeing and scaling
+# finish ecapulsation for main menu 
+# finish ecapsulation for settings
 
 def main() -> None:
     """Main function to initialize the game and handle the main menu loop."""

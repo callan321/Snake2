@@ -4,16 +4,15 @@ from config.config import GameConfig
 from ui.button import Button
 
 class HoverButton(Button, ABC):
-    def __init__(self, text: str, pos: tuple[int, int], config: GameConfig) -> None:
+    def __init__(self, text: str, config: GameConfig) -> None:
         """Initialize a hover button with text, position, and configuration."""
         super().__init__(config)
         self.text_string = text
-        self._x, self._y = pos
         self.highlighted = False
         self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
         self.surface = None
         self.rect = None
-        self.update()
+        
 
     @abstractmethod
     def get_size(self):
@@ -40,8 +39,8 @@ class HoverButton(Button, ABC):
 
     def update(self, new_pos: tuple[int, int] = None) -> None:
         """Update the button position and surface."""
-        if new_pos:
-            self._x, self._y = new_pos
+   
+        self._x, self._y = new_pos
         self.size = self.get_size()
         self.width, self.height = self.size
         self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
@@ -67,4 +66,4 @@ class HoverButton(Button, ABC):
     def change_text(self, text: str) -> None:
         """Change the button text and update the surface."""
         self.text_string = text
-        self.update()
+    

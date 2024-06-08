@@ -30,21 +30,17 @@ class Options:
     def create_buttons(self) -> None:
         """Create buttons for the options menu."""
         button_data = self.config.GAME_SIZE_BUTTONS
-        button_width = self.config.GS_BUTTON_WIDTH
-        total_width = len(button_data) * button_width
-        start_x = self.center_w - (total_width // 2) + (button_width // 2)
 
-        for i, (label, values) in enumerate(button_data.items()):
+        for label, values in button_data.items():
             button = GameSizeButton(
                 label,
-                (start_x + i * button_width - button_width // 2, self.center_h),
                 self.config
             )
             button.number_of_cells = values['number_of_cells']
             button.snake_size = values['snake_size']
             self.buttons.append(button)
 
-        self.back_button = BackButton(self.config.BACK, (self.center_w - self.config.MB_WIDTH // 2, self.center_h + 2 * self.config.GS_BUTTON_HEIGHT), self.config)
+        self.back_button = BackButton(self.config.BACK, self.config)
 
     def update_button_positions(self) -> None:
         """Update button positions when the screen is resized."""
