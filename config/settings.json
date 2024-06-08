@@ -2,7 +2,7 @@
     "game_settings": {
         "number_of_cells": 8,
         "snake_size": 2,
-        "game_speed": 25
+        "game_speed": 10
     },
     "base_sacles": {
         "SCREEN_WIDTH": 1920,
@@ -13,7 +13,7 @@
         "GAME_WIDTH": 800,
         "GAME_HEIGHT": 600,
         "speed_button": {
-            "SB_WIDTH": 192,
+            "SB_WIDTH": 156,
             "SB_HEIGHT": 108,
             "SB_BORDER_RADIUS": 6,
             "SB_FONT_SIZE": 64
@@ -36,7 +36,7 @@
             "GS_BORDER_RADIUS": 5,
             "buttons": {
                 "XS": {
-                    "number_of_cells": 8,
+                    "number_of_cells": 1,
                     "snake_size": 2
                 },
                 "S": {

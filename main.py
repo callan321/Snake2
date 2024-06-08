@@ -38,7 +38,7 @@ def main() -> None:
         if choice == config.PLAY:
             # adjust grid depending on aspect ratio
             config.calculate_grid_dimensions()
-            game = PlayGame(screen, config.game_width, config.game_height, config)
+            game = PlayGame(screen, config)
             game.run()
         elif choice == config.PLAY2:
             # Handle 2 player mode

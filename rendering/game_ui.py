@@ -15,9 +15,10 @@ class GameUI(Renderer):
 
     def update_dimensions(self) -> None:
         self.update_positions()
-        self.back_button.update((self.center_w, 0))
+        self.config.SB_WIDTH
+        self.back_button.update((0, 0))
         self.speed_button.update(
-            (self.center_w, self.config.GAME_HEIGHT + self.config.SB_HEIGHT)
+            (self.center_w - self.config.SB_WIDTH//2, 0)
         )
 
     def draw(self) -> None:
@@ -26,4 +27,4 @@ class GameUI(Renderer):
         self.back_button.show(self.screen)
         self.speed_button.update_highlight(mouse_pos)
         self.speed_button.show(self.screen)
-        pygame.display.flip()
+    

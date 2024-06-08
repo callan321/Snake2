@@ -9,7 +9,7 @@ class SpeedButton(HoverButton):
 
     def get_size(self) -> tuple[int, int]:
         """Get the size of the speed button."""
-        return self.config.SB_HEIGHT, self.config.SB_WIDTH
+        return  self.config.SB_WIDTH, self.config.SB_HEIGHT
 
     def get_default_colors(self) -> tuple[tuple[int, int, int], tuple[int, int, int]]:
         """Get the default text and background colors of the speed button."""

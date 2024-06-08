@@ -120,10 +120,11 @@ class AIController(Controller):
 
 class BFSController(AIController):
     def __init__(self, width, height):
+        super().__init__()
         self.width = width
         self.height = height
-        self.last_move = (0, 1)  # Initialize last move
-        super().__init__()
+        self.last_move = DOWN
+        
 
     def get_direction(self, snake: Snake, food_pos: tuple[int, int] | None) -> tuple[int, int]:
         head = snake.get_head()
@@ -141,14 +142,14 @@ class BFSController(AIController):
             
             if not snake.check_other(next_position) and  not snake.check_bounds(self.width, self.height, next_position):
                 if food_pos is None:
-                    self.move = move
+                    self.current_move = move
                     self.direction = DIRECTIONS[move]
                     return self.direction 
                 distance = self.heuristic(next_position, food_pos)
                 
                 if distance < best_distance:
                     best_distance = distance
-                    self.move = move
+                    self.current_move = move
                     self.direction = DIRECTIONS[move]
         
         return self.direction

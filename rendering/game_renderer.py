@@ -2,19 +2,19 @@ import pygame
 from config.config import GameConfig
 
 class GameRenderer:
-    def __init__(self, screen, width, height, config: GameConfig):
+    def __init__(self, screen, config: GameConfig):
         self.screen = screen
         self.cell_size = config.cell_size
-        self.width = width
-        self.height = height
+        self.WIDTH = config.game_width 
+        self.HEIGHT = config.game_height
         self.config = config
         self.update_offsets()
         self.update_sizes()
 
     def update_offsets(self):
         screen_width, screen_height = self.screen.get_size()
-        self.off_x = (screen_width - self.width * self.cell_size) // 2
-        self.off_y = (screen_height - self.height * self.cell_size) // 2
+        self.off_x = (screen_width - self.WIDTH * self.cell_size) // 2
+        self.off_y = (screen_height - self.HEIGHT * self.cell_size) // 2
 
     def update_sizes(self):
         self.SNAKE_BORDER_RADIUS = self.cell_size // 3
@@ -31,8 +31,8 @@ class GameRenderer:
             pygame.Rect(
                 self.off_x - self.config.BORDER_THICKNESS,
                 self.off_y - self.config.BORDER_THICKNESS,
-                self.width * self.cell_size + self.config.BORDER_THICKNESS * 2,
-                self.height * self.cell_size + self.config.BORDER_THICKNESS * 2,
+                self.WIDTH * self.cell_size + self.config.BORDER_THICKNESS * 2,
+                self.HEIGHT * self.cell_size + self.config.BORDER_THICKNESS * 2,
             ),
             self.config.BORDER_THICKNESS,
         )
@@ -60,23 +60,39 @@ class GameRenderer:
                     outline_surface = pygame.Surface((size, size), pygame.SRCALPHA)
                     pygame.draw.rect(outline_surface, self.config.BORDER_COLOR, outline_surface.get_rect(), 2, border_radius=border_radius)
                     self.screen.blit(outline_surface, position)
-                    eye_width = size // 5
-                    eye_height = size // 10
+                    
+                    eye_width = size // 4
+                    eye_height = size // 8
                     eye_offset = size // 3
+                    
                     if last_move == "R":
                         left_eye = pygame.Rect(position[0] + eye_offset, position[1] + eye_height, eye_width, eye_height)
                         right_eye = pygame.Rect(position[0] + eye_offset, position[1] + size - 2 * eye_height, eye_width, eye_height)
+                        tongue_points = [(position[0] + size + eye_width, position[1] + size // 2),
+                                         (position[0] + size, position[1] + size // 2 - eye_height),
+                                         (position[0] + size, position[1] + size // 2 + eye_height)]
                     elif last_move == "L":
                         left_eye = pygame.Rect(position[0] + size - eye_offset - eye_width, position[1] + eye_height, eye_width, eye_height)
                         right_eye = pygame.Rect(position[0] + size - eye_offset - eye_width, position[1] + size - 2 * eye_height, eye_width, eye_height)
+                        tongue_points = [(position[0] - eye_width, position[1] + size // 2),
+                                         (position[0], position[1] + size // 2 - eye_height),
+                                         (position[0], position[1] + size // 2 + eye_height)]
                     elif last_move == "D":
                         left_eye = pygame.Rect(position[0] + eye_height, position[1] + eye_offset, eye_height, eye_width)
                         right_eye = pygame.Rect(position[0] + size - 2 * eye_height, position[1] + eye_offset, eye_height, eye_width)
+                        tongue_points = [(position[0] + size // 2, position[1] + size + eye_height),
+                                         (position[0] + size // 2 - eye_width, position[1] + size),
+                                         (position[0] + size // 2 + eye_width, position[1] + size)]
                     elif last_move == "U":
                         left_eye = pygame.Rect(position[0] + eye_height, position[1] + size - eye_offset - eye_width, eye_height, eye_width)
                         right_eye = pygame.Rect(position[0] + size - 2 * eye_height, position[1] + size - eye_offset - eye_width, eye_height, eye_width)
+                        tongue_points = [(position[0] + size // 2, position[1] - eye_height),
+                                         (position[0] + size // 2 - eye_width, position[1]),
+                                         (position[0] + size // 2 + eye_width, position[1])]
+                    
                     pygame.draw.rect(self.screen, self.config.GREEN_SNAKE, left_eye)
                     pygame.draw.rect(self.screen, self.config.GREEN_SNAKE, right_eye)
+                    pygame.draw.polygon(self.screen, self.config.RED, tongue_points)
                 else:
                     pygame.draw.rect(self.screen, self.config.GREEN_SNAKE, rect, border_radius=border_radius)
                     outline_surface = pygame.Surface((size, size), pygame.SRCALPHA)

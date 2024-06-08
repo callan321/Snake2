@@ -9,12 +9,12 @@ from interfaces.game_interface import GameInterface
 class PlayGame(GameInterface):
     """Manages the main game loop and game state."""
 
-    def __init__(self, screen: pygame.Surface, width: int, height: int, config: GameConfig) -> None:
+    def __init__(self, screen: pygame.Surface, config: GameConfig) -> None:
         """Initialize the PlayGame class."""
         super().__init__(screen, config)
         self.ui = GameUI(screen, config)
-        self.renderer = GameRenderer(screen, width, height, config)
-        self.logic = GameLogic(width, height, controller_type='AI', snake_size=config.snake_size)
+        self.renderer = GameRenderer(screen, config)
+        self.logic = GameLogic(config.game_width, config.game_height, controller_type='AI', snake_size=config.snake_size)
         self.event_handler = EventHandler(self)
 
     def update_game_logic(self) -> bool:
