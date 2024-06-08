@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from logic.controller import HumanController
 
 if TYPE_CHECKING:
-    from play_game import PlayGame
+    from interfaces.play_game import PlayGame
 
 class EventHandler:
     """Handles all events for the game."""
@@ -47,7 +47,7 @@ class EventHandler:
                 self.play_game.return_to_menu = True
         elif self.play_game.ui.speed_button.rect.collidepoint(mouse_pos):
             if self.play_game.ui.speed_button.click(event):
-                self.play_game.speed = self.play_game.ui.speed_button.current_speed
+                self.play_game.config.game_speed = self.play_game.ui.speed_button.current_speed
 
     def handle_key_down(self, event: pygame.event.Event) -> None:
         """Handle the key down event."""
@@ -56,9 +56,9 @@ class EventHandler:
         if event.key == pygame.K_p:
             self.play_game.paused = not self.play_game.paused
         elif event.key == pygame.K_SPACE:
-            self.play_game.speed *= 4
+            self.play_game.config.game_speed *= 4
 
     def handle_key_up(self, event: pygame.event.Event) -> None:
         """Handle the key up event."""
         if event.key == pygame.K_SPACE:
-            self.play_game.speed //= 4
+            self.play_game.config.game_speed //= 4

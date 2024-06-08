@@ -1,0 +1,48 @@
+from abc import ABC, abstractmethod
+import pygame
+from config.config import GameConfig
+
+
+class Interface(ABC):
+    """Base interface class for game interfaces with default handle_time implementation."""
+
+    def __init__(self, screen: pygame.Surface, config : GameConfig) -> None:
+        """Initialize the game interface with screen, dimensions, and configuration."""
+        self.screen = screen
+        self.config = config
+        self.clock = pygame.time.Clock()
+        self.running = True
+        self.return_to_menu = False
+
+    def run(self) -> str:
+        """Run the main game loop."""
+        while self.running:
+            self.handle_time()
+            self.handle_events()
+            self.update_ui_elements()
+            self.draw()
+            pygame.display.flip()
+            if self.return_to_menu:
+                return self.config.MENU
+            
+    def handle_time(self) -> None:
+        self.clock.tick(self.config.FPS)
+
+    @abstractmethod
+    def handle_events(self) -> None:
+        """Handle the game events."""
+        pass
+
+    @abstractmethod
+    def update_ui_elements(self) -> None:
+        """Update UI elements such as UI and renderer dimensions."""
+        pass
+
+    @abstractmethod
+    def draw(self) -> None:
+        """Draw the game elements."""
+        pass
+
+
+
+
