@@ -4,13 +4,13 @@ from interfaces.play_game import PlayGame
 from interfaces.options import Options
 from config.config import GameConfig
 
+
 # fix game ui and render
 # fix resizeing and scaling
-# finish ecapulsation for main menu 
-# finish ecapsulation for settings
-
+# finish ecapulsation for main menu
+# finish ecapsulation for
 def main() -> None:
-    """Main function to initialize the game and handle the main menu loop."""
+    """Main function to initialize thex game and handle the main menu loop."""
     pygame.init()
     pygame.mixer.init()
 
@@ -32,27 +32,20 @@ def main() -> None:
     # Create the main menu
     main_menu = MainMenu(screen, config)
     while True:
-        # Run the main menu and get the user's choice
-        choice = main_menu.run()
+        main_menu.running = True
+        main_menu.run()
+        choice = main_menu.choice
         if choice == config.PLAY:
             # adjust grid depending on aspect ratio
             config.calculate_grid_dimensions()
             game = PlayGame(screen, config.game_width, config.game_height, config)
-            if game.run() == config.MENU:
-                continue
+            game.run()
         elif choice == config.PLAY2:
             # Handle 2 player mode
             pass
         elif choice == config.OPTIONS:
             options = Options(screen, config)
-            if options.run() == config.MENU:
-                # Reload config to reflect changes in settings
-                config = GameConfig(
-                    screen.get_width(),
-                    screen.get_height(),
-                    settings_file="config/settings.json",
-                )
-                continue
+            options.run()
         elif choice == config.REPLAY:
             # Handle replay mode
             pass

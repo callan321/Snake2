@@ -10,9 +10,9 @@ class Interface(ABC):
         """Initialize the game interface with screen, dimensions, and configuration."""
         self.screen = screen
         self.config = config
-        self.clock = pygame.time.Clock()
         self.running = True
-        self.return_to_menu = False
+        self.clock = pygame.time.Clock()
+
 
     def run(self) -> str:
         """Run the main game loop."""
@@ -22,8 +22,7 @@ class Interface(ABC):
             self.update_ui_elements()
             self.draw()
             pygame.display.flip()
-            if self.return_to_menu:
-                return self.config.MENU
+
             
     def handle_time(self) -> None:
         self.clock.tick(self.config.FPS)

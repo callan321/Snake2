@@ -4,20 +4,21 @@ from ui.speed_button import SpeedButton
 from config.config import GameConfig
 from rendering.renderer import Renderer
 
+
 class GameUI(Renderer):
     def __init__(self, screen: pygame.Surface, config: GameConfig) -> None:
         super().__init__(screen, config)
         self.back_button = BackButton(self.config.BACK, config)
         self.speed_button = SpeedButton(
-            f"Speed: {config.game_speed // 5 - 1}",
-            config=config
+            f"Speed: {config.game_speed // 5 - 1}", config=config
         )
-
 
     def update_dimensions(self) -> None:
         self.update_positions()
         self.back_button.update((self.center_w, 0))
-        self.speed_button.update((self.center_w, self.config.GAME_HEIGHT + self.config.SB_HEIGHT))
+        self.speed_button.update(
+            (self.center_w, self.config.GAME_HEIGHT + self.config.SB_HEIGHT)
+        )
 
     def draw(self) -> None:
         mouse_pos = pygame.mouse.get_pos()

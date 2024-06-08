@@ -21,7 +21,6 @@ class SpeedButton(HoverButton):
 
     def handle_click(self) -> bool:
         """Handle the click event for the speed button."""
-        print("Handling speed button click")
         self.current_speed += 5
         if self.current_speed > 55:
             self.current_speed = 10

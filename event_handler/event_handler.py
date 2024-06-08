@@ -44,7 +44,7 @@ class EventHandler:
         mouse_pos = pygame.mouse.get_pos()
         if self.play_game.ui.back_button.rect.collidepoint(mouse_pos):
             if self.play_game.ui.back_button.click(event):
-                self.play_game.return_to_menu = True
+                self.play_game.running = False
         elif self.play_game.ui.speed_button.rect.collidepoint(mouse_pos):
             if self.play_game.ui.speed_button.click(event):
                 self.play_game.config.game_speed = self.play_game.ui.speed_button.current_speed

@@ -30,7 +30,6 @@ class Options:
     def create_buttons(self) -> None:
         """Create buttons for the options menu."""
         button_data = self.config.GAME_SIZE_BUTTONS
-
         for label, values in button_data.items():
             button = GameSizeButton(
                 label,
