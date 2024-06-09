@@ -16,7 +16,7 @@ class MenuEventHandler(EventHandler):
     
     def handle_mouse_button_down(self, event: pygame.event.Event) -> None:
         """Handle the mouse button down event."""
-        for button in self.menu.renderer.buttons:
+        for button in self.menu.ui.buttons:
             if button.click(event):
                 self.menu.choice  = button.handle_click()
                 self.menu.running = False 

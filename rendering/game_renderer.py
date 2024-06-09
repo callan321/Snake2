@@ -112,7 +112,10 @@ class GameRenderer:
         pygame.draw.rect(self.screen, self.config.FOOD_COLOR, rect)
 
     def draw(self, snake, food, last_move):
-        self.screen.fill(self.config.BACKGROUND_COLOR)
         self.draw_border()
         self.draw_snake(snake, last_move)
         self.draw_food(food)
+
+    def update(self, snake, food, last_move):
+        self.update_screen_size()
+        self.draw(snake, food, last_move)

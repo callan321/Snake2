@@ -25,5 +25,5 @@ class GameInterface(Interface):
     @abstractmethod
     def update_game_logic(self) -> bool:
         """Update the game logic. Must be implemented by subclasses."""
-        raise NotImplementedError("This method must be overridden.")
+        pass 
 

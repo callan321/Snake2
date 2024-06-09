@@ -19,8 +19,7 @@ class Interface(ABC):
         while self.running:
             self.handle_logic()
             self.handle_events()
-            self.update_ui_elements()
-            self.draw()
+            self.update()
             pygame.display.flip()
 
             
@@ -33,12 +32,7 @@ class Interface(ABC):
         raise NotImplementedError("This method must be overridden.")
 
     @abstractmethod
-    def update_ui_elements(self) -> None:
-        """Update UI elements such as UI and renderer dimensions."""
-        raise NotImplementedError("This method must be overridden.")
-
-    @abstractmethod
-    def draw(self) -> None:
+    def update(self) -> None:
         """Draw the game elements."""
         raise NotImplementedError("This method must be overridden.")
 
