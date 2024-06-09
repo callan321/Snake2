@@ -25,19 +25,5 @@ class GameInterface(Interface):
     @abstractmethod
     def update_game_logic(self) -> bool:
         """Update the game logic. Must be implemented by subclasses."""
-        pass
+        raise NotImplementedError("This method must be overridden.")
 
-    @abstractmethod
-    def handle_events(self) -> None:
-        """Handle the game events."""
-        pass
-
-    @abstractmethod
-    def update_ui_elements(self) -> None:
-        """Update UI elements such as UI and renderer dimensions."""
-        pass
-
-    @abstractmethod
-    def draw(self) -> None:
-        """Draw the game elements."""
-        pass

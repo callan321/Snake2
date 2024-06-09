@@ -3,7 +3,7 @@ from rendering.game_ui import GameUI
 from rendering.game_renderer import GameRenderer
 from logic.game_logic import GameLogic
 from config.config import GameConfig
-from event_handler.event_handler import EventHandler
+from event_handler.game_event_handler import GameEventHandler
 from interfaces.game_interface import GameInterface
 
 class PlayGame(GameInterface):
@@ -14,8 +14,9 @@ class PlayGame(GameInterface):
         super().__init__(screen, config)
         self.ui = GameUI(screen, config)
         self.renderer = GameRenderer(screen, config)
+        self.event_handler = GameEventHandler(self)
         self.logic = GameLogic(config.game_width, config.game_height, controller_type='AI', snake_size=config.snake_size)
-        self.event_handler = EventHandler(self)
+        
 
     def update_game_logic(self) -> bool:
         """Update the game logic."""

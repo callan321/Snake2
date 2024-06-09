@@ -11,6 +11,7 @@ class MainMenu(Interface):
         super().__init__(screen, config)
         self.renderer = MainMenuRender(screen, config)
         self.event_handler = MenuEventHandler(self)
+        self.choice = None
 
     def handle_events(self) -> None:
         """Handle the game events."""

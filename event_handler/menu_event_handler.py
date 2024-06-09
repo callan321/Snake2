@@ -7,18 +7,24 @@ if TYPE_CHECKING:
 
 class MenuEventHandler(EventHandler):
     def __init__(self, menu: 'MainMenu') -> None:
+        super().__init__(menu.screen, menu.config)
         self.menu = menu
+                              
+    def update_ui_elements(self) -> None:
+        """Handle the window resize event."""
+        pass 
     
-    
-    def handle_events(self) -> None:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.quit_game()
-            elif event.type == pygame.VIDEORESIZE:
-                self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
-                self.menu.config.update_config(event.w, event.h)
-            else:
-                for button in self.menu.renderer.buttons:
-                    if button.click(event):
-                        self.menu.choice  = button.handle_click()
-                        self.menu.running = False
+    def handle_mouse_button_down(self, event: pygame.event.Event) -> None:
+        """Handle the mouse button down event."""
+        for button in self.menu.renderer.buttons:
+            if button.click(event):
+                self.menu.choice  = button.handle_click()
+                self.menu.running = False 
+
+    def handle_key_down(self, event: pygame.event.Event) -> None:
+        """Handle the key down event."""
+        pass
+
+    def handle_key_up(self, event: pygame.event.Event) -> None:
+        """Handle the key up event."""
+        pass
