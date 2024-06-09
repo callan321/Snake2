@@ -37,7 +37,6 @@ class GameConfig:
         return int(scaled_value)
     
     def update_config(self, screen_width, screen_height):
-        game_scales = self.settings['game_scales']
 
         # GAME SCALE CONFIG
         game_scales = self.settings['game_scales']
@@ -73,7 +72,7 @@ class GameConfig:
         self.GS_BORDER_RADIUS = self.scale_value(game_size_buttons['GS_BORDER_RADIUS'], screen_width, screen_height)
 
 
-        self.GAME_SIZE_BUTTONS = game_size_buttons['buttons']
+        self.GAME_SIZE_BUTTONS = game_size_buttons['BUTTONS']
 
         # globals
         globals = self.settings['globals']

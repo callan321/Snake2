@@ -44,7 +44,7 @@ class MainMenuRender(Renderer):
         self.screen.blit(self.title_text, self.title_rect)
         for button in self.buttons:
             button.show(self.screen)
-        pygame.display.flip()
+
         
         
         

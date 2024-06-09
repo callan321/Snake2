@@ -2,7 +2,7 @@
     "game_settings": {
         "number_of_cells": 8,
         "snake_size": 2,
-        "game_speed": 10
+        "game_speed": 55
     },
     "base_sacles": {
         "SCREEN_WIDTH": 1920,
@@ -13,7 +13,7 @@
         "GAME_WIDTH": 800,
         "GAME_HEIGHT": 600,
         "speed_button": {
-            "SB_WIDTH": 156,
+            "SB_WIDTH": 254,
             "SB_HEIGHT": 108,
             "SB_BORDER_RADIUS": 6,
             "SB_FONT_SIZE": 64
@@ -24,8 +24,8 @@
         "TITLE_Y_OFFSET_MULTIPLIER": 3,
         "MB_Y_OFFSET": 2,
         "menu_button": {
-            "MB_WIDTH": 192,
-            "MB_HEIGHT": 108,
+            "MB_WIDTH": 256,
+            "MB_HEIGHT": 94,
             "MB_BORDER_RADIUS": 12,
             "MB_FONT_SIZE": 72
         },
@@ -34,7 +34,7 @@
             "GS_BUTTON_HEIGHT": 98,
             "GS_BUTTON_WIDTH": 144,
             "GS_BORDER_RADIUS": 5,
-            "buttons": {
+            "BUTTONS": {
                 "XS": {
                     "number_of_cells": 1,
                     "snake_size": 2

@@ -2,11 +2,11 @@ from ui.hover_button import HoverButton
 from config.config import GameConfig
 
 class SpeedButton(HoverButton):
-    def __init__(self, text: str, config: GameConfig) -> None:
+    def __init__(self, config: GameConfig) -> None:
         """Initialize a speed button with text, position, and configuration."""
-        super().__init__(text, config)
+        super().__init__(self.get_text(config.game_speed), config)
         self.current_speed = config.game_speed
-
+        
     def get_size(self) -> tuple[int, int]:
         """Get the size of the speed button."""
         return  self.config.SB_WIDTH, self.config.SB_HEIGHT
@@ -24,7 +24,10 @@ class SpeedButton(HoverButton):
         self.current_speed += 5
         if self.current_speed > 55:
             self.current_speed = 10
-        self.change_text(f"Speed: {self.current_speed // 5 - 1}")
+        self.change_text(self.get_text(self.current_speed))
         self.config.settings['game_settings']['game_speed'] = self.current_speed
         self.config.save_settings()
         return True
+
+    def get_text(self, speed : int):
+        return f"Speed: {speed // 5 - 1}"
