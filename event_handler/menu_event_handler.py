@@ -10,10 +10,6 @@ class MenuEventHandler(EventHandler):
         super().__init__(menu.screen, menu.config)
         self.menu = menu
                               
-    def update_ui_elements(self) -> None:
-        """Handle the window resize event."""
-        pass 
-    
     def handle_mouse_button_down(self, event: pygame.event.Event) -> None:
         """Handle the mouse button down event."""
         for button in self.menu.ui.buttons:

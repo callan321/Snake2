@@ -19,7 +19,6 @@ class EventHandler(ABC):
                 self.quit_game()
             elif event.type == pygame.VIDEORESIZE:
                 self.handle_resize(event)
-                self.update_ui_elements()
             elif (
                 event.type == pygame.MOUSEBUTTONDOWN
                 or event.type == pygame.MOUSEBUTTONUP
@@ -40,11 +39,7 @@ class EventHandler(ABC):
         self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
         self.config.update_config(event.w, event.h)
 
-    @abstractmethod
-    def update_ui_elements(self) -> None:
-        """Handle the window resize event."""
-        pass 
-    
+
     @abstractmethod
     def handle_mouse_button_down(self, event: pygame.event.Event) -> None:
         """Handle the mouse button down event."""

@@ -4,14 +4,12 @@ from config.config import GameConfig
 class GameRenderer:
     def __init__(self, screen, config: GameConfig):
         self.screen = screen
-        self.cell_size = config.cell_size
+        self.config = config
         self.WIDTH = config.game_width 
         self.HEIGHT = config.game_height
-        self.config = config
-        self.update_offsets()
-        self.update_sizes()
 
     def update_offsets(self):
+        self.cell_size = self.config.cell_size
         screen_width, screen_height = self.screen.get_size()
         self.off_x = (screen_width - self.WIDTH * self.cell_size) // 2
         self.off_y = (screen_height - self.HEIGHT * self.cell_size) // 2

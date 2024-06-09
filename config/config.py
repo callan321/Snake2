@@ -7,10 +7,13 @@ class GameConfig:
         self.settings = self.load_settings(settings_file)
         self.BASE_SCREEN_WIDTH = self.settings['base_sacles']['SCREEN_WIDTH']
         self.BASE_SCREEN_HEIGHT = self.settings['base_sacles']['SCREEN_HEIGHT']
-        self.update_config(screen_width, screen_height)
+        
         self.number_of_cells = self.settings['game_settings'].get("number_of_cells", 20)
         self.snake_size = self.settings['game_settings'].get("snake_size", 2)
         self.game_speed = self.settings['game_settings'].get("game_speed", 1)
+        self.cell_size = None
+        
+        self.update_config(screen_width, screen_height)
 
     def load_settings(self, file_path):
         if not os.path.exists(file_path):
@@ -107,6 +110,11 @@ class GameConfig:
         self.HOVER_SOUND = sounds['HOVER_SOUND']
         self.CLICK_SOUND = sounds['CLICK_SOUND']
 
+        if self.cell_size is not None:
+            self.scale_value(self.cell_size, screen_width, screen_height)
+
+        
+        
     def calculate_grid_dimensions(self):
         self.cell_size = min(self.GAME_WIDTH, self.GAME_HEIGHT) // self.number_of_cells
         self.game_width = self.GAME_WIDTH // self.cell_size

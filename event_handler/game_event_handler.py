@@ -15,10 +15,6 @@ class GameEventHandler(EventHandler):
         super().__init__(play_game.screen, play_game.config)
         self.play_game = play_game
 
-    def update_ui_elements(self) -> None:
-        """Update the Ui elements after a window resize."""
-        self.play_game.ui.update_dimensions()
-        self.play_game.renderer.update_screen_size()
 
     def handle_mouse_button_down(self, event: pygame.event.Event) -> None:
         """Handle the mouse button down event."""
