@@ -9,9 +9,9 @@ class Button(ABC):
         self.highlighted = False
         self.hover_sound = pygame.mixer.Sound(config.HOVER_SOUND)
         self.click_sound = pygame.mixer.Sound(config.CLICK_SOUND)
-        self.rect = pygame.Rect(0, 0, 0, 0)  # Initial rect with zero size
-        self.surface = pygame.Surface((0, 0), pygame.SRCALPHA)  # Initialize surface with zero size
-        self.text_string = ""  # Initialize text_string to an empty string
+        self.rect = pygame.Rect(0, 0, 0, 0) 
+        self.surface = pygame.Surface((0, 0), pygame.SRCALPHA)  
+        self.text_string = ""  
     
     @abstractmethod
     def handle_click(self):
@@ -31,11 +31,8 @@ class Button(ABC):
         """Handle button click event."""
         x, y = pygame.mouse.get_pos()
         if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-            print("Mouse button down detected")  # Debug print
             if self.rect.collidepoint(x, y):
-                print("Mouse click inside button rect")  # Debug print
                 if self.click_sound:
-                    print("Playing click sound")  # Debug print
                     self.click_sound.play()
                 self.handle_click()  # Call the button's specific click handling
                 return True
