@@ -19,4 +19,3 @@ class Renderer:
         self.center_w = self.screen_w // 2
         self.center_h = self.screen_h // 2
  
- 

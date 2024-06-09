@@ -17,14 +17,14 @@ class Interface(ABC):
     def run(self) -> str:
         """Run the main game loop."""
         while self.running:
-            self.handle_time()
+            self.handle_logic()
             self.handle_events()
             self.update_ui_elements()
             self.draw()
             pygame.display.flip()
 
             
-    def handle_time(self) -> None:
+    def handle_logic(self) -> None:
         self.clock.tick(self.config.FPS)
 
     @abstractmethod

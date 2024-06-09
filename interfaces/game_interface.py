@@ -12,7 +12,7 @@ class GameInterface(Interface):
         self.paused = False
         self.last_update_time = pygame.time.get_ticks()
 
-    def handle_time(self) -> None:
+    def handle_logic(self) -> None:
         """Handle the game timing and updates based on game speed."""
         current_time = pygame.time.get_ticks()
         if not self.paused and current_time - self.last_update_time > GameInterface.MILLISECONDS_PER_SECOND // self.config.game_speed:
