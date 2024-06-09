@@ -19,7 +19,7 @@ class PlayGame(GameInterface):
         self.logic = GameLogic(
             config.game_width,
             config.game_height,
-            controller_type="AI",
+            controller_type=config.p1_controller,
             snake_size=config.snake_size,
         )
 
@@ -35,5 +35,5 @@ class PlayGame(GameInterface):
         """Update game elements such as UI and renderer dimensions and Draw the game elements."""
         self.ui.update()
         self.renderer.update(
-            self.logic.snake, self.logic.food, self.logic.controller.current_move
+            self.logic.snake, self.logic.food, self.logic.controller.get_move()
         )

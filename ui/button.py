@@ -32,10 +32,9 @@ class Button(ABC):
         x, y = pygame.mouse.get_pos()
         if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
             if self.rect.collidepoint(x, y):
-                if self.click_sound:
-                    self.click_sound.play()
-                self.handle_click()  
-                return True
+                self.click_sound.play()
+                result = self.handle_click()  
+                return result
         return False
 
     @abstractmethod

@@ -10,11 +10,7 @@ UP = "U"
 # Direction mappings
 DIRECTIONS = {UP: (0, -1), DOWN: (0, 1), LEFT: (-1, 0), RIGHT: (1, 0)}
 
-moves = [RIGHT,
-LEFT,
-DOWN ,
-UP ]
-
+moves = [RIGHT, LEFT, DOWN, UP]
 
 class Controller:
     def __init__(self):
@@ -28,9 +24,12 @@ class Controller:
     def get_direction(self) -> tuple[int, int]:
         """Return the current direction as a tuple of (x, y) coordinates."""
         return self.direction
+    
+    def get_move(self):
+        return self.current_move
 
     @staticmethod
-    def select(controller_type: str, width, height) -> "Controller":
+    def select(controller_type: str) -> "Controller":
         """Select and return the appropriate controller based on type.
 
         Args:
@@ -46,13 +45,12 @@ class Controller:
             "AI": BFSController,
             "Arrow": ArrowKeyController,
             "WASD": WASDController,
-            "Combined": CombinedController,
+            "Human": CombinedController,
         }
         if controller_type in controllers:
-            return controllers[controller_type](width, height)
+            return controllers[controller_type]()
         else:
             raise ValueError(f"Unknown controller type: {controller_type}")
-
 
 class HumanController(Controller):
     key_mappings = {}
@@ -80,7 +78,6 @@ class HumanController(Controller):
         self.changed_direction = False
         return self.direction
 
-
 class ArrowKeyController(HumanController):
     key_mappings = {
         pygame.K_RIGHT: {"move": RIGHT, "opposite": LEFT},
@@ -89,7 +86,6 @@ class ArrowKeyController(HumanController):
         pygame.K_UP: {"move": UP, "opposite": DOWN},
     }
 
-
 class WASDController(HumanController):
     key_mappings = {
         pygame.K_d: {"move": RIGHT, "opposite": LEFT},
@@ -97,7 +93,6 @@ class WASDController(HumanController):
         pygame.K_s: {"move": DOWN, "opposite": UP},
         pygame.K_w: {"move": UP, "opposite": DOWN},
     }
-
 
 class CombinedController(HumanController):
     key_mappings = {
@@ -111,22 +106,19 @@ class CombinedController(HumanController):
         pygame.K_w: {"move": UP, "opposite": DOWN},
     }
 
-
 class AIController(Controller):
+    def __init__(self):
+        super().__init__()
+        
     def handle_keydown(self, event: pygame.event.EventType) -> None:
         """AI controllers do not handle keydown events."""
         pass
 
-
 class BFSController(AIController):
-    def __init__(self, width, height):
+    def __init__(self):
         super().__init__()
-        self.width = width
-        self.height = height
-        self.last_move = DOWN
-        
 
-    def get_direction(self, snake: Snake, food_pos: tuple[int, int] | None) -> tuple[int, int]:
+    def get_direction(self, snake: Snake, food_pos: tuple[int, int], width, height) -> tuple[int, int]:
         head = snake.get_head()
         best_distance = float('inf')
         
@@ -140,7 +132,7 @@ class BFSController(AIController):
                 
             next_position = tuple(sum(x) for x in zip(head, DIRECTIONS[move]))
             
-            if not snake.check_other(next_position) and  not snake.check_bounds(self.width, self.height, next_position):
+            if not snake.check_other(next_position) and not snake.check_bounds(width, height, next_position):
                 if food_pos is None:
                     self.current_move = move
                     self.direction = DIRECTIONS[move]
@@ -153,10 +145,6 @@ class BFSController(AIController):
                     self.direction = DIRECTIONS[move]
         
         return self.direction
-    
-    
+
     def heuristic(self, target: tuple[int, int], goal: tuple[int, int]) -> int:
         return abs(target[0] - goal[0]) + abs(target[1] - goal[1])
-
-
-    

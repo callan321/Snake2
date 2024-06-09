@@ -1,7 +1,7 @@
 from game_objects.snake import Snake
 from game_objects.food import Food
 from game_objects.spawn_generator import SpawnGenerator
-from logic.controller import Controller, AIController
+from logic.controller import Controller, AIController, HumanController
 from typing import Tuple
 
 class GameLogicAI:
@@ -13,7 +13,8 @@ class GameLogicAI:
         self.snake = Snake(start_pos, snake_size)
         self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
         self.food = Food()
-        self.controller = Controller.select(controller_type, self.width, self.height)
+        self.controller = Controller.select(controller_type)
+        
 
     def update(self) -> bool:
         direction = self.get_direction()
@@ -51,5 +52,5 @@ class GameLogic(GameLogicAI):
 
     def get_direction(self) -> Tuple[int, int]:
         if isinstance(self.controller, AIController):
-            return self.controller.get_direction(self.snake, self.food.get_position())
+            return self.controller.get_direction(self.snake, self.food.get_position(), self.width, self.height)
         return self.controller.get_direction()

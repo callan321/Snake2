@@ -25,3 +25,8 @@ class MenuButton(HoverButton):
     def handle_click(self):
         """Handle the click event for the menu button."""
         return self.text_string
+
+    def get_choice(self):
+        return self.text_string
+
+        

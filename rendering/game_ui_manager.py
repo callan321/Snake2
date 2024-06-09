@@ -1,5 +1,5 @@
 import pygame
-from ui.back_button import BackButton
+from ui.menu_button import MenuButton
 from ui.speed_button import SpeedButton
 from config.config import GameConfig
 from rendering.renderer import Renderer
@@ -8,7 +8,7 @@ from rendering.renderer import Renderer
 class GameUIManager(Renderer):
     def __init__(self, screen: pygame.Surface, config: GameConfig) -> None:
         super().__init__(screen, config)
-        self.back_button = BackButton(self.config.BACK, config)
+        self.back_button = MenuButton(self.config.BACK, config)
         self.speed_button = SpeedButton(config=config)
 
     def update_element_positions(self):

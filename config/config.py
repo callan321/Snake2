@@ -8,9 +8,10 @@ class GameConfig:
         self.BASE_SCREEN_WIDTH = self.settings['base_sacles']['SCREEN_WIDTH']
         self.BASE_SCREEN_HEIGHT = self.settings['base_sacles']['SCREEN_HEIGHT']
         
-        self.number_of_cells = self.settings['game_settings'].get("number_of_cells", 20)
-        self.snake_size = self.settings['game_settings'].get("snake_size", 2)
+        self.number_of_cells = self.settings['game_settings'].get("number_of_cells", 25)
+        self.snake_size = self.settings['game_settings'].get("snake_size", 3)
         self.game_speed = self.settings['game_settings'].get("game_speed", 1)
+        self.p1_controller = self.settings['game_settings'].get("player1_controller", "Human")
         self.cell_size = 0
         
         self.update_config(screen_width, screen_height)
@@ -73,10 +74,16 @@ class GameConfig:
         self.GS_BUTTON_HEIGHT = self.scale_value(game_size_buttons['GS_BUTTON_HEIGHT'], screen_width, screen_height)
         self.GS_BUTTON_WIDTH = self.scale_value(game_size_buttons['GS_BUTTON_WIDTH'], screen_width, screen_height)
         self.GS_BORDER_RADIUS = self.scale_value(game_size_buttons['GS_BORDER_RADIUS'], screen_width, screen_height)
-
-
         self.GAME_SIZE_BUTTONS = game_size_buttons['BUTTONS']
 
+        # controller selector
+        controller_selector = menu_scales['controller_selector']
+        self.CS_FONT_SIZE = self.scale_value(controller_selector['CS_FONT_SIZE'], screen_width, screen_height)
+        self.CS_BUTTON_HEIGHT = self.scale_value(controller_selector['CS_BUTTON_HEIGHT'], screen_width, screen_height)
+        self.CS_BUTTON_WIDTH = self.scale_value(controller_selector['CS_BUTTON_WIDTH'], screen_width, screen_height)
+        self.CS_BORDER_RADIUS = self.scale_value(controller_selector['CS_BORDER_RADIUS'], screen_width, screen_height)
+ 
+        self.CONTROLLER_TYPES = self.settings["CONTROLLER_TYPES"]
         # globals
         globals = self.settings['globals']
         self.MENU = globals['MENU']
