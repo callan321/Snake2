@@ -8,7 +8,7 @@ class Renderer(ABC):
         self.screen = screen
         self.config = config
         self.screen_w, self.screen_h, self.center_w, self.center_h = 0, 0, 0, 0
-        self.update_positions()
+
 
     def update_positions(self) -> None:
         """Update positions of the title and buttons based on screen size."""

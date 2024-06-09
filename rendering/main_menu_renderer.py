@@ -10,9 +10,9 @@ class MainMenuUIManager(Renderer):
     def __init__(self, screen: pygame.Surface, config: GameConfig) -> None:
         super().__init__(screen, config)
         self.buttons: List[MenuButton] = []
-        self.create_buttons()
         self.title = TitleText(config.GAME_TITLE, config)
-        self.update_element_positions()  # Ensure positions are set initially
+        self.create_buttons()
+   
 
     def create_buttons(self):
         button_labels = [
@@ -28,7 +28,7 @@ class MainMenuUIManager(Renderer):
 
     def update_element_positions(self):
         """Update button positions when the screen is resized."""
-        self.title.update_position(
+        self.title.update(
             self.center_w,
             self.center_h
             - self.config.TITLE_Y_OFFSET_MULTIPLIER * self.config.MB_HEIGHT,
@@ -46,8 +46,7 @@ class MainMenuUIManager(Renderer):
 
     def update_elements(self):
         """Display the menu with the title and buttons."""
-        self.title.update()
-        self.update_element_positions()  # Ensure positions are updated
+        self.update_element_positions()
         mouse_pos = pygame.mouse.get_pos()
         for button in self.buttons:
             button.update_highlight(mouse_pos)

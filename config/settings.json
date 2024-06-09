@@ -2,7 +2,7 @@
     "game_settings": {
         "number_of_cells": 64,
         "snake_size": 8,
-        "game_speed": 55
+        "game_speed": 10
     },
     "base_sacles": {
         "SCREEN_WIDTH": 1920,

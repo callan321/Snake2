@@ -4,8 +4,6 @@ from interfaces.play_game import PlayGame
 from interfaces.options import Options
 from config.config import GameConfig
 
-# fix resizeing and scaling
-# finish ecapsulation for options 
 # add option to select a controler
 # fix bug where food can spawn under snake on first scale  
 def main() -> None:

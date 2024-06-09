@@ -1,8 +1,7 @@
 import pygame
-from typing import TYPE_CHECKING
 from logic.controller import HumanController
 from event_handler.event_handler import EventHandler
-
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from interfaces.play_game import PlayGame

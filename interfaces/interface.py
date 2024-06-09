@@ -29,13 +29,12 @@ class Interface(ABC):
     @abstractmethod
     def handle_events(self) -> None:
         """Handle the game events."""
-        raise NotImplementedError("This method must be overridden.")
+        pass
 
     @abstractmethod
     def update(self) -> None:
         """Draw the game elements."""
-        raise NotImplementedError("This method must be overridden.")
-
+        pass
 
 
 
