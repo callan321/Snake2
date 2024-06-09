@@ -1,7 +1,7 @@
 {
     "game_settings": {
-        "number_of_cells": 25,
-        "snake_size": 3,
+        "number_of_cells": 64,
+        "snake_size": 8,
         "game_speed": 55
     },
     "base_sacles": {

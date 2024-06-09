@@ -11,7 +11,7 @@ class GameConfig:
         self.number_of_cells = self.settings['game_settings'].get("number_of_cells", 20)
         self.snake_size = self.settings['game_settings'].get("snake_size", 2)
         self.game_speed = self.settings['game_settings'].get("game_speed", 1)
-        self.cell_size = None
+        self.cell_size = 0
         
         self.update_config(screen_width, screen_height)
 
@@ -110,8 +110,7 @@ class GameConfig:
         self.HOVER_SOUND = sounds['HOVER_SOUND']
         self.CLICK_SOUND = sounds['CLICK_SOUND']
 
-        if self.cell_size is not None:
-            self.scale_value(self.cell_size, screen_width, screen_height)
+        self.calculate_grid_dimensions()
 
         
         
