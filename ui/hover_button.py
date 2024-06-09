@@ -9,26 +9,10 @@ class HoverButton(Button, ABC):
         super().__init__(config)
         self.text_string = text
         self.highlighted = False
-        self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
+        self.font = None
         self.surface = None
         self.rect = None
         
-
-    @abstractmethod
-    def get_size(self):
-        """Get the size of the button."""
-        pass
-
-    @abstractmethod
-    def get_default_colors(self):
-        """Get the default text and background colors of the button."""
-        pass
-    
-    @abstractmethod
-    def get_border_radius(self):
-        """Get the border radius of the button."""
-        pass
-    
 
     def get_colors(self):
         """Get the text and background colors based on the highlight state."""
@@ -43,7 +27,7 @@ class HoverButton(Button, ABC):
         self._x, self._y = new_pos
         self.size = self.get_size()
         self.width, self.height = self.size
-        self.font = pygame.font.Font(None, self.config.BUTTON_FONT_SIZE)
+        self.font = pygame.font.Font(None, self.get_font_size())
         self.surface = pygame.Surface(self.size, pygame.SRCALPHA)
         text_color, bg_color = self.get_colors()
         border_radius = self.get_border_radius()
@@ -62,8 +46,36 @@ class HoverButton(Button, ABC):
             ),
         )
         self.rect = pygame.Rect(self._x, self._y, self.width, self.height)
-
-    def change_text(self, text: str) -> None:
-        """Change the button text and update the surface."""
-        self.text_string = text
     
+    def update_highlight(self, mouse_pos: tuple[int, int]) -> None:
+        """Update button highlight based on mouse position."""
+        previously_highlighted = self.highlighted
+        self.highlighted = self.rect.collidepoint(mouse_pos)
+
+        if self.highlighted and not previously_highlighted:
+            if self.hover_sound:
+                self.hover_sound.play()
+        elif not self.highlighted and previously_highlighted:
+            if self.hover_sound:
+                self.hover_sound.stop()
+
+        self.change_text(self.text_string)
+        
+    @abstractmethod
+    def get_size(self):
+        """Get the size of the button."""
+        pass
+
+    @abstractmethod
+    def get_default_colors(self):
+        """Get the default text and background colors of the button."""
+        pass
+    
+    @abstractmethod
+    def get_border_radius(self):
+        """Get the border radius of the button."""
+        pass
+    
+    def get_font_size(self):
+        """Get the font size of the button."""
+        pass 

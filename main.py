@@ -4,11 +4,10 @@ from interfaces.play_game import PlayGame
 from interfaces.options import Options
 from config.config import GameConfig
 
-
-# fix game ui and render
 # fix resizeing and scaling
-# finish ecapulsation for main menu
-# finish ecapsulation for
+# finish ecapsulation for options 
+# add option to select a controler
+# fix bug where food can spawn under snake on first scale  
 def main() -> None:
     """Main function to initialize thex game and handle the main menu loop."""
     pygame.init()

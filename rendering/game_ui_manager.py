@@ -25,8 +25,8 @@ class GameUIManager(Renderer):
 
     def draw(self):
         self.screen.fill(self.config.BACKGROUND_COLOR)
-        self.speed_button.show(self.screen)
-        self.back_button.show(self.screen)
+        self.speed_button.draw(self.screen)
+        self.back_button.draw(self.screen)
 
 
         

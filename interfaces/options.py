@@ -58,8 +58,8 @@ class Options:
         self.screen.fill(self.config.BACKGROUND_COLOR)
         self.screen.blit(self.title_text, self.title_rect)
         for button in self.buttons:
-            button.show(self.screen)
-        self.back_button.show(self.screen)  # Ensure back button is displayed
+            button.draw(self.screen)
+        self.back_button.draw(self.screen)  # Ensure back button is displayed
         pygame.display.flip()
 
     def run(self) -> str:

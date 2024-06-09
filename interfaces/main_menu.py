@@ -11,7 +11,7 @@ class MainMenu(Interface):
         super().__init__(screen, config)
         self.ui = MainMenuUIManager(screen, config)
         self.envent_handler = MenuEventHandler(self)
-        self.choice = None
+        self.choice = ""
 
     def handle_events(self) -> None:
         """Draw the game elements."""

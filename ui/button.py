@@ -23,7 +23,7 @@ class Button(ABC):
         """Change the button text. Must be implemented in subclasses."""
         pass
 
-    def show(self, screen: pygame.Surface) -> None:
+    def draw(self, screen: pygame.Surface) -> None:
         """Display the button on the screen."""
         screen.blit(self.surface, self.rect.topleft)
 
@@ -34,25 +34,15 @@ class Button(ABC):
             if self.rect.collidepoint(x, y):
                 if self.click_sound:
                     self.click_sound.play()
-                self.handle_click()  # Call the button's specific click handling
+                self.handle_click()  
                 return True
         return False
-
-    def update_highlight(self, mouse_pos: tuple[int, int]) -> None:
-        """Update button highlight based on mouse position."""
-        previously_highlighted = self.highlighted
-        self.highlighted = self.rect.collidepoint(mouse_pos)
-
-        if self.highlighted and not previously_highlighted:
-            if self.hover_sound:
-                self.hover_sound.play()
-        elif not self.highlighted and previously_highlighted:
-            if self.hover_sound:
-                self.hover_sound.stop()
-
-        self.change_text(self.text_string)
 
     @abstractmethod
     def update(self, new_pos: tuple[int, int] = None) -> None:
         """Update the button position. Must be implemented in subclasses."""
         pass
+    
+    def change_text(self, text: str) -> None:
+        """Change the button text and update the surface."""
+        self.text_string = text

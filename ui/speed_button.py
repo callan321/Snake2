@@ -19,6 +19,9 @@ class SpeedButton(HoverButton):
         """Get the border radius of the speed button."""
         return self.config.SB_BORDER_RADIUS
 
+    def get_font_size(self):
+        return  self.config.BUTTON_FONT_SIZE
+    
     def handle_click(self) -> bool:
         """Handle the click event for the speed button."""
         self.current_speed += 5

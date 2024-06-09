@@ -21,6 +21,9 @@ class GameSizeButton(HoverButton):
         """Get the border radius of the game size button."""
         return self.config.GS_BORDER_RADIUS
 
+    def get_font_size(self):
+        return  self.config.BUTTON_FONT_SIZE
+    
     def handle_click(self):
         """Handle the click event for the game size button."""
         self.config.settings['game_settings']['number_of_cells'] = self.number_of_cells

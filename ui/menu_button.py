@@ -19,6 +19,9 @@ class MenuButton(HoverButton):
         """Get the border radius of the menu button."""
         return self.config.MB_BORDER_RADIUS
 
+    def get_font_size(self):
+        return  self.config.BUTTON_FONT_SIZE
+
     def handle_click(self):
         """Handle the click event for the menu button."""
         return self.text_string
