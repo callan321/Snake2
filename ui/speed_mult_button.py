@@ -34,6 +34,5 @@ class SpeedMultButton(HoverButton):
         return True
 
     def get_text(self, speed : int):
-        if speed == 0.25: return "Snail: x4"
-        if speed == 0.5: return "Snail: x2"
+        if speed == 0.5: return "Snail"
         return f"Turbo: x{speed}"

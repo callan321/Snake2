@@ -6,7 +6,6 @@ from config.config import GameConfig
 
 
 # fix even handling for button clicks main menu
-# fix speed button locgic
 # fix bug where food can spawn under snake on first scale  
 # make so game only allows for valid moves
 # improve game logic'
