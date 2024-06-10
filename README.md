@@ -4,8 +4,8 @@
 
 - [Introduction](#introduction)
 - [Features](#features)
-- [Installation](#installation)
 - [How to Play](#how-to-play)
+- [Installation](#installation)
 
 ## Introduction
 Welcome to the Snake Game! This project is an implementation of the classic snake game. The project aims to demonstrate how pathfinding algorithms and, later, machine learning models can be used in an interactive and visual way.
