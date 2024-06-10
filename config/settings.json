@@ -1,7 +1,7 @@
 {
     "game_settings": {
-        "number_of_cells": 8,
-        "snake_size": 2,
+        "number_of_cells": 64,
+        "snake_size": 5,
         "game_speed": 10,
         "player1_controller": "AI"
     },

@@ -76,6 +76,7 @@ class HoverButton(Button, ABC):
         """Get the border radius of the button."""
         pass
     
+    @abstractmethod
     def get_font_size(self):
         """Get the font size of the button."""
         pass 

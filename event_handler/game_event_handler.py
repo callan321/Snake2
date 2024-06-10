@@ -29,9 +29,9 @@ class GameEventHandler(EventHandler):
         if event.key == pygame.K_p:
             self.play_game.paused = not self.play_game.paused
         elif event.key == pygame.K_SPACE:
-            self.play_game.config.game_speed *= 4
+            self.play_game.config.game_speed *= 16
 
     def handle_key_up(self, event: pygame.event.Event) -> None:
         """Handle the key up event."""
         if event.key == pygame.K_SPACE:
-            self.play_game.config.game_speed //= 4
+            self.play_game.config.game_speed //= 16
