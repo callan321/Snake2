@@ -6,21 +6,28 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from interfaces.play_game import PlayGame
 
+
 class GameEventHandler(EventHandler):
     """Handles all events for the game."""
 
-    def __init__(self, play_game: 'PlayGame') -> None:
+    def __init__(self, play_game: "PlayGame") -> None:
         """Initialize the EventHandler with a reference to the PlayGame instance."""
         super().__init__(play_game.screen, play_game.config)
         self.play_game = play_game
-
 
     def handle_mouse_button_down(self, event: pygame.event.Event) -> None:
         """Handle the mouse button down event."""
         if self.play_game.ui.back_button.click(event):
             self.play_game.running = False
         if self.play_game.ui.speed_button.click(event):
-            self.play_game.config.game_speed = self.play_game.ui.speed_button.current_speed
+            if not self.play_game.mult:
+                self.play_game.curr_speed = self.config.game_speed
+            else:
+                self.play_game.curr_speed = (
+                    self.config.game_speed * self.config.game_speed_mult
+                )
+
+        self.play_game.ui.speed_mult.click(event)
 
     def handle_key_down(self, event: pygame.event.Event) -> None:
         """Handle the key down event."""
@@ -29,9 +36,11 @@ class GameEventHandler(EventHandler):
         if event.key == pygame.K_p:
             self.play_game.paused = not self.play_game.paused
         elif event.key == pygame.K_SPACE:
-            self.play_game.config.game_speed *= 16
+            self.play_game.curr_speed *= self.play_game.config.game_speed_mult
+            self.play_game.mult = True
 
     def handle_key_up(self, event: pygame.event.Event) -> None:
         """Handle the key up event."""
         if event.key == pygame.K_SPACE:
-            self.play_game.config.game_speed //= 16
+            self.play_game.curr_speed //= self.play_game.config.game_speed_mult
+            self.play_game.mult = False

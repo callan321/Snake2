@@ -1,11 +1,11 @@
 from ui.hover_button import HoverButton
 from config.config import GameConfig
 
-class SpeedButton(HoverButton):
+class SpeedMultButton(HoverButton):
     def __init__(self, config: GameConfig) -> None:
         """Initialize a speed button with text, position, and configuration."""
-        super().__init__(self.get_text(config.game_speed), config)
-        self.current_speed = config.game_speed
+        super().__init__(self.get_text(config.game_speed_mult), config)
+        self.idx = config.GAME_SPEED_MULT_OPT.index(config.game_speed_mult)
         
     def get_size(self) -> tuple[int, int]:
         """Get the size of the speed button."""
@@ -22,16 +22,18 @@ class SpeedButton(HoverButton):
     def get_font_size(self):
         return  self.config.BUTTON_FONT_SIZE
     
+    
     def handle_click(self) -> bool:
         """Handle the click event for the speed button."""
-        self.current_speed += 10
-        if self.current_speed > 50:
-            self.current_speed = 10
-        self.change_text(self.get_text(self.current_speed))
-        self.config.settings['game_settings']['game_speed'] = self.current_speed
+        self.idx = (self.idx + 1) % len(self.config.GAME_SPEED_MULT_OPT)
+        new_speed = self.config.GAME_SPEED_MULT_OPT[self.idx]
+        self.change_text(self.get_text(new_speed))
+        self.config.settings['game_settings']["game_speed_mult"] = new_speed
         self.config.save_settings()
-        self.config.game_speed = self.current_speed
+        self.config.game_speed_mult = new_speed
         return True
 
     def get_text(self, speed : int):
-        return f"Speed: {speed // 10}"
+        if speed == 0.25: return "Snail: x4"
+        if speed == 0.5: return "Snail: x2"
+        return f"Turbo: x{speed}"

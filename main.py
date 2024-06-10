@@ -4,7 +4,7 @@ from interfaces.play_game import PlayGame
 from interfaces.options import Options
 from config.config import GameConfig
 
-# add option to select a controler
+
 # fix even handling for button clicks main menu
 # fix speed button locgic
 # fix bug where food can spawn under snake on first scale  

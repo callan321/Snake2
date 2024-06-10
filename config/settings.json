@@ -1,8 +1,9 @@
 {
     "game_settings": {
-        "number_of_cells": 64,
-        "snake_size": 5,
+        "number_of_cells": 16,
+        "snake_size": 3,
         "game_speed": 10,
+        "game_speed_mult": 4,
         "player1_controller": "AI"
     },
     "base_sacles": {
@@ -68,6 +69,14 @@
     "CONTROLLER_TYPES": [
         "AI",
         "Human"
+    ],
+    "GAME_SPEED_MULT_OPT": [
+        0.25,
+        0.5,
+        2,
+        4,
+        8,
+        16
     ],
     "globals": {
         "MENU": "Menu",

@@ -11,6 +11,7 @@ class GameConfig:
         self.number_of_cells = self.settings['game_settings'].get("number_of_cells", 25)
         self.snake_size = self.settings['game_settings'].get("snake_size", 3)
         self.game_speed = self.settings['game_settings'].get("game_speed", 1)
+        self.game_speed_mult = self.settings['game_settings'].get("game_speed_mult", 2)
         self.p1_controller = self.settings['game_settings'].get("player1_controller", "Human")
         self.cell_size = 0
         
@@ -41,7 +42,7 @@ class GameConfig:
         return int(scaled_value)
     
     def update_config(self, screen_width, screen_height):
-
+        
         # GAME SCALE CONFIG
         game_scales = self.settings['game_scales']
         self.BORDER_THICKNESS = self.scale_value(game_scales['BORDER_THICKNESS'], screen_width, screen_height)
@@ -83,7 +84,10 @@ class GameConfig:
         self.CS_BUTTON_WIDTH = self.scale_value(controller_selector['CS_BUTTON_WIDTH'], screen_width, screen_height)
         self.CS_BORDER_RADIUS = self.scale_value(controller_selector['CS_BORDER_RADIUS'], screen_width, screen_height)
  
+ 
         self.CONTROLLER_TYPES = self.settings["CONTROLLER_TYPES"]
+        self.GAME_SPEED_MULT_OPT = self.settings["GAME_SPEED_MULT_OPT"]
+        
         # globals
         globals = self.settings['globals']
         self.MENU = globals['MENU']

@@ -2,7 +2,6 @@ import pygame
 from abc import abstractmethod
 from interfaces.interface import Interface
 
-                
 class GameInterface(Interface):
     """Abstract base class for game interfaces."""
     MILLISECONDS_PER_SECOND = 1000
@@ -13,6 +12,8 @@ class GameInterface(Interface):
         self.paused = False
         self.clock = pygame.time.Clock()
         self.time_accumulator = 0  # Time accumulator for logic updates
+        self.curr_speed = self.config.game_speed
+        self.mult = False
 
     def handle_logic(self) -> None:
         """Handle the game timing and updates based on game speed."""
@@ -20,8 +21,8 @@ class GameInterface(Interface):
         if not self.paused:
             self.time_accumulator += delta_time
 
-            # Calculate the update interval based on game speed
-            update_interval = GameInterface.MILLISECONDS_PER_SECOND // self.config.game_speed
+            # Calculate the update interval based on actual game speed
+            update_interval = GameInterface.MILLISECONDS_PER_SECOND // self.curr_speed
 
             # Update the game logic based on the time accumulated
             while self.time_accumulator >= update_interval:
@@ -30,8 +31,10 @@ class GameInterface(Interface):
                     break
                 self.time_accumulator -= update_interval
 
+
     @abstractmethod
     def update_game_logic(self) -> bool:
         """Update the game logic. Must be implemented by subclasses."""
         pass
+    
 
