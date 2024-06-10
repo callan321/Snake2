@@ -1,10 +1,10 @@
 {
     "game_settings": {
-        "number_of_cells": 25,
-        "snake_size": 3,
-        "game_speed": 30,
-        "game_speed_mult": 0.25,
-        "player1_controller": "Human"
+        "number_of_cells": 8,
+        "snake_size": 2,
+        "game_speed": 10,
+        "game_speed_mult": 0.3,
+        "player1_controller": "AI"
     },
     "base_sacles": {
         "SCREEN_WIDTH": 1920,
@@ -71,7 +71,7 @@
         "Human"
     ],
     "GAME_SPEED_MULT_OPT": [
-        0.5,
+        0.3,
         2,
         4,
         8,

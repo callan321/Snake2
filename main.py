@@ -6,11 +6,14 @@ from config.config import GameConfig
 
 
 # fix even handling for button clicks main menu
-# fix bug where food can spawn under snake on first scale  
+# make buttons more efficient 
+  
+# improve game logic
+# fix bug where food can spawn under snake on first scale
 # make so game only allows for valid moves
-# improve game logic'
-# add sound to game
 # return vales in logic
+# add sound to game
+
 def main() -> None:
     """Main function to initialize thex game and handle the main menu loop."""
     pygame.init()
