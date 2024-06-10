@@ -10,7 +10,7 @@
 ## Introduction
 Welcome to the Snake Game! This project is an implementation of the classic snake game. The project aims to demonstrate how pathfinding algorithms and, later, machine learning models can be used in an interactive and visual way.
 
-## Features
+### Features
 - Speed boost (or slow)
 - Speed control
 - AI or human-controlled modes
@@ -22,16 +22,14 @@ Welcome to the Snake Game! This project is an implementation of the classic snak
 - Press P to pause
 
 ## Installation
+
 ### Prerequisites
 - Python 3
 - Pygame
+
 ### Install Dependencies
 ```bash
 pip install pygame
-```
-### Clone repository:  
-```bash
-https://github.com/yourusername/snake-game.git
 ```
 
 
