@@ -35,6 +35,4 @@ class PlayGame(GameInterface):
     def draw(self) -> None:
         """Update game elements such as UI and renderer dimensions and Draw the game elements."""
         self.ui.draw()
-        self.game_rd.update(
-            self.logic.snake, self.logic.food, self.logic.controller.get_move()
-        )
+        self.game_rd.update(self.logic.snake, self.logic.food, "U")

@@ -5,13 +5,14 @@ from interfaces.options import Options
 from config.config import GameConfig
 
 
-# add hold button
+
   
-# improve game logic
-# fix bug where food can spawn under snake on first scale
+
 # make so game only allows for valid moves
 # return vales in logic
+
 # add sound to game
+# add hold button
 
 def main() -> None:
     """Main function to initialize thex game and handle the main menu loop."""

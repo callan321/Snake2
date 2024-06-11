@@ -1,5 +1,6 @@
 import pygame
 from config.config import GameConfig
+from collections import deque
 
 class GameRenderer:
     def __init__(self, screen, config: GameConfig):
@@ -36,7 +37,7 @@ class GameRenderer:
         )
 
     def draw_snake(self, snake, last_move):
-        body = list(snake.get_body())
+        body = snake.get_body()
 
         if body:
             max_size = self.cell_size

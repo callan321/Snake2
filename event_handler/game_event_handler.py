@@ -1,5 +1,5 @@
 import pygame
-from logic.controller import HumanController
+from logic.controller.human_controllers import HumanController
 from event_handler.event_handler import EventHandler
 from typing import TYPE_CHECKING
 
