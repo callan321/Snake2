@@ -1,6 +1,7 @@
 import pygame
 from config.config import GameConfig
 from collections import deque
+from typing import Tuple
 
 class GameRenderer:
     def __init__(self, screen, config: GameConfig):
@@ -36,7 +37,7 @@ class GameRenderer:
             self.config.gbt,
         )
 
-    def draw_snake(self, snake, last_move):
+    def draw_snake(self, snake, last_direction: Tuple[int, int]):
         body = snake.get_body()
 
         if body:
@@ -64,25 +65,28 @@ class GameRenderer:
                     eye_height = size // 8
                     eye_offset = size // 3
                     
-                    if last_move == "R":
+                    left_eye = right_eye = pygame.Rect(0, 0, eye_width, eye_height)
+                    tongue_points = [(0, 0), (0, 0), (0, 0)]
+
+                    if last_direction == (1, 0):  # Right
                         left_eye = pygame.Rect(position[0] + eye_offset, position[1] + eye_height, eye_width, eye_height)
                         right_eye = pygame.Rect(position[0] + eye_offset, position[1] + size - 2 * eye_height, eye_width, eye_height)
                         tongue_points = [(position[0] + size + eye_width, position[1] + size // 2),
                                          (position[0] + size, position[1] + size // 2 - eye_height),
                                          (position[0] + size, position[1] + size // 2 + eye_height)]
-                    elif last_move == "L":
+                    elif last_direction == (-1, 0):  # Left
                         left_eye = pygame.Rect(position[0] + size - eye_offset - eye_width, position[1] + eye_height, eye_width, eye_height)
                         right_eye = pygame.Rect(position[0] + size - eye_offset - eye_width, position[1] + size - 2 * eye_height, eye_width, eye_height)
                         tongue_points = [(position[0] - eye_width, position[1] + size // 2),
                                          (position[0], position[1] + size // 2 - eye_height),
                                          (position[0], position[1] + size // 2 + eye_height)]
-                    elif last_move == "D":
+                    elif last_direction == (0, 1):  # Down
                         left_eye = pygame.Rect(position[0] + eye_height, position[1] + eye_offset, eye_height, eye_width)
                         right_eye = pygame.Rect(position[0] + size - 2 * eye_height, position[1] + eye_offset, eye_height, eye_width)
                         tongue_points = [(position[0] + size // 2, position[1] + size + eye_height),
                                          (position[0] + size // 2 - eye_width, position[1] + size),
                                          (position[0] + size // 2 + eye_width, position[1] + size)]
-                    elif last_move == "U":
+                    elif last_direction == (0, -1):  # Up
                         left_eye = pygame.Rect(position[0] + eye_height, position[1] + size - eye_offset - eye_width, eye_height, eye_width)
                         right_eye = pygame.Rect(position[0] + size - 2 * eye_height, position[1] + size - eye_offset - eye_width, eye_height, eye_width)
                         tongue_points = [(position[0] + size // 2, position[1] - eye_height),
@@ -110,11 +114,11 @@ class GameRenderer:
         rect = pygame.Rect(position, size)
         pygame.draw.rect(self.screen, self.config.FOOD_COLOR, rect)
 
-    def draw(self, snake, food, last_move):
+    def draw(self, snake, food, last_direction):
         self.draw_border()
-        self.draw_snake(snake, last_move)
+        self.draw_snake(snake, last_direction)
         self.draw_food(food)
 
-    def update(self, snake, food, last_move):
+    def update(self, snake, food, last_direction):
         self.update_screen_size()
-        self.draw(snake, food, last_move)
+        self.draw(snake, food, last_direction)
