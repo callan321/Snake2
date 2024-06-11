@@ -6,7 +6,6 @@ from abc import ABC, abstractmethod
 class Renderer(ABC):
     def __init__(self, screen: pygame.Surface, config: GameConfig) -> None:
         self.screen = screen
-        print(self.screen)
         self.config = config
         self.screen_w, self.screen_h, self.center_w, self.center_h = 0, 0, 0, 0
 

@@ -12,7 +12,7 @@ from ui.p2_button import P2Button
 class OptRenderer(Renderer):
     def __init__(self, screen: pygame.Surface, config: GameConfig) -> None:
         super().__init__(screen, config)
-        #self.heading = TitleText(config.OPTIONS, config)
+        self.heading = TitleText(config.OPTIONS, config)
         self.gs_buttons: List[GameSizeButton] = []
         self.buttons = []
         self.create_buttons(config)
@@ -33,7 +33,7 @@ class OptRenderer(Renderer):
         self.buttons = self.buttons + self.gs_buttons
         
     def update_element_positions(self):
-        #self.heading.update(self.center_w, self.center_h - self.center_h // 2)
+        self.heading.update(self.center_w, self.center_h - self.center_h // 2)
 
         button_width = self.config.sm_width
         total_width = len(self.config.GAME_SIZE_BUTTONS) * button_width
@@ -57,5 +57,5 @@ class OptRenderer(Renderer):
     def draw(self):
         """Display the options menu with the title and buttons."""
         self.screen.fill(self.config.BACKGROUND_COLOR)
-        self.draw_objects(self.buttons)
+        self.draw_objects(self.buttons  + [self.heading])
 
