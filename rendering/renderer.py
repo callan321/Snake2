@@ -8,6 +8,7 @@ class Renderer(ABC):
         self.screen = screen
         self.config = config
         self.screen_w, self.screen_h, self.center_w, self.center_h = 0, 0, 0, 0
+        
 
 
     def update_positions(self) -> None:
@@ -34,5 +35,13 @@ class Renderer(ABC):
     @abstractmethod
     def draw(self):
         pass
-
+    
+    def update_hightlight(self, button_list):
+        mouse_pos = pygame.mouse.get_pos()
+        for button in button_list:
+            button.update_highlight(mouse_pos)
+    
+    def draw_objects(self, object_list):
+        for object in object_list:
+            object.draw(self.screen)
 

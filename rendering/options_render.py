@@ -14,19 +14,24 @@ class OptRenderer(Renderer):
         super().__init__(screen, config)
         self.heading = TitleText(config.OPTIONS, config)
         self.gs_buttons: List[GameSizeButton] = []
+        self.buttons = []
         self.create_buttons(config)
 
     def create_buttons(self, config: GameConfig):
         self.back_button = StandardButton(config.BACK, config)
+        self.buttons.append(self.back_button)
         self.p1_button = P1Button(config)
+        self.buttons.append(self.p1_button)
         self.p2_button = P2Button(config)
+        self.buttons.append(self.p2_button)
         button_data = self.config.GAME_SIZE_BUTTONS
         for label, values in button_data.items():
             button = GameSizeButton(label, self.config)
             button.number_of_cells = values["number_of_cells"]
             button.snake_size = values["snake_size"]
             self.gs_buttons.append(button)
-
+        self.buttons = self.buttons + self.gs_buttons
+        
     def update_element_positions(self):
         self.heading.update(self.center_w, self.center_h - self.center_h // 2)
 
@@ -49,19 +54,10 @@ class OptRenderer(Renderer):
         )
 
     def update_elements(self):
-        mouse_pos = pygame.mouse.get_pos()
-        self.p1_button.update_highlight(mouse_pos)
-        self.p2_button.update_highlight(mouse_pos)
-        self.back_button.update_highlight(mouse_pos)
-        for button in self.gs_buttons:
-            button.update_highlight(mouse_pos)
-
+        self.update_hightlight(self.buttons)
+        
     def draw(self):
         """Display the options menu with the title and buttons."""
         self.screen.fill(self.config.BACKGROUND_COLOR)
-        self.heading.draw(self.screen)
-        self.p1_button.draw(self.screen)
-        self.p2_button.draw(self.screen)
-        self.back_button.draw(self.screen)
-        for button in self.gs_buttons:
-            button.draw(self.screen)
+        self.draw_objects(self.buttons + [self.heading])
+

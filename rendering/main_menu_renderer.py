@@ -43,13 +43,8 @@ class MainMenuUIManager(Renderer):
 
     def update_elements(self):
         """Display the menu with the title and buttons."""
-        self.update_element_positions()
-        mouse_pos = pygame.mouse.get_pos()
-        for button in self.buttons:
-            button.update_highlight(mouse_pos)
+        self.update_hightlight(self.buttons)
 
     def draw(self):
         self.screen.fill(self.config.BACKGROUND_COLOR)
-        self.title.draw(self.screen)
-        for button in self.buttons:
-            button.draw(self.screen)
+        self.draw_objects(self.buttons + [self.title])
