@@ -12,14 +12,15 @@ class MainMenu(Interface):
         self.ui = MainMenuUIManager(screen, config)
         self.envent_handler = MenuEventHandler(self)
         self.choice = ""
-
+        self.ui.init()
+       
     def handle_events(self) -> None:
         """Draw the game elements."""
         self.envent_handler.handle_events()
 
-    def update(self) -> None:
+    def draw(self) -> None:
         """Update UI elements such as UI and renderer dimensions."""
-        self.ui.update()
+        self.ui.draw()
         
 
 

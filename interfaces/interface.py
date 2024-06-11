@@ -19,7 +19,7 @@ class Interface(ABC):
         while self.running:
             self.handle_logic()
             self.handle_events()
-            self.update()
+            self.draw()
             pygame.display.flip()
 
             
@@ -32,7 +32,7 @@ class Interface(ABC):
         pass
 
     @abstractmethod
-    def update(self) -> None:
+    def draw(self) -> None:
         """Draw the game elements."""
         pass
 

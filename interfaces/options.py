@@ -10,6 +10,7 @@ class Options(Interface):
         super().__init__(screen, config)
         self.ui = OptRenderer(screen, config)
         self.envent_handler = OptEventHandler(self)
+        self.ui.init()
 
 
     def handle_events(self) -> None:
@@ -17,9 +18,9 @@ class Options(Interface):
         self.envent_handler.handle_events()
 
 
-    def update(self) -> None:
+    def draw(self) -> None:
         """Draw the game elements."""
-        self.ui.update()
+        self.ui.draw()
 
 
 

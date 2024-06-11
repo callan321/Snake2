@@ -6,7 +6,6 @@ class SpeedMultButton(CycleButton):
     def get_options(self):
         return self.config.GAME_SPEED_MULT_OPT
     
- 
     def get_attr(self):
         return self.config.game_speed_mult
     

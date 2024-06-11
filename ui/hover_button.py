@@ -1,20 +1,20 @@
 import pygame
 from abc import ABC, abstractmethod
 from config.config import GameConfig
-from ui.button import Button
 
-
-class HoverButton(Button, ABC):
-    def __init__(self, text: str, config: GameConfig, font = None) -> None:
+class HoverButton(ABC):
+    def __init__(self, text: str, config: GameConfig, font=None) -> None:
         """Initialize a hover button with text, position, and configuration."""
         self.config = config
         self.text_string = text
         self.highlighted = False
         self.hover_sound = pygame.mixer.Sound(config.HOVER_SOUND)
         self.click_sound = pygame.mixer.Sound(config.CLICK_SOUND)
-        self.rect = pygame.Rect(0, 0, 0, 0) 
-        self.surface = pygame.Surface((0, 0), pygame.SRCALPHA)  
         self.font = font
+        self.width = self.get_width()
+        self.height = self.get_height()
+
+        
 
     @abstractmethod
     def get_width(self):
@@ -45,7 +45,7 @@ class HoverButton(Button, ABC):
     def handle_click(self):
         """Handle the button logic."""
         pass
-    
+
     def get_colors(self):
         """Get the text and background colors based on the highlight state."""
         default_text_color, default_bg_color = self.get_default_colors()
@@ -53,12 +53,16 @@ class HoverButton(Button, ABC):
         bg_color = default_text_color if self.highlighted else default_bg_color
         return text_color, bg_color
 
-    def update(self, pos_x : int, pos_y: int) -> None:
-        """Update the button position and surface."""
+    def update_position(self, pos_x: int, pos_y: int) -> None:
+        """Update the button position."""
         self._x = pos_x
         self._y = pos_y
-        self.width = self.get_width()
-        self.height = self.get_height()
+        self.width = self.get_width()  # Ensure width is set here
+        self.height = self.get_height()  # Ensure height is set here
+        self.rect = pygame.Rect(self._x, self._y, self.width, self.height)
+
+    def render(self) -> None:
+        """Render the button surface."""
         self.font = pygame.font.Font(None, self.get_font_size())
         self.surface = pygame.Surface(self.get_size(), pygame.SRCALPHA)
         text_color, bg_color = self.get_colors()
@@ -77,7 +81,12 @@ class HoverButton(Button, ABC):
                 self.height // 2 - text_surface.get_height() // 2,
             ),
         )
-        self.rect = pygame.Rect(self._x, self._y, self.width, self.height)
+
+    def update(self, pos_x: int, pos_y: int) -> None:
+        """Update the button's position and render it."""
+        self.update_position(pos_x, pos_y)
+        self.render()
+
 
     def update_highlight(self, mouse_pos: tuple[int, int]) -> None:
         """Update button highlight based on mouse position."""
@@ -91,10 +100,11 @@ class HoverButton(Button, ABC):
             if self.hover_sound:
                 self.hover_sound.stop()
 
-        self.change_text(self.text_string)
+        if self.highlighted != previously_highlighted:
+            self.render()
 
     def get_size(self):
-        return (self.get_width(), self.get_height())
+        return self.get_width(), self.get_height()
 
     def click(self, event: pygame.event.Event) -> bool:
         """Handle button click event."""
@@ -102,17 +112,17 @@ class HoverButton(Button, ABC):
         if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
             if self.rect.collidepoint(x, y):
                 self.click_sound.play()
-                result = self.handle_click()  
-                return result
+                return self.handle_click()
         return False
-    
+
     def draw(self, screen: pygame.Surface) -> None:
         """Display the button on the screen."""
         screen.blit(self.surface, self.rect.topleft)
-    
+
     def change_text(self, text: str) -> None:
         """Change the button text and update the surface."""
         self.text_string = text
-        
+        self.render()
+
     def get_text(self):
         return self.text_string

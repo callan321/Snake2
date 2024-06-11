@@ -3,7 +3,7 @@
         "number_of_cells": 16,
         "snake_size": 3,
         "game_speed": 10,
-        "game_speed_mult": 4,
+        "game_speed_mult": 32,
         "p1": "AI",
         "p2": "AI"
     },

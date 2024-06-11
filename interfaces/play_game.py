@@ -14,7 +14,7 @@ class PlayGame(GameInterface):
         """Initialize the PlayGame class."""
         super().__init__(screen, config)
         self.ui = GameUIManager(screen, config)
-        self.renderer = GameRenderer(screen, config)
+        self.game_rd = GameRenderer(screen, config)
         self.event_handler = GameEventHandler(self)
         self.logic = GameLogic(
             config.game_width,
@@ -22,6 +22,7 @@ class PlayGame(GameInterface):
             controller_type=config.p1,
             snake_size=config.snake_size,
         )
+        self.ui.init()
 
     def update_game_logic(self) -> bool:
         """Update the game logic."""
@@ -31,9 +32,9 @@ class PlayGame(GameInterface):
         """Handle the game events."""
         self.event_handler.handle_events()
 
-    def update(self) -> None:
+    def draw(self) -> None:
         """Update game elements such as UI and renderer dimensions and Draw the game elements."""
-        self.ui.update()
-        self.renderer.update(
+        self.ui.draw()
+        self.game_rd.update(
             self.logic.snake, self.logic.food, self.logic.controller.get_move()
         )
