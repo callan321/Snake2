@@ -18,8 +18,8 @@ class GameSizeButton(StandardButton):
   
     def handle_click(self):
         """Handle the click event for the game size button."""
-        self.config.settings['game_settings']['number_of_cells'] = self.number_of_cells
-        self.config.settings['game_settings']['snake_size'] = self.snake_size
+        self.config.settings['attributes']['number_of_cells'] = self.number_of_cells
+        self.config.settings['attributes']['snake_size'] = self.snake_size
         self.config.save_settings()
         self.config.number_of_cells = self.number_of_cells
         self.config.snake_size = self.snake_size

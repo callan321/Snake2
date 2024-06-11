@@ -27,12 +27,12 @@ class GameRenderer:
             self.screen,
             self.config.BORDER_COLOR,
             pygame.Rect(
-                self.off_x - self.config.BORDER_THICKNESS,
-                self.off_y - self.config.BORDER_THICKNESS,
-                self.WIDTH * self.cell_size + self.config.BORDER_THICKNESS * 2,
-                self.HEIGHT * self.cell_size + self.config.BORDER_THICKNESS * 2,
+                self.off_x - self.config.gbt,
+                self.off_y - self.config.gbt,
+                self.WIDTH * self.cell_size + self.config.gbt * 2,
+                self.HEIGHT * self.cell_size + self.config.gbt * 2,
             ),
-            self.config.BORDER_THICKNESS,
+            self.config.gbt,
         )
 
     def draw_snake(self, snake, last_move):

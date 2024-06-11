@@ -49,7 +49,7 @@ class GameConfig:
         width_scale = self.new_screen_width / self.BASE_SCREEN_WIDTH
         height_scale = self.new_screen_height / self.BASE_SCREEN_HEIGHT
         
-        min_scale = min(width_scale, height_scale)
+        min_scale = width_scale + height_scale // 2
         
         scaled_value = base_value * min_scale
         return int(scaled_value)
@@ -60,9 +60,9 @@ class GameConfig:
         
         # GAME SCALE CONFIG
         game_scales = self.settings['game_scales']
-        self.BORDER_THICKNESS = self.scale_value(game_scales['BORDER_THICKNESS'])
-        self.GAME_WIDTH = self.scale_value(game_scales['GAME_WIDTH'])
-        self.GAME_HEIGHT = self.scale_value(game_scales['GAME_HEIGHT'])
+        self.gbt = self.scale_value(game_scales['BORDER_THICKNESS'])
+        self.gw = self.scale_value(game_scales['GAME_WIDTH'])
+        self.gh = self.scale_value(game_scales['GAME_HEIGHT'])
         
         # buttons
         button_scales = self.settings['buttons']
@@ -75,16 +75,16 @@ class GameConfig:
         
         # MENU SCALES
         other = self.settings['other']
-        self.std_f_size = other['STD_F_SIZE']
+        self.std_f_size = self.scale_value(other['STD_F_SIZE'])
         self.tital_f_size = self.scale_value(other['TITLE_F_SIZE'])
      
         self.calculate_grid_dimensions()
 
               
     def calculate_grid_dimensions(self):
-        self.cell_size = min(self.GAME_WIDTH, self.GAME_HEIGHT) // self.number_of_cells
-        self.game_width = self.GAME_WIDTH // self.cell_size
-        self.game_height = self.GAME_HEIGHT // self.cell_size
+        self.cell_size = min(self.gw, self.gh) // self.number_of_cells
+        self.game_width = self.gw // self.cell_size
+        self.game_height = self.gh // self.cell_size
         
     def load_constants(self):  
         
