@@ -1,9 +1,8 @@
 from logic.game_objects.snake import Snake
 from logic.game_objects.food import Food
 from logic.game_objects.spawn_generator import SpawnGenerator
-from logic.controller.controller import Controller
+from logic.controller.controller import Controller, AIController
 from typing import Tuple
-
 
 class GameLogicAI:
     """
@@ -16,6 +15,8 @@ class GameLogicAI:
         spawn_generator (SpawnGenerator): The spawn generator for food.
         food (Food): The food object.
         controller (Controller): The controller for the snake's movement.
+        last_direction (tuple[int, int]): The last direction the snake moved in.
+        opposite_direction (tuple[int, int]): The opposite of the last direction the snake moved in.
     """
 
     def __init__(self, width: int, height: int, controller_type: str = "AI", snake_size: int = 3) -> None:
@@ -36,7 +37,8 @@ class GameLogicAI:
         self.spawn_generator = SpawnGenerator(self.width, self.height, start_pos)
         self.food = Food()
         self.controller = Controller.select(controller_type)
-       
+        self.last_direction = None
+        self.opposite_direction = None
 
     def update(self) -> bool:
         """
@@ -45,12 +47,23 @@ class GameLogicAI:
         Returns:
             bool: True if the game continues, False if there's a collision.
         """
-        
         self.update_snake()
         self.update_spawns()
         self.check_food_collision()
         self.update_food()
         return not self.check_collisions()
+
+    def update_snake(self) -> None:
+        """
+        Update the snake's position based on the direction.
+        """
+        direction = self.get_direction()
+        if not self.is_opposite_direction(direction):
+            self.snake.update(direction, self.food.get_position())
+            self.last_direction = direction
+            self.opposite_direction = self.get_opposite_direction(direction)
+        else:
+            self.snake.update(self.last_direction, self.food.get_position())
 
     def get_direction(self) -> Tuple[int, int]:
         """
@@ -59,13 +72,32 @@ class GameLogicAI:
         Returns:
             Tuple[int, int]: The direction vector.
         """
-        return self.controller.get_direction(self.snake, self.food.get_position(), self.width, self.height)
+        return self.controller.get_direction(self.snake, self.food.get_position(), self.width, self.height, self.opposite_direction)
 
-    def update_snake(self): 
-        direction = self.get_direction()
-        self.snake.update(direction, self.food.get_position())
-        
-    def check_collision(self): pass 
+    def get_opposite_direction(self, direction: Tuple[int, int]) -> Tuple[int, int]:
+        """
+        Calculate the opposite direction.
+
+        Args:
+            direction (Tuple[int, int]): The current direction vector.
+
+        Returns:
+            Tuple[int, int]: The opposite direction vector.
+        """
+        return (-direction[0], -direction[1])
+
+    def is_opposite_direction(self, direction: Tuple[int, int]) -> bool:
+        """
+        Check if the given direction is opposite to the last direction.
+
+        Args:
+            direction (Tuple[int, int]): The current direction vector.
+
+        Returns:
+            bool: True if the direction is opposite, False otherwise.
+        """
+        return direction == self.opposite_direction
+
     def update_spawns(self) -> None:
         """
         Update the spawn generator.

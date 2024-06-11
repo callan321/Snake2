@@ -14,7 +14,12 @@ class BFSController(AIController):
         super().__init__()
 
     def get_direction(
-        self, snake: Snake, food_pos: tuple[int, int], width, height
+        self,
+        snake: Snake,
+        food_pos: tuple[int, int],
+        width,
+        height,
+        opposite_direction: tuple[int, int],
     ) -> tuple[int, int]:
         """
         Determine the best direction based on Greedy Best First Search algorithm.
@@ -24,14 +29,13 @@ class BFSController(AIController):
             food_pos (tuple[int, int]): The position of the food.
             width (int): The width of the game board.
             height (int): The height of the game board.
+            opposite_direction (tuple[int, int]): The opposite of the last direction the snake moved in.
 
         Returns:
             tuple[int, int]: The best direction as (x, y) coordinates.
         """
         head = snake.get_head()
         best_distance = float("inf")
-
-        opposite_direction = (-self.direction[0], -self.direction[1])
 
         for direction in DIRECTIONS.values():
             if direction == opposite_direction:

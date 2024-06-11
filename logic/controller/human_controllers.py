@@ -1,23 +1,16 @@
 from logic.controller.controller import Controller, DIRECTIONS, UP, DOWN, LEFT, RIGHT
 import pygame
 
+
 class HumanController(Controller):
     """
     Base class for human-controlled controllers.
 
     Attributes:
         key_mappings (dict): The key mappings for direction control.
-        changed_direction (bool): Flag to indicate if the direction has changed.
     """
 
     key_mappings = {}
-
-    def __init__(self):
-        """
-        Initialize the HumanController with default settings.
-        """
-        super().__init__()
-        self.changed_direction = False
 
     def handle_keydown(self, event: pygame.event.EventType) -> None:
         """
@@ -26,28 +19,18 @@ class HumanController(Controller):
         Args:
             event (pygame.event.EventType): The keydown event to handle.
         """
-        new_direction = None
-        if not self.changed_direction:
-            for key, direction in self.key_mappings.items():
-                if (
-                    event.key == key
-                    and self.direction != DIRECTIONS[direction["opposite"]]
-                ):
-                    new_direction = DIRECTIONS[direction["move"]]
-                    break
-
-        if new_direction:
-            self.direction = new_direction
-            self.changed_direction = True
+        for key, direction in self.key_mappings.items():
+            if event.key == key and self.direction != DIRECTIONS[direction["opposite"]]:
+                self.direction = DIRECTIONS[direction["move"]]
+                break
 
     def get_direction(self) -> tuple[int, int]:
         """
-        Return the current direction and reset the changed_direction flag.
+        Return the current direction.
 
         Returns:
             tuple[int, int]: The current direction as (x, y) coordinates.
         """
-        self.changed_direction = False
         return self.direction
 
 

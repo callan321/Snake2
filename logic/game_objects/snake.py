@@ -107,9 +107,8 @@ class Snake:
         if self.check_bounds(width, height, self.get_head()):
             return True
 
-        if self.get_size() > 4:
-            return self.check_self()
-        return False
+        return self.check_self()
+        
 
     def check_bounds(self, width: int, height: int, pos: Tuple[int, int]) -> bool:
         """

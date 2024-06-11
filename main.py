@@ -4,11 +4,6 @@ from interfaces.play_game import PlayGame
 from interfaces.options import Options
 from config.config import GameConfig
 
-
-
-  
-
-# make so game only allows for valid moves
 # return vales in logic
 
 # add sound to game
