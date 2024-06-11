@@ -22,6 +22,10 @@ class MainMenu(Interface):
         """Update UI elements such as UI and renderer dimensions."""
         self.ui.draw()
         
+    def reset(self):
+        self.running = True
+        self.ui.init()
+        
 
 
 

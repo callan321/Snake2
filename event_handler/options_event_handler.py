@@ -34,3 +34,6 @@ class OptEventHandler(EventHandler):
     
     def handle_mouse_pos(self, mouse_pos):
         self.update_hightlight(mouse_pos, self.options.ui.buttons)
+        
+    def reset_ui(self):
+        self.options.ui.init()

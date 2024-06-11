@@ -30,3 +30,6 @@ class MenuEventHandler(EventHandler):
     
     def handle_mouse_pos(self, mouse_pos):
         self.update_hightlight(mouse_pos, self.menu.ui.buttons)
+    
+    def reset_ui(self):
+        self.menu.ui.init()

@@ -21,7 +21,7 @@ class EventHandler(ABC):
                 self.quit_game()
             elif event.type == pygame.VIDEORESIZE:
                 self.handle_resize(event)
-
+                self.reset_ui()
             elif (
                 event.type == pygame.MOUSEBUTTONDOWN
                 or event.type == pygame.MOUSEBUTTONUP
@@ -62,7 +62,12 @@ class EventHandler(ABC):
     @abstractmethod
     def handle_mouse_pos(self, mouse_pos):
         pass 
+   
+    @abstractmethod 
+    def reset_ui(self):
+        pass 
     
     def update_hightlight(self, mouse_pos, button_list):
         for button in button_list:
             button.update_highlight(mouse_pos)
+

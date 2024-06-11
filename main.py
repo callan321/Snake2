@@ -6,7 +6,6 @@ from config.config import GameConfig
 
 
 # add hold button
-# reduce updates
   
 # improve game logic
 # fix bug where food can spawn under snake on first scale
@@ -37,7 +36,7 @@ def main() -> None:
     # Create the main menu
     main_menu = MainMenu(screen, config)
     while True:
-        main_menu.running = True
+        main_menu.reset()
         main_menu.run()
         choice = main_menu.choice
         if choice == config.PLAY:

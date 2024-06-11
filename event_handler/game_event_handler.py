@@ -49,3 +49,6 @@ class GameEventHandler(EventHandler):
                 
     def handle_mouse_pos(self, mouse_pos):
         self.update_hightlight(mouse_pos, self.play_game.ui.buttons)
+
+    def reset_ui(self):
+        self.play_game.ui.init()
