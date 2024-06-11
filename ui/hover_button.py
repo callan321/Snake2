@@ -5,15 +5,47 @@ from ui.button import Button
 
 
 class HoverButton(Button, ABC):
-    def __init__(self, text: str, config: GameConfig) -> None:
+    def __init__(self, text: str, config: GameConfig, font = None) -> None:
         """Initialize a hover button with text, position, and configuration."""
-        super().__init__(config)
+        self.config = config
         self.text_string = text
         self.highlighted = False
-        self.font = None
-        self.surface = None
-        self.rect = None
+        self.hover_sound = pygame.mixer.Sound(config.HOVER_SOUND)
+        self.click_sound = pygame.mixer.Sound(config.CLICK_SOUND)
+        self.rect = pygame.Rect(0, 0, 0, 0) 
+        self.surface = pygame.Surface((0, 0), pygame.SRCALPHA)  
+        self.font = font
 
+    @abstractmethod
+    def get_width(self):
+        """Get the size of the button."""
+        pass
+
+    @abstractmethod
+    def get_height(self):
+        """Get the size of the button."""
+        pass
+
+    @abstractmethod
+    def get_default_colors(self):
+        """Get the default text and background colors of the button."""
+        pass
+
+    @abstractmethod
+    def get_border_radius(self):
+        """Get the border radius of the button."""
+        pass
+
+    @abstractmethod
+    def get_font_size(self):
+        """Get the font size of the button."""
+        pass
+
+    @abstractmethod
+    def handle_click(self):
+        """Handle the button logic."""
+        pass
+    
     def get_colors(self):
         """Get the text and background colors based on the highlight state."""
         default_text_color, default_bg_color = self.get_default_colors()
@@ -61,48 +93,26 @@ class HoverButton(Button, ABC):
 
         self.change_text(self.text_string)
 
-    @abstractmethod
-    def get_width(self):
-        """Get the size of the button."""
-        pass
-
-    @abstractmethod
-    def get_height(self):
-        """Get the size of the button."""
-        pass
-
-    @abstractmethod
-    def get_default_colors(self):
-        """Get the default text and background colors of the button."""
-        pass
-
-    @abstractmethod
-    def get_border_radius(self):
-        """Get the border radius of the button."""
-        pass
-
-    @abstractmethod
-    def get_font_size(self):
-        """Get the font size of the button."""
-        pass
-
     def get_size(self):
         return (self.get_width(), self.get_height())
 
-    def cycle_options(self, attribute_name: str, options: list) -> bool:
-        """
-        Generic function to handle click events for various buttons that cycle through options.
-
-        Args:
-            attribute_name (str): The name of the attribute to update.
-            options (list): The list of options to cycle through.
-
-        Returns:
-            bool: Always returns True.
-        """
-        self.idx = (options.index(self.idx) + 1) % len(options)
-        new_value = options[self.idx]
-        self.change_text(self.get_text(new_value))
-        self.config.set_attribute(attribute_name, new_value)
+    def click(self, event: pygame.event.Event) -> bool:
+        """Handle button click event."""
+        x, y = pygame.mouse.get_pos()
+        if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+            if self.rect.collidepoint(x, y):
+                self.click_sound.play()
+                result = self.handle_click()  
+                return result
+        return False
+    
+    def draw(self, screen: pygame.Surface) -> None:
+        """Display the button on the screen."""
+        screen.blit(self.surface, self.rect.topleft)
+    
+    def change_text(self, text: str) -> None:
+        """Change the button text and update the surface."""
+        self.text_string = text
         
-        return True
+    def get_text(self):
+        return self.text_string

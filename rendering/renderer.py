@@ -21,26 +21,17 @@ class Renderer(ABC):
     def update(self):
         self.update_positions()
         self.update_element_positions()
-        self.update_elements()
         self.draw()
 
     @abstractmethod
     def update_element_positions(self):
         pass
 
-    @abstractmethod
-    def update_elements(self):
-        pass
 
     @abstractmethod
     def draw(self):
         pass
-    
-    def update_hightlight(self, button_list):
-        mouse_pos = pygame.mouse.get_pos()
-        for button in button_list:
-            button.update_highlight(mouse_pos)
-    
+     
     def draw_objects(self, object_list):
         for object in object_list:
             object.draw(self.screen)

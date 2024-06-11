@@ -27,3 +27,6 @@ class MenuEventHandler(EventHandler):
     def handle_key_up(self, event: pygame.event.Event) -> None:
         """Handle the key up event."""
         pass
+    
+    def handle_mouse_pos(self, mouse_pos):
+        self.update_hightlight(mouse_pos, self.menu.ui.buttons)

@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from interfaces.play_game import PlayGame
 
-
 class GameEventHandler(EventHandler):
     """Handles all events for the game."""
 
@@ -47,3 +46,6 @@ class GameEventHandler(EventHandler):
             else:
                 self.play_game.curr_speed //= self.play_game.config.game_speed_mult
                 self.play_game.mult = False
+                
+    def handle_mouse_pos(self, mouse_pos):
+        self.update_hightlight(mouse_pos, self.play_game.ui.buttons)

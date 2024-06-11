@@ -41,9 +41,6 @@ class MainMenuUIManager(Renderer):
                 - 2 * self.config.std_height,
             )
 
-    def update_elements(self):
-        """Display the menu with the title and buttons."""
-        self.update_hightlight(self.buttons)
 
     def draw(self):
         self.screen.fill(self.config.BACKGROUND_COLOR)

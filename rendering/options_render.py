@@ -53,8 +53,6 @@ class OptRenderer(Renderer):
             self.center_h + 2 * self.config.std_height,
         )
 
-    def update_elements(self):
-        self.update_hightlight(self.buttons)
         
     def draw(self):
         """Display the options menu with the title and buttons."""

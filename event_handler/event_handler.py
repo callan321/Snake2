@@ -14,6 +14,8 @@ class EventHandler(ABC):
 
     def handle_events(self) -> None:
         """Process all pygame events."""
+        mouse_pos = pygame.mouse.get_pos()
+        self.handle_mouse_pos(mouse_pos)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.quit_game()
@@ -29,6 +31,7 @@ class EventHandler(ABC):
                 self.handle_key_down(event)
             elif event.type == pygame.KEYUP:
                 self.handle_key_up(event)
+            
 
     def quit_game(self) -> None:
         """Quit the game and exit the program."""
@@ -56,3 +59,10 @@ class EventHandler(ABC):
         """Handle the key up event."""
         pass
     
+    @abstractmethod
+    def handle_mouse_pos(self, mouse_pos):
+        pass 
+    
+    def update_hightlight(self, mouse_pos, button_list):
+        for button in button_list:
+            button.update_highlight(mouse_pos)
