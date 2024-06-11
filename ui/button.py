@@ -45,3 +45,7 @@ class Button(ABC):
     def change_text(self, text: str) -> None:
         """Change the button text and update the surface."""
         self.text_string = text
+        
+    def get_text(self):
+        return self.text_string
+

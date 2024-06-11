@@ -1,71 +1,16 @@
 {
-    "game_settings": {
-        "number_of_cells": 8,
-        "snake_size": 2,
-        "game_speed": 10,
+    "attributes": {
+        "number_of_cells": 64,
+        "snake_size": 5,
+        "game_speed": 30,
         "game_speed_mult": 0.3,
-        "player1_controller": "AI"
+        "p1": "AI"
     },
-    "base_sacles": {
-        "SCREEN_WIDTH": 1920,
-        "SCREEN_HEIGHT": 1080
-    },
-    "game_scales": {
-        "BORDER_THICKNESS": 10,
-        "GAME_WIDTH": 800,
-        "GAME_HEIGHT": 600,
-        "speed_button": {
-            "SB_WIDTH": 254,
-            "SB_HEIGHT": 108,
-            "SB_BORDER_RADIUS": 12,
-            "SB_FONT_SIZE": 64
-        }
-    },
-    "menu_scales": {
-        "TITLE_FONT_SIZE": 144,
-        "TITLE_Y_OFFSET_MULTIPLIER": 3,
-        "MB_Y_OFFSET": 2,
-        "menu_button": {
-            "MB_WIDTH": 256,
-            "MB_HEIGHT": 94,
-            "MB_BORDER_RADIUS": 18,
-            "MB_FONT_SIZE": 72
-        },
-        "game_size_button": {
-            "GS_FONT_SIZE": 36,
-            "GS_BUTTON_HEIGHT": 98,
-            "GS_BUTTON_WIDTH": 144,
-            "GS_BORDER_RADIUS": 6,
-            "BUTTONS": {
-                "XS": {
-                    "number_of_cells": 8,
-                    "snake_size": 2
-                },
-                "S": {
-                    "number_of_cells": 16,
-                    "snake_size": 3
-                },
-                "M": {
-                    "number_of_cells": 25,
-                    "snake_size": 3
-                },
-                "L": {
-                    "number_of_cells": 36,
-                    "snake_size": 4
-                },
-                "XL": {
-                    "number_of_cells": 64,
-                    "snake_size": 5
-                }
-            }
-        },
-        "controller_selector": {
-            "CS_FONT_SIZE": 64,
-            "CS_BUTTON_HEIGHT": 94,
-            "CS_BUTTON_WIDTH": 600,
-            "CS_BORDER_RADIUS": 12
-        }
-    },
+    "GSPEEDS": [
+        10,
+        20,
+        30
+    ],
     "CONTROLLER_TYPES": [
         "AI",
         "Human"
@@ -75,8 +20,52 @@
         2,
         4,
         8,
-        16
+        16,
+        32
     ],
+    "MAPS": {
+        "XS": {
+            "number_of_cells": 8,
+            "snake_size": 2
+        },
+        "S": {
+            "number_of_cells": 16,
+            "snake_size": 3
+        },
+        "M": {
+            "number_of_cells": 25,
+            "snake_size": 3
+        },
+        "L": {
+            "number_of_cells": 36,
+            "snake_size": 4
+        },
+        "XL": {
+            "number_of_cells": 64,
+            "snake_size": 5
+        }
+    },
+    "base_sacles": {
+        "SCREEN_WIDTH": 1920,
+        "SCREEN_HEIGHT": 1080
+    },
+    "game_scales": {
+        "BORDER_THICKNESS": 10,
+        "GAME_WIDTH": 800,
+        "GAME_HEIGHT": 600
+    },
+    "buttons": {
+        "STD_WIDTH": 256,
+        "STD_HEIGHT": 94,
+        "STD_BR": 18,
+        "SM_WIDTH": 144,
+        "SM_BR": 6,
+        "LG_WIDTH": 600
+    },
+    "other": {
+        "STD_F_SIZE": 72,
+        "TITLE_F_SIZE": 144
+    },
     "globals": {
         "MENU": "Menu",
         "PLAY": "Play",
@@ -87,10 +76,9 @@
         "BACK": "Back",
         "FPS": 60
     },
-    "menu_text": {
+    "text": {
         "GAME_TITLE": "Snake AI 2"
     },
-    "game_text": {},
     "colors": {
         "TEXT_COLOR": [
             24,
@@ -147,6 +135,5 @@
     "sounds": {
         "HOVER_SOUND": "sounds/hover_sound.wav",
         "CLICK_SOUND": "sounds/click_sound.wav"
-    },
-    "number_of_cells": 30
+    }
 }

@@ -15,12 +15,14 @@ class MenuEventHandler(EventHandler):
         """Handle the mouse button down event."""
         for button in self.menu.ui.buttons:
             if button.click(event):
-                self.menu.choice  = button.handle_click()
+                self.menu.choice  = button.get_text()
                 self.menu.running = False 
 
     def handle_key_down(self, event: pygame.event.Event) -> None:
         """Handle the key down event."""
-        pass
+        if event.key == pygame.K_SPACE:
+            self.menu.choice  = self.config.PLAY
+            self.menu.running = False 
 
     def handle_key_up(self, event: pygame.event.Event) -> None:
         """Handle the key up event."""

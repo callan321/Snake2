@@ -1,5 +1,5 @@
 import pygame
-from ui.menu_button import MenuButton
+from ui.standard_button import StandardButton
 from ui.speed_button import SpeedButton
 from ui.speed_mult_button import SpeedMultButton
 from config.config import GameConfig
@@ -9,16 +9,15 @@ from rendering.renderer import Renderer
 class GameUIManager(Renderer):
     def __init__(self, screen: pygame.Surface, config: GameConfig) -> None:
         super().__init__(screen, config)
-        self.back_button = MenuButton(self.config.BACK, config)
+        self.back_button = StandardButton(self.config.BACK, config)
         self.speed_button = SpeedButton(config)
         self.speed_mult = SpeedMultButton(config)
 
     def update_element_positions(self):
         self.update_positions()
-        self.config.SB_WIDTH
-        self.back_button.update((0, 0))
-        self.speed_button.update((self.center_w - self.config.SB_WIDTH // 2, 0))
-        self.speed_mult.update((self.center_w - self.config.SB_WIDTH//2, self.screen_h - self.config.SB_HEIGHT))
+        self.back_button.update(0, 0)
+        self.speed_button.update(self.center_w - self.config.std_width // 2, 0)
+        self.speed_mult.update(self.center_w - self.config.std_width//2, self.screen_h - self.config.std_height)
 
 
     def update_elements(self):

@@ -2,17 +2,16 @@ from rendering.renderer import Renderer
 from config.config import GameConfig
 import pygame
 from typing import List
-from ui.menu_button import MenuButton
+from ui.standard_button import StandardButton
 from ui.text import TitleText
 
 
 class MainMenuUIManager(Renderer):
     def __init__(self, screen: pygame.Surface, config: GameConfig) -> None:
         super().__init__(screen, config)
-        self.buttons: List[MenuButton] = []
+        self.buttons: List[StandardButton] = []
         self.title = TitleText(config.GAME_TITLE, config)
         self.create_buttons()
-   
 
     def create_buttons(self):
         button_labels = [
@@ -23,7 +22,7 @@ class MainMenuUIManager(Renderer):
             self.config.QUIT,
         ]
         for label in button_labels:
-            button = MenuButton(label, self.config)
+            button = StandardButton(label, self.config)
             self.buttons.append(button)
 
     def update_element_positions(self):
@@ -31,17 +30,15 @@ class MainMenuUIManager(Renderer):
         self.title.update(
             self.center_w,
             self.center_h
-            - self.config.TITLE_Y_OFFSET_MULTIPLIER * self.config.MB_HEIGHT,
+            - 3 * self.config.std_height,
         )
 
         for i, button in enumerate(self.buttons):
             button.update(
-                (
-                    self.center_w - self.config.MB_WIDTH // 2,
-                    self.center_h
-                    + i * self.config.MB_HEIGHT
-                    - self.config.MB_Y_OFFSET * self.config.MB_HEIGHT,
-                )
+                self.center_w - self.config.std_width // 2,
+                self.center_h
+                + i * self.config.std_height
+                - 2 * self.config.std_height,
             )
 
     def update_elements(self):

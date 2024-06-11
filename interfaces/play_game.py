@@ -19,7 +19,7 @@ class PlayGame(GameInterface):
         self.logic = GameLogic(
             config.game_width,
             config.game_height,
-            controller_type=config.p1_controller,
+            controller_type=config.p1,
             snake_size=config.snake_size,
         )
 

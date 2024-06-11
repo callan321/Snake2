@@ -1,7 +1,7 @@
-from ui.hover_button import HoverButton
+from ui.standard_button import StandardButton
 from config.config import GameConfig
 
-class GameSizeButton(HoverButton):
+class GameSizeButton(StandardButton):
     def __init__(self, text: str, config: GameConfig) -> None:
         """Initialize a game size button with text, position, and configuration."""
         super().__init__(text, config)
@@ -9,21 +9,13 @@ class GameSizeButton(HoverButton):
         self.snake_size = None
    
 
-    def get_size(self):
-        """Get the size of the game size button."""
-        return self.config.GS_BUTTON_WIDTH, self.config.GS_BUTTON_HEIGHT
-
-    def get_default_colors(self):
-        """Get the default text and background colors of the game size button."""
-        return self.config.TEXT_COLOR, self.config.BACKGROUND_COLOR
-
-    def get_border_radius(self):
-        """Get the border radius of the game size button."""
-        return self.config.GS_BORDER_RADIUS
-
-    def get_font_size(self):
-        return  self.config.BUTTON_FONT_SIZE
+    def get_width(self): 
+        return self.config.sm_width
     
+    def get_border_radius(self):
+        """Get the border radius of the menu button."""
+        return self.config.sm_br
+  
     def handle_click(self):
         """Handle the click event for the game size button."""
         self.config.settings['game_settings']['number_of_cells'] = self.number_of_cells

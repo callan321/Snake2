@@ -42,5 +42,8 @@ class GameEventHandler(EventHandler):
     def handle_key_up(self, event: pygame.event.Event) -> None:
         """Handle the key up event."""
         if event.key == pygame.K_SPACE:
-            self.play_game.curr_speed //= self.play_game.config.game_speed_mult
-            self.play_game.mult = False
+            if self.play_game.mult == False:
+                pass
+            else:
+                self.play_game.curr_speed //= self.play_game.config.game_speed_mult
+                self.play_game.mult = False

@@ -11,7 +11,7 @@ class TitleText:
 
     def update(self, x: int, y: int):
         """Update the text surface and its rectangle."""
-        self.title_font = pygame.font.Font(None, self.config.TITLE_FONT_SIZE)
+        self.title_font = pygame.font.Font(None, self.config.tital_f_size)
         self.surface = self.title_font.render(self.text, True, self.config.TEXT_COLOR)
         self.rect = self.surface.get_rect(center=(x, y))
 

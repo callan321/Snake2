@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from config.config import GameConfig
 from ui.button import Button
 
+
 class HoverButton(Button, ABC):
     def __init__(self, text: str, config: GameConfig) -> None:
         """Initialize a hover button with text, position, and configuration."""
@@ -12,7 +13,6 @@ class HoverButton(Button, ABC):
         self.font = None
         self.surface = None
         self.rect = None
-        
 
     def get_colors(self):
         """Get the text and background colors based on the highlight state."""
@@ -21,14 +21,14 @@ class HoverButton(Button, ABC):
         bg_color = default_text_color if self.highlighted else default_bg_color
         return text_color, bg_color
 
-    def update(self, new_pos: tuple[int, int] = None) -> None:
+    def update(self, pos_x : int, pos_y: int) -> None:
         """Update the button position and surface."""
-   
-        self._x, self._y = new_pos
-        self.size = self.get_size()
-        self.width, self.height = self.size
+        self._x = pos_x
+        self._y = pos_y
+        self.width = self.get_width()
+        self.height = self.get_height()
         self.font = pygame.font.Font(None, self.get_font_size())
-        self.surface = pygame.Surface(self.size, pygame.SRCALPHA)
+        self.surface = pygame.Surface(self.get_size(), pygame.SRCALPHA)
         text_color, bg_color = self.get_colors()
         border_radius = self.get_border_radius()
         pygame.draw.rect(
@@ -46,7 +46,7 @@ class HoverButton(Button, ABC):
             ),
         )
         self.rect = pygame.Rect(self._x, self._y, self.width, self.height)
-    
+
     def update_highlight(self, mouse_pos: tuple[int, int]) -> None:
         """Update button highlight based on mouse position."""
         previously_highlighted = self.highlighted
@@ -60,9 +60,14 @@ class HoverButton(Button, ABC):
                 self.hover_sound.stop()
 
         self.change_text(self.text_string)
-        
+
     @abstractmethod
-    def get_size(self):
+    def get_width(self):
+        """Get the size of the button."""
+        pass
+
+    @abstractmethod
+    def get_height(self):
         """Get the size of the button."""
         pass
 
@@ -70,13 +75,34 @@ class HoverButton(Button, ABC):
     def get_default_colors(self):
         """Get the default text and background colors of the button."""
         pass
-    
+
     @abstractmethod
     def get_border_radius(self):
         """Get the border radius of the button."""
         pass
-    
+
     @abstractmethod
     def get_font_size(self):
         """Get the font size of the button."""
-        pass 
+        pass
+
+    def get_size(self):
+        return (self.get_width(), self.get_height())
+
+    def cycle_options(self, attribute_name: str, options: list) -> bool:
+        """
+        Generic function to handle click events for various buttons that cycle through options.
+
+        Args:
+            attribute_name (str): The name of the attribute to update.
+            options (list): The list of options to cycle through.
+
+        Returns:
+            bool: Always returns True.
+        """
+        self.idx = (options.index(self.idx) + 1) % len(options)
+        new_value = options[self.idx]
+        self.change_text(self.get_text(new_value))
+        self.config.set_attribute(attribute_name, new_value)
+        
+        return True
