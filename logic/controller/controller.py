@@ -44,9 +44,12 @@ class Controller:
         Raises:
             ValueError: If the controller type is unknown.
         """
-        if controller_type == "AI":
+        if controller_type == "BestFS":
             from logic.controller.bfs_controller import BFSController
             return BFSController()
+        elif controller_type == "Astar":
+            from logic.controller.astar_controller import AStarController
+            return AStarController()
         elif controller_type == "Arrow":
             from logic.controller.human_controllers import ArrowKeyController
             return ArrowKeyController()

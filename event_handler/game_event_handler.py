@@ -13,6 +13,8 @@ class GameEventHandler(EventHandler):
         """Initialize the EventHandler with a reference to the PlayGame instance."""
         super().__init__(play_game.screen, play_game.config)
         self.play_game = play_game
+        self.HIT_SOUND = self.play_game.config.HIT_SOUND
+        self.sound_played = False  # Flag to track if the sound has been played
 
     def handle_mouse_button_down(self, event: pygame.event.Event) -> None:
         """Handle the mouse button down event."""
@@ -46,9 +48,17 @@ class GameEventHandler(EventHandler):
             else:
                 self.play_game.curr_speed //= self.play_game.config.game_speed_mult
                 self.play_game.mult = False
-                
+
     def handle_mouse_pos(self, mouse_pos):
         self.update_hightlight(mouse_pos, self.play_game.ui.buttons)
 
     def reset_ui(self):
         self.play_game.ui.init()
+
+    def handle_sounds(self):
+        if self.play_game.logic.get_just_ate():
+            if not self.sound_played:
+                self.HIT_SOUND.play()
+                self.sound_played = True  # Set the flag to True after playing the sound
+        else:
+            self.sound_played = False  # Reset the flag when the event is no longer true

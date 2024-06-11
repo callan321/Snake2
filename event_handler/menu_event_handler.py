@@ -33,3 +33,5 @@ class MenuEventHandler(EventHandler):
     
     def reset_ui(self):
         self.menu.ui.init()
+        
+    def handle_sounds(self):pass

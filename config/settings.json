@@ -1,28 +1,26 @@
 {
     "attributes": {
-        "number_of_cells": 64,
-        "snake_size": 5,
+        "number_of_cells": 36,
+        "snake_size": 4,
         "game_speed": 30,
-        "game_speed_mult": 32,
-        "p1": "Human",
-        "p2": "AI"
+        "game_speed_mult": 2,
+        "p1": "Astar",
+        "p2": "Human"
     },
     "GSPEEDS": [
-        10,
-        20,
+        5,
+        15,
         30
     ],
     "CONTROLLER_TYPES": [
-        "AI",
-        "Human"
+        "Human",
+        "BestFS",
+        "Astar"
     ],
     "GAME_SPEED_MULT_OPT": [
-        0.3,
         2,
         4,
-        8,
-        16,
-        32
+        8
     ],
     "MAPS": {
         "XS": {
@@ -136,6 +134,6 @@
     "sounds": {
         "HOVER_SOUND": "sounds/hover_sound.wav",
         "CLICK_SOUND": "sounds/click_sound.wav",
-        "HIT_SOUND" : "sounds/hit_sound.wav"
+        "HIT_SOUND": "sounds/hit_sound.wav"
     }
 }

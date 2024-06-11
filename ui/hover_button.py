@@ -55,8 +55,8 @@ class HoverButton(ABC):
         """Update the button position."""
         self._x = pos_x
         self._y = pos_y
-        self.width = self.get_width()  # Ensure width is set here
-        self.height = self.get_height()  # Ensure height is set here
+        self.width = self.get_width() 
+        self.height = self.get_height()  
         self.rect = pygame.Rect(self._x, self._y, self.width, self.height)
 
     def render(self) -> None:

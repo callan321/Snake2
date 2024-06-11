@@ -51,7 +51,7 @@ class GameConfig:
         width_scale = self.new_screen_width / self.BASE_SCREEN_WIDTH
         height_scale = self.new_screen_height / self.BASE_SCREEN_HEIGHT
         
-        min_scale = width_scale + height_scale // 2
+        min_scale = width_scale/2 + height_scale/2
         
         scaled_value = base_value * min_scale
         return int(scaled_value)

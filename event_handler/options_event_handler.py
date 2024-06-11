@@ -37,3 +37,5 @@ class OptEventHandler(EventHandler):
         
     def reset_ui(self):
         self.options.ui.init()
+        
+    def handle_sounds(self):pass

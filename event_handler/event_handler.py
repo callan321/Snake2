@@ -16,6 +16,7 @@ class EventHandler(ABC):
         """Process all pygame events."""
         mouse_pos = pygame.mouse.get_pos()
         self.handle_mouse_pos(mouse_pos)
+        self.handle_sounds()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.quit_game()
@@ -67,6 +68,10 @@ class EventHandler(ABC):
     def reset_ui(self):
         pass 
     
+    @abstractmethod  
+    def handle_sounds(self):
+        pass
+
     def update_hightlight(self, mouse_pos, button_list):
         for button in button_list:
             button.update_highlight(mouse_pos)
