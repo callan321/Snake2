@@ -20,5 +20,7 @@ class MainMenu(Interface):
     def update(self) -> None:
         """Update UI elements such as UI and renderer dimensions."""
         self.ui.update()
+        
+
 
 

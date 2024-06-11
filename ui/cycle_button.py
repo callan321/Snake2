@@ -44,7 +44,6 @@ class CycleButton(StandardButton):
         Returns:
             bool: Always returns True.
         """
-        print(options)
         self.idx = (self.idx + 1) % len(options)
         new_value = options[self.idx]
         self.change_text(self.get_text(new_value))

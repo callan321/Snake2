@@ -16,6 +16,7 @@ class Renderer(ABC):
         self.center_w = self.screen_w // 2
         self.center_h = self.screen_h // 2
 
+        
     def update(self):
         self.update_positions()
         self.update_element_positions()

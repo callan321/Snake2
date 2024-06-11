@@ -32,6 +32,7 @@ class GameConfig:
         self.game_speed = self.settings['attributes']["game_speed"]
         self.game_speed_mult = self.settings['attributes']["game_speed_mult"]
         self.p1 = self.settings['attributes']["p1"]
+        self.p2 = self.settings['attributes']["p2"]
         
     def load_options(self):
         self.GSPEEDS =  self.settings["GSPEEDS"]

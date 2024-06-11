@@ -19,6 +19,7 @@ class EventHandler(ABC):
                 self.quit_game()
             elif event.type == pygame.VIDEORESIZE:
                 self.handle_resize(event)
+
             elif (
                 event.type == pygame.MOUSEBUTTONDOWN
                 or event.type == pygame.MOUSEBUTTONUP
@@ -54,3 +55,4 @@ class EventHandler(ABC):
     def handle_key_up(self, event: pygame.event.Event) -> None:
         """Handle the key up event."""
         pass
+    

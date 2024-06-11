@@ -5,8 +5,8 @@ from interfaces.options import Options
 from config.config import GameConfig
 
 
-# fix even handling for button clicks main menu
-# make buttons more efficient 
+# add hold button
+# reduce updates
   
 # improve game logic
 # fix bug where food can spawn under snake on first scale

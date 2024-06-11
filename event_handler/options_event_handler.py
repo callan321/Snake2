@@ -20,7 +20,8 @@ class OptEventHandler(EventHandler):
         for button in self.options.ui.gs_buttons:
             if button.click(event):
                 button.handle_click()
-        self.options.ui.controller_button.click(event)
+        self.options.ui.p1_button.click(event)
+        self.options.ui.p2_button.click(event)
             
     
     def handle_key_down(self, event: pygame.event.Event) -> None:

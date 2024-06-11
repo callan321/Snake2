@@ -1,10 +1,11 @@
 {
     "attributes": {
-        "number_of_cells": 8,
-        "snake_size": 2,
-        "game_speed": 30,
-        "game_speed_mult": 32,
-        "p1": "AI"
+        "number_of_cells": 25,
+        "snake_size": 3,
+        "game_speed": 10,
+        "game_speed_mult": 4,
+        "p1": "Human",
+        "p2": "Human"
     },
     "GSPEEDS": [
         10,

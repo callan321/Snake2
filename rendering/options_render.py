@@ -6,6 +6,7 @@ from typing import List
 from ui.standard_button import StandardButton
 from ui.game_size_button import GameSizeButton
 from ui.p1_button import P1Button
+from ui.p2_button import P2Button
 
 
 class OptRenderer(Renderer):
@@ -13,11 +14,12 @@ class OptRenderer(Renderer):
         super().__init__(screen, config)
         self.heading = TitleText(config.OPTIONS, config)
         self.gs_buttons: List[GameSizeButton] = []
-        self.back_button = StandardButton(config.BACK, config)
-        self.controller_button = P1Button(config)
-        self.create_buttons()
+        self.create_buttons(config)
 
-    def create_buttons(self):
+    def create_buttons(self, config: GameConfig):
+        self.back_button = StandardButton(config.BACK, config)
+        self.p1_button = P1Button(config)
+        self.p2_button = P2Button(config)
         button_data = self.config.GAME_SIZE_BUTTONS
         for label, values in button_data.items():
             button = GameSizeButton(label, self.config)
@@ -33,8 +35,12 @@ class OptRenderer(Renderer):
         start_x = self.center_w - (total_width // 2) + (button_width // 2)
         for i, button in enumerate(self.gs_buttons):  # Update cell selection buttons
             button.update(start_x + i * button_width - button_width // 2, self.center_h)
-        self.controller_button.update(
-            self.center_w - self.config.lg_width // 2,
+        self.p1_button.update(
+            self.center_w - self.config.lg_width,
+            self.center_h + self.config.std_height,
+        )
+        self.p2_button.update(
+            self.center_w,
             self.center_h + self.config.std_height,
         )
         self.back_button.update(
@@ -44,7 +50,8 @@ class OptRenderer(Renderer):
 
     def update_elements(self):
         mouse_pos = pygame.mouse.get_pos()
-        self.controller_button.update_highlight(mouse_pos)
+        self.p1_button.update_highlight(mouse_pos)
+        self.p2_button.update_highlight(mouse_pos)
         self.back_button.update_highlight(mouse_pos)
         for button in self.gs_buttons:
             button.update_highlight(mouse_pos)
@@ -53,7 +60,8 @@ class OptRenderer(Renderer):
         """Display the options menu with the title and buttons."""
         self.screen.fill(self.config.BACKGROUND_COLOR)
         self.heading.draw(self.screen)
-        self.controller_button.draw(self.screen)
+        self.p1_button.draw(self.screen)
+        self.p2_button.draw(self.screen)
         self.back_button.draw(self.screen)
         for button in self.gs_buttons:
             button.draw(self.screen)
