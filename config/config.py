@@ -1,7 +1,10 @@
+import pygame
 import json
 import os
 
 class GameConfig:
+    _sound_cache = {}
+
     def __init__(self, screen_width, screen_height, settings_file='config/settings.json'):
         self.settings_file = settings_file
         self.settings = self.load_settings(settings_file)
@@ -10,6 +13,7 @@ class GameConfig:
         self.load_attributes()
         self.load_options()
         self.load_constants()
+        self.load_sounds()
         self.update_config(screen_width, screen_height)
 
     def load_settings(self, file_path):
@@ -18,9 +22,6 @@ class GameConfig:
         
         with open(file_path, 'r') as file:
             return json.load(file)
-        
-    def update_speed(self):
-        self.game_speed = self.settings['game_settings'].get("game_speed", 10)
         
     def save_settings(self):
         with open(self.settings_file, 'w') as file:
@@ -118,7 +119,17 @@ class GameConfig:
         self.BORDER_COLOR = tuple(colors['BORDER_COLOR'])
         self.SNAKE_TRANS = colors['SNAKE_TRANS']
         
-        #sounds
+        
+    def load_sounds(self):
+        """Load the sounds from the settings and cache them."""
         sounds = self.settings['sounds']
-        self.HOVER_SOUND = sounds['HOVER_SOUND']
-        self.CLICK_SOUND = sounds['CLICK_SOUND']
+        if 'hover_sound' not in self._sound_cache:
+            self._sound_cache['hover_sound'] = pygame.mixer.Sound(sounds['HOVER_SOUND'])
+        if 'click_sound' not in self._sound_cache:
+            self._sound_cache['click_sound'] = pygame.mixer.Sound(sounds['CLICK_SOUND'])
+        if 'hit_sound' not in self._sound_cache:
+            self._sound_cache['hit_sound'] = pygame.mixer.Sound(sounds['HIT_SOUND'])
+
+        self.HOVER_SOUND = self._sound_cache['hover_sound']
+        self.CLICK_SOUND = self._sound_cache['click_sound']
+        self.HIT_SOUND = self._sound_cache['hit_sound']

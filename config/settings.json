@@ -135,6 +135,7 @@
     },
     "sounds": {
         "HOVER_SOUND": "sounds/hover_sound.wav",
-        "CLICK_SOUND": "sounds/click_sound.wav"
+        "CLICK_SOUND": "sounds/click_sound.wav",
+        "HIT_SOUND" : "sounds/hit_sound.wav"
     }
 }

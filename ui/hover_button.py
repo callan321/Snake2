@@ -8,13 +8,11 @@ class HoverButton(ABC):
         self.config = config
         self.text_string = text
         self.highlighted = False
-        self.hover_sound = pygame.mixer.Sound(config.HOVER_SOUND)
-        self.click_sound = pygame.mixer.Sound(config.CLICK_SOUND)
+        self.hover_sound = self.config.HOVER_SOUND
+        self.click_sound = self.config.CLICK_SOUND
         self.font = font
         self.width = self.get_width()
         self.height = self.get_height()
-
-        
 
     @abstractmethod
     def get_width(self):
@@ -86,7 +84,6 @@ class HoverButton(ABC):
         """Update the button's position and render it."""
         self.update_position(pos_x, pos_y)
         self.render()
-
 
     def update_highlight(self, mouse_pos: tuple[int, int]) -> None:
         """Update button highlight based on mouse position."""

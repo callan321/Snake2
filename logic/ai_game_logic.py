@@ -6,6 +6,7 @@ from typing import Tuple, Dict
 import numpy as np
 from collections import deque
 
+
 class GameLogicAI:
     """
     Manages the game logic for a snake game controlled by AI.
@@ -24,7 +25,9 @@ class GameLogicAI:
         just_ate (bool): Flag indicating if the snake just ate food.
     """
 
-    def __init__(self, width: int, height: int, controller_type: str = "AI", snake_size: int = 3) -> None:
+    def __init__(
+        self, width: int, height: int, controller_type: str = "AI", snake_size: int = 3
+    ) -> None:
         """
         Initialize the game logic with the given parameters.
 
@@ -86,7 +89,13 @@ class GameLogicAI:
         Returns:
             Tuple[int, int]: The direction vector.
         """
-        return self.controller.get_direction(self.snake, self.food.get_position(), self.width, self.height, self.opposite_direction)
+        return self.controller.get_direction(
+            self.snake,
+            self.food.get_position(),
+            self.width,
+            self.height,
+            self.opposite_direction,
+        )
 
     def get_opposite_direction(self, direction: Tuple[int, int]) -> Tuple[int, int]:
         """
@@ -159,41 +168,31 @@ class GameLogicAI:
         snake_body = np.array(self.snake.get_body())
         food_position = self.food.get_position()
         head_position = self.snake.get_head()
-        
-        # Calculate distances to walls
-        distance_to_walls = [
-            head_position[0],  # Distance to left wall
-            self.width - head_position[0] - 1,  # Distance to right wall
-            head_position[1],  # Distance to top wall
-            self.height - head_position[1] - 1  
-        ]
-        
+
         # Calculate distance to food
         distance_to_food = [
-            food_position[0] - head_position[0], 
-            food_position[1] - head_position[1]   
+            food_position[0] - head_position[0],
+            food_position[1] - head_position[1],
         ]
-        
-       
-        direction_indicators = [
-            1 if self.last_direction == (0, -1) else 0,  
-            1 if self.last_direction == (0, 1) else 0,   
-            1 if self.last_direction == (-1, 0) else 0,  
-            1 if self.last_direction == (1, 0) else 0    
-        ]
-        
-        
-        state = np.concatenate((
-            snake_body.flatten(),
-            np.array(food_position),         
-            np.array(distance_to_walls),     
-            np.array(distance_to_food),     
-            np.array(direction_indicators),  
-            np.array([self.width, self.height])  
-        ))
-        
-        return state
 
+        direction_indicators = [
+            1 if self.last_direction == (0, -1) else 0,
+            1 if self.last_direction == (0, 1) else 0,
+            1 if self.last_direction == (-1, 0) else 0,
+            1 if self.last_direction == (1, 0) else 0,
+        ]
+
+        state = np.concatenate(
+            (
+                snake_body.flatten(),
+                np.array(food_position),
+                np.array(distance_to_food),
+                np.array(direction_indicators),
+                np.array([self.width, self.height]),
+            )
+        )
+
+        return state
 
     def get_reward(self) -> float:
         """
