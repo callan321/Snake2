@@ -8,6 +8,7 @@ class Renderer(ABC):
         self.screen = screen
         self.config = config
         self.screen_w, self.screen_h, self.center_w, self.center_h = 0, 0, 0, 0
+
         
 
 
@@ -17,6 +18,9 @@ class Renderer(ABC):
         self.center_w = self.screen_w // 2
         self.center_h = self.screen_h // 2
 
+    def init(self):
+        self.update_positions()
+        self.update_element_positions()
         
     def update(self):
         self.update_positions()
@@ -26,7 +30,6 @@ class Renderer(ABC):
     @abstractmethod
     def update_element_positions(self):
         pass
-
 
     @abstractmethod
     def draw(self):
