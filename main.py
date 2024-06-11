@@ -4,8 +4,6 @@ from interfaces.play_game import PlayGame
 from interfaces.options import Options
 from config.config import GameConfig
 
-# return vales in logic
-
 # add sound to game
 # add hold button
 
