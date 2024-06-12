@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from logic.game_objects.food import Food
 from typing import Tuple, Optional
 
+
 class TestFood(unittest.TestCase):
 
     def setUp(self):
@@ -22,7 +23,6 @@ class TestFood(unittest.TestCase):
         self.food.respawn(position)
         self.assertEqual(self.food.get_position(), position)
 
-        # Test respawning the food with None
         self.food.respawn(None)
         self.assertIsNone(self.food.get_position())
 
@@ -39,6 +39,7 @@ class TestFood(unittest.TestCase):
         self.assertTrue(self.food.exists())
         self.food.remove()
         self.assertFalse(self.food.exists())
+
 
 if __name__ == "__main__":
     unittest.main()
