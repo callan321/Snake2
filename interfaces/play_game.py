@@ -1,7 +1,7 @@
 import pygame
 from rendering.game_ui_manager import GameUIManager
 from rendering.game_renderer import GameRenderer
-from logic.game_logic import GameLogic
+from logic.game_logic_human import GameLogicHuman
 from config.config import GameConfig
 from event_handler.game_event_handler import GameEventHandler
 from interfaces.game_interface import GameInterface
@@ -16,7 +16,7 @@ class PlayGame(GameInterface):
         self.ui = GameUIManager(screen, config)
         self.game_rd = GameRenderer(screen, config)
         self.event_handler = GameEventHandler(self)
-        self.logic = GameLogic(
+        self.logic = GameLogicHuman(
             config.game_width,
             config.game_height,
             controller_type=config.p1,
