@@ -11,7 +11,7 @@
 Welcome to the Snake Game! This project is an implementation of the classic snake game. The project aims to demonstrate how pathfinding algorithms and, later, machine learning models can be used in an interactive and visual way.
 
 ### Features
-- Speed boost (or slow)
+- Speed boost
 - Speed control
 - AI or human-controlled modes
 

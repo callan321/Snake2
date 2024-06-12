@@ -4,8 +4,35 @@ from interfaces.play_game import PlayGame
 from interfaces.options import Options
 from config.config import GameConfig
 
-# add sound to game
+# wall
+# 2p
+# np
+# esp
+
+# optional
+# arrows
+# enter select 
+
+# fsm
+# cm
+# wall
+# metronome
+
 # add hold button
+# hold ff
+# pause overlay
+# syn time with bpm
+# metronome 
+
+# scores
+# ai vs
+
+# replay
+# go thorugh files
+# save files
+# delete files
+# replay interface
+# file manager 
 
 def main() -> None:
     """Main function to initialize thex game and handle the main menu loop."""

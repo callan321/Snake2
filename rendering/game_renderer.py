@@ -38,7 +38,7 @@ class GameRenderer:
         )
 
     def draw_snake(self, snake, last_direction: Tuple[int, int]):
-        body = snake.get_body()
+        body = snake
 
         if body:
             max_size = self.cell_size
@@ -103,9 +103,9 @@ class GameRenderer:
                     self.screen.blit(outline_surface, position)
 
     def draw_food(self, food):
-        if not food.get_position():
+        if not food:
             return
-        x, y = food.get_position()
+        x, y = food
         position = (
             x * self.cell_size + self.off_x + self.FOOD_SIZE // 2,
             y * self.cell_size + self.off_y + self.FOOD_SIZE // 2,
@@ -114,11 +114,11 @@ class GameRenderer:
         rect = pygame.Rect(position, size)
         pygame.draw.rect(self.screen, self.config.FOOD_COLOR, rect)
 
-    def draw(self, snake, food, last_direction):
+    def draw(self, snake, last_direction, food):
         self.draw_border()
         self.draw_snake(snake, last_direction)
         self.draw_food(food)
 
-    def update(self, snake, food, last_direction):
+    def update(self, snake,  last_direction, food):
         self.update_screen_size()
-        self.draw(snake, food, last_direction)
+        self.draw(snake,  last_direction, food)

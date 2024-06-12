@@ -1,7 +1,6 @@
 from typing import Tuple, Optional, Deque
 from logic.game_objects.hash_queue import HashQueue
 
-
 class Snake:
     """
     A class representing the snake in the game, managing its movement, growth, and collision detection.
@@ -108,7 +107,6 @@ class Snake:
             return True
 
         return self.check_self()
-        
 
     def check_bounds(self, width: int, height: int, pos: Tuple[int, int]) -> bool:
         """

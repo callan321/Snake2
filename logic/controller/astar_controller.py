@@ -1,14 +1,14 @@
-from logic.controller.controller import DIRECTIONS
+from logic.controller.bfs_controller import BFSController
 from logic.game_objects.snake import Snake
 from queue import PriorityQueue
-from logic.controller.bfs_controller import BFSController
+from typing import Tuple
 
 class AStarController(BFSController):
     """
     AI controller using A* Search for decision making.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initialize the AStarController with default settings.
         """
@@ -17,24 +17,22 @@ class AStarController(BFSController):
     def get_direction(
         self,
         snake: Snake,
-        food_pos: tuple[int, int],
-        width,
-        height,
-        opposite_direction: tuple[int, int],
-    ) -> tuple[int, int]:
+        food_pos: Tuple[int, int],
+        width: int,
+        height: int
+    ) -> Tuple[int, int]:
         """
         Determine the best direction based on A* Search algorithm. If no path to food is found, 
         find the longest path to cover the remaining space.
 
         Args:
             snake (Snake): The snake object.
-            food_pos (tuple[int, int]): The position of the food, or None if no food is present.
+            food_pos (Tuple[int, int]): The position of the food, or None if no food is present.
             width (int): The width of the game board.
             height (int): The height of the game board.
-            opposite_direction (tuple[int, int]): The opposite of the last direction the snake moved in.
 
         Returns:
-            tuple[int, int]: The best direction as (x, y) coordinates.
+            Tuple[int, int]: The best direction as (x, y) coordinates.
         """
         if food_pos:
             path_to_food = self.a_star_search(snake, food_pos, width, height)
@@ -46,22 +44,23 @@ class AStarController(BFSController):
         else:
             next_position = self.find_longest_path(snake, width, height)
         
-        for direction in DIRECTIONS.values():
-            if direction == opposite_direction:
+        for direction in self.DIRECTIONS:
+            if direction == self.opposite_direction:
                 continue
             if (snake.get_head()[0] + direction[0], snake.get_head()[1] + direction[1]) == next_position:
                 self.direction = direction
                 break
 
+        self.opposite_direction = self.get_opposite_direction(self.direction)
         return self.direction
 
-    def a_star_search(self, snake: Snake, food_pos: tuple[int, int], width: int, height: int) -> list:
+    def a_star_search(self, snake: Snake, food_pos: Tuple[int, int], width: int, height: int) -> list:
         """
         Perform A* Search to find the shortest path to the food.
 
         Args:
             snake (Snake): The snake object.
-            food_pos (tuple[int, int]): The position of the food.
+            food_pos (Tuple[int, int]): The position of the food.
             width (int): The width of the game board.
             height (int): The height of the game board.
 
@@ -82,7 +81,7 @@ class AStarController(BFSController):
             if current == food_pos:
                 break
 
-            for direction in DIRECTIONS.values():
+            for direction in self.DIRECTIONS:
                 next_position = (current[0] + direction[0], current[1] + direction[1])
                 
                 if not snake.check_exist(next_position) and not snake.check_bounds(width, height, next_position):
@@ -101,8 +100,8 @@ class AStarController(BFSController):
 
         Args:
             came_from (dict): A dictionary mapping positions to their predecessors.
-            start (tuple[int, int]): The start position.
-            goal (tuple[int, int]): The goal position.
+            start (Tuple[int, int]): The start position.
+            goal (Tuple[int, int]): The goal position.
 
         Returns:
             list: A list of positions representing the path from start to goal.
@@ -118,7 +117,7 @@ class AStarController(BFSController):
         path.reverse()
         return path
 
-    def find_longest_path(self, snake: Snake, width: int, height: int) -> tuple[int, int]:
+    def find_longest_path(self, snake: Snake, width: int, height: int) -> Tuple[int, int]:
         """
         Find the longest path to cover the remaining space if no path to food is found.
 
@@ -128,13 +127,13 @@ class AStarController(BFSController):
             height (int): The height of the game board.
 
         Returns:
-            tuple[int, int]: The next position in the longest path.
+            Tuple[int, int]: The next position in the longest path.
         """
         head = snake.get_head()
         longest_path_direction = None
         max_distance = -1
         
-        for direction in DIRECTIONS.values():
+        for direction in self.DIRECTIONS:
             next_position = (head[0] + direction[0], head[1] + direction[1])
             if not snake.check_exist(next_position) and not snake.check_bounds(width, height, next_position):
                 distance = self.explore_path(snake, next_position, width, height)
@@ -144,13 +143,13 @@ class AStarController(BFSController):
         
         return longest_path_direction
 
-    def explore_path(self, snake: Snake, position: tuple[int, int], width: int, height: int) -> int:
+    def explore_path(self, snake: Snake, position: Tuple[int, int], width: int, height: int) -> int:
         """
         Explore the path from the given position to estimate the longest path.
 
         Args:
             snake (Snake): The snake object.
-            position (tuple[int, int]): The starting position.
+            position (Tuple[int, int]): The starting position.
             width (int): The width of the game board.
             height (int): The height of the game board.
 
@@ -168,7 +167,7 @@ class AStarController(BFSController):
             visited.add(current)
             max_distance = max(max_distance, distance)
             
-            for direction in DIRECTIONS.values():
+            for direction in self.DIRECTIONS:
                 next_position = (current[0] + direction[0], current[1] + direction[1])
                 if not snake.check_exist(next_position) and not snake.check_bounds(width, height, next_position):
                     queue.append((next_position, distance + 1))

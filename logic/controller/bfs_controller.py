@@ -1,13 +1,13 @@
-from logic.controller.controller import AIController, DIRECTIONS
+from logic.controller.controller import Controller 
 from logic.game_objects.snake import Snake
+from typing import Tuple
 
-
-class BFSController(AIController):
+class BFSController(Controller):
     """
     AI controller using Breadth-First Search (BFS) for decision making.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initialize the BFSController with default settings.
         """
@@ -16,29 +16,27 @@ class BFSController(AIController):
     def get_direction(
         self,
         snake: Snake,
-        food_pos: tuple[int, int],
-        width,
-        height,
-        opposite_direction: tuple[int, int],
-    ) -> tuple[int, int]:
+        food_pos: Tuple[int, int],
+        width: int,
+        height: int
+    ) -> Tuple[int, int]:
         """
-        Determine the best direction based on Greedy Best First Search algorithm.
+        Determine the best direction based on Breadth-First Search algorithm.
 
         Args:
             snake (Snake): The snake object.
-            food_pos (tuple[int, int]): The position of the food.
+            food_pos (Tuple[int, int]): The position of the food.
             width (int): The width of the game board.
             height (int): The height of the game board.
-            opposite_direction (tuple[int, int]): The opposite of the last direction the snake moved in.
 
         Returns:
-            tuple[int, int]: The best direction as (x, y) coordinates.
+            Tuple[int, int]: The best direction as (x, y) coordinates.
         """
         head = snake.get_head()
         best_distance = float("inf")
 
-        for direction in DIRECTIONS.values():
-            if direction == opposite_direction:
+        for direction in self.DIRECTIONS:
+            if direction == self.opposite_direction:
                 continue
 
             next_position = (head[0] + direction[0], head[1] + direction[1])
@@ -56,15 +54,16 @@ class BFSController(AIController):
                     best_distance = distance
                     self.direction = direction
 
+        self.opposite_direction = self.get_opposite_direction(self.direction)
         return self.direction
 
-    def heuristic(self, target: tuple[int, int], goal: tuple[int, int]) -> int:
+    def heuristic(self, target: Tuple[int, int], goal: Tuple[int, int]) -> int:
         """
         Heuristic function to estimate the distance to the goal.
 
         Args:
-            target (tuple[int, int]): The target position.
-            goal (tuple[int, int]): The goal position.
+            target (Tuple[int, int]): The target position.
+            goal (Tuple[int, int]): The goal position.
 
         Returns:
             int: The Manhattan distance between the target and the goal.

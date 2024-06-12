@@ -1,34 +1,76 @@
-# Direction Constants
-RIGHT = "R"
-LEFT = "L"
-DOWN = "D"
-UP = "U"
-
-# Direction mappings
-DIRECTIONS = {UP: (0, -1), DOWN: (0, 1), LEFT: (-1, 0), RIGHT: (1, 0)}
-
+from typing import Tuple
+from abc import abstractclassmethod
 class Controller:
     """
     Base class for all controllers.
 
     Attributes:
-        direction (tuple[int, int]): The current direction of movement.
+        direction (Tuple[int, int]): The current direction of movement.
+        opposite_direction (Tuple[int, int]): The opposite direction of the last movement.
     """
 
-    def __init__(self):
-        """
-        Initialize the Controller with a default direction of DOWN.
-        """
-        self.direction = DIRECTIONS[DOWN]
+    # Direction constants
+    UP = 0
+    DOWN = 1
+    LEFT = 2
+    RIGHT = 3
 
-    def get_direction(self) -> tuple[int, int]:
+    # Directions as tuples
+    DIRECTIONS = [
+        (0, -1),  # UP
+        (0, 1),   # DOWN
+        (-1, 0),  # LEFT
+        (1, 0)    # RIGHT
+    ]
+
+    def __init__(self, starting_direction: Tuple[int, int] = (0, 1)) -> None:
+        """
+        Initialize the Controller with a default direction.
+
+        Args:
+            starting_direction (Tuple[int, int]): The initial direction of the controller.
+        """
+        self.direction = starting_direction
+        self.opposite_direction = self.get_opposite_direction(starting_direction)
+
+   
+    def get_direction(self) -> Tuple[int, int]:
         """
         Return the current direction.
 
         Returns:
-            tuple[int, int]: The current direction as (x, y) coordinates.
+            Tuple[int, int]: The current direction as (x, y) coordinates.
         """
+        raise NotImplementedError("This method must be implemented") 
+        
+    
+    def get_current_direction(self):
         return self.direction
+        
+
+    def get_opposite_direction(self, direction: Tuple[int, int]) -> Tuple[int, int]:
+        """
+        Calculate the opposite direction.
+
+        Args:
+            direction (Tuple[int, int]): The current direction vector.
+
+        Returns:
+            Tuple[int, int]: The opposite direction vector.
+        """
+        return (-direction[0], -direction[1])
+
+    def is_opposite_direction(self, direction: Tuple[int, int]) -> bool:
+        """
+        Check if the given direction is opposite to the last direction.
+
+        Args:
+            direction (Tuple[int, int]): The current direction vector.
+
+        Returns:
+            bool: True if the direction is opposite, False otherwise.
+        """
+        return direction == self.opposite_direction
 
     @staticmethod
     def select(controller_type: str) -> "Controller":
@@ -61,11 +103,3 @@ class Controller:
             return CombinedController()
         else:
             raise ValueError(f"Unknown controller type: {controller_type}")
-
-
-class AIController(Controller):
-    """
-    Base class for AI-controlled controllers.
-    """
-
-

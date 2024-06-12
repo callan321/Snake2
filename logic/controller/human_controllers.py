@@ -1,4 +1,4 @@
-from logic.controller.controller import Controller, DIRECTIONS, UP, DOWN, LEFT, RIGHT
+from logic.controller.controller import Controller
 import pygame
 
 
@@ -11,6 +11,15 @@ class HumanController(Controller):
     """
 
     key_mappings = {}
+    
+    def get_direction(self):
+        """
+        Return the current direction.
+
+        Returns:
+            Tuple[int, int]: The current direction as (x, y) coordinates.
+        """
+        return self.direction
 
     def handle_keydown(self, event: pygame.event.EventType) -> None:
         """
@@ -20,18 +29,12 @@ class HumanController(Controller):
             event (pygame.event.EventType): The keydown event to handle.
         """
         for key, direction in self.key_mappings.items():
-            if event.key == key and self.direction != DIRECTIONS[direction["opposite"]]:
-                self.direction = DIRECTIONS[direction["move"]]
+            if (
+                event.key == key
+                and self.direction != self.DIRECTIONS[direction["opposite"]]
+            ):
+                self.direction = self.DIRECTIONS[direction["move"]]
                 break
-
-    def get_direction(self) -> tuple[int, int]:
-        """
-        Return the current direction.
-
-        Returns:
-            tuple[int, int]: The current direction as (x, y) coordinates.
-        """
-        return self.direction
 
 
 class ArrowKeyController(HumanController):
@@ -40,10 +43,10 @@ class ArrowKeyController(HumanController):
     """
 
     key_mappings = {
-        pygame.K_RIGHT: {"move": RIGHT, "opposite": LEFT},
-        pygame.K_LEFT: {"move": LEFT, "opposite": RIGHT},
-        pygame.K_DOWN: {"move": DOWN, "opposite": UP},
-        pygame.K_UP: {"move": UP, "opposite": DOWN},
+        pygame.K_RIGHT: {"move": Controller.RIGHT, "opposite": Controller.LEFT},
+        pygame.K_LEFT: {"move": Controller.LEFT, "opposite": Controller.RIGHT},
+        pygame.K_DOWN: {"move": Controller.DOWN, "opposite": Controller.UP},
+        pygame.K_UP: {"move": Controller.UP, "opposite": Controller.DOWN},
     }
 
 
@@ -53,10 +56,10 @@ class WASDController(HumanController):
     """
 
     key_mappings = {
-        pygame.K_d: {"move": RIGHT, "opposite": LEFT},
-        pygame.K_a: {"move": LEFT, "opposite": RIGHT},
-        pygame.K_s: {"move": DOWN, "opposite": UP},
-        pygame.K_w: {"move": UP, "opposite": DOWN},
+        pygame.K_d: {"move": Controller.RIGHT, "opposite": Controller.LEFT},
+        pygame.K_a: {"move": Controller.LEFT, "opposite": Controller.RIGHT},
+        pygame.K_s: {"move": Controller.DOWN, "opposite": Controller.UP},
+        pygame.K_w: {"move": Controller.UP, "opposite": Controller.DOWN},
     }
 
 
@@ -66,12 +69,12 @@ class CombinedController(HumanController):
     """
 
     key_mappings = {
-        pygame.K_RIGHT: {"move": RIGHT, "opposite": LEFT},
-        pygame.K_d: {"move": RIGHT, "opposite": LEFT},
-        pygame.K_LEFT: {"move": LEFT, "opposite": RIGHT},
-        pygame.K_a: {"move": LEFT, "opposite": RIGHT},
-        pygame.K_DOWN: {"move": DOWN, "opposite": UP},
-        pygame.K_s: {"move": DOWN, "opposite": UP},
-        pygame.K_UP: {"move": UP, "opposite": DOWN},
-        pygame.K_w: {"move": UP, "opposite": DOWN},
+        pygame.K_RIGHT: {"move": Controller.RIGHT, "opposite": Controller.LEFT},
+        pygame.K_d: {"move": Controller.RIGHT, "opposite": Controller.LEFT},
+        pygame.K_LEFT: {"move": Controller.LEFT, "opposite": Controller.RIGHT},
+        pygame.K_a: {"move": Controller.LEFT, "opposite": Controller.RIGHT},
+        pygame.K_DOWN: {"move": Controller.DOWN, "opposite": Controller.UP},
+        pygame.K_s: {"move": Controller.DOWN, "opposite": Controller.UP},
+        pygame.K_UP: {"move": Controller.UP, "opposite": Controller.DOWN},
+        pygame.K_w: {"move": Controller.UP, "opposite": Controller.DOWN},
     }

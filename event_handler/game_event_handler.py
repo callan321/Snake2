@@ -32,8 +32,8 @@ class GameEventHandler(EventHandler):
 
     def handle_key_down(self, event: pygame.event.Event) -> None:
         """Handle the key down event."""
-        if isinstance(self.play_game.logic.controller, HumanController):
-            self.play_game.logic.controller.handle_keydown(event)
+        if isinstance(self.play_game.logic.get_controller(0), HumanController):
+            self.play_game.logic.get_controller(0).handle_keydown(event)
         if event.key == pygame.K_p:
             self.play_game.paused = not self.play_game.paused
         elif event.key == pygame.K_SPACE:
@@ -56,7 +56,7 @@ class GameEventHandler(EventHandler):
         self.play_game.ui.init()
 
     def handle_sounds(self):
-        if self.play_game.logic.get_just_ate():
+        if self.play_game.logic.get_snake_just_ate():
             if not self.sound_played:
                 self.HIT_SOUND.play()
                 self.sound_played = True  # Set the flag to True after playing the sound
