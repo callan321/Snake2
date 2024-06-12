@@ -5,8 +5,6 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from logic.game_objects.food import Food
-from typing import Tuple, Optional
-
 
 class TestFood(unittest.TestCase):
 

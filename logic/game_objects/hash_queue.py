@@ -1,12 +1,10 @@
 from typing import Deque, Dict, Any, Optional
 from collections import deque
 
-
 class HashQueue:
     """
     A queue-like data structure that also keeps track of the number of occurrences
-    of each element using a dictionary for O(1) average and worst-case time complexity
-    for most operations.
+    of each element using a dictionary for O(1) worst-case time complexity.
     """
 
     def __init__(self) -> None:
