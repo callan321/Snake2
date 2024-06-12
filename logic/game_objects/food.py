@@ -1,6 +1,5 @@
 from typing import Tuple, Optional
 
-
 class Food:
     """
     A class to manage the food item in the game, including its position and state.
@@ -11,15 +10,6 @@ class Food:
         Initialize the Food object with no position.
         """
         self.pos: Optional[Tuple[int, int]] = None
-
-    def update(self, pos: Tuple[int, int]) -> None:
-        """
-        Update the position of the food if it doesn't already exist.
-
-        :param pos: The new position for the food.
-        """
-        if self.pos is None:
-            self.respawn(pos)
 
     def respawn(self, pos: Optional[Tuple[int, int]]) -> None:
         """

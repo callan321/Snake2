@@ -1,9 +1,9 @@
 {
     "attributes": {
-        "number_of_cells": 36,
-        "snake_size": 4,
+        "number_of_cells": 25,
+        "snake_size": 3,
         "game_speed": 30,
-        "game_speed_mult": 2,
+        "game_speed_mult": 8,
         "p1": "Astar",
         "p2": "Human"
     },
@@ -134,6 +134,6 @@
     "sounds": {
         "HOVER_SOUND": "sounds/hover_sound.wav",
         "CLICK_SOUND": "sounds/click_sound.wav",
-        "HIT_SOUND": "sounds/hit_sound.wav"
+        "HIT_SOUND": "sounds/hit_sound.mp3"
     }
 }

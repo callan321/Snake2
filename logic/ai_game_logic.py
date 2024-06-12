@@ -144,7 +144,7 @@ class GameLogicAI:
         Update the food's position if it has been eaten or despawned.
         """
         if not self.food.exists():
-            self.food.update(self.spawn_generator.get_random())
+            self.food.respawn(self.spawn_generator.get_random())
 
     def check_collisions(self) -> bool:
         """
