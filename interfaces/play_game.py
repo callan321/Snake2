@@ -1,3 +1,4 @@
+
 import pygame
 from rendering.game_ui_manager import GameUIManager
 from rendering.game_renderer import GameRenderer
@@ -5,7 +6,6 @@ from logic.game_logic_human import GameLogicHuman
 from config.config import GameConfig
 from event_handler.game_event_handler import GameEventHandler
 from interfaces.game_interface import GameInterface
-
 
 class PlayGame(GameInterface):
     """Manages the main game loop and game state."""
@@ -16,11 +16,13 @@ class PlayGame(GameInterface):
         self.ui = GameUIManager(screen, config)
         self.game_rd = GameRenderer(screen, config)
         self.event_handler = GameEventHandler(self)
+        self.nsnake = 12
         self.logic = GameLogicHuman(
             config.game_width,
             config.game_height,
             controller_type=config.p1,
             snake_size=config.snake_size,
+            num_snakes= self.nsnake
         )
         self.ui.init()
 
@@ -35,8 +37,10 @@ class PlayGame(GameInterface):
     def draw(self) -> None:
         """Update game elements such as UI and renderer dimensions and Draw the game elements."""
         self.ui.draw()
+        snakes = [self.logic.get_snake_body(i) for i in range(self.nsnake)]
+        directions = [self.logic.get_snake_body_and_direction(i)[1] for i in range(self.nsnake)]
         self.game_rd.update(
-            *self.logic.get_snake_body_and_direction(0),
+            snakes,
+            directions,
             self.logic.get_food_position()
-            
         )

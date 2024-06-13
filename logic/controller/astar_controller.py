@@ -8,11 +8,7 @@ class AStarController(BFSController):
     AI controller using A* Search for decision making.
     """
 
-    def __init__(self) -> None:
-        """
-        Initialize the AStarController with default settings.
-        """
-        super().__init__()
+
 
     def get_direction(
         self,

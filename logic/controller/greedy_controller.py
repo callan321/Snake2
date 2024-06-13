@@ -2,10 +2,11 @@ from logic.controller.controller import Controller
 from logic.game_objects.snake import Snake
 from typing import Tuple
 
-class BFSController(Controller):
+class GreedyController(Controller):
     """
     AI controller using Breadth-First Search (BFS) for decision making.
     """
+
 
 
     def get_direction(

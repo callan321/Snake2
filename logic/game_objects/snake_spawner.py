@@ -6,9 +6,12 @@ class SnakeSpawner:
         self.direction_up = (0, -1)
         self.direction_left = (-1, 0)
         self.direction_right = (1, 0)
-        self.spawns = self.get_spawns(nspawns)
+        self.spawns = self.calc_spawns(nspawns)
 
-    def get_spawns(self, nspawns: int):
+    def get_spawns(self):
+        return self.spawns
+    
+    def calc_spawns(self, nspawns: int):
         if nspawns == 1:
             return [self.top_mid()]
 

@@ -1,6 +1,7 @@
 from logic.game_objects.snake import Snake
 from logic.game_objects.food import Food
 from logic.game_objects.spawn_generator import SpawnGenerator
+from logic.game_objects.snake_spawner import SnakeSpawner
 from logic.controller.controller import Controller
 from typing import Tuple, List, Deque
 
@@ -19,7 +20,7 @@ class GameLogic:
     """
 
     def __init__(
-        self, width: int, height: int, controller_type: str = "AI", snake_size: int = 3, num_snakes: int = 1
+        self, width: int, height: int, controller_type: str = "AI", snake_size: int = 3, num_snakes: int = 12
     ) -> None:
         """
         Initialize the game logic with the given parameters.
@@ -33,15 +34,19 @@ class GameLogic:
         """
         self.width = width
         self.height = height
-        self.snakes = [Snake(self.get_start_position(width), snake_size) for _ in range(num_snakes)]
-        self.spawn_generator = SpawnGenerator(self.width, self.height, self.get_start_position(width))
+        self.spawn_generator = SpawnGenerator(self.width, self.height)
+        spawns = SnakeSpawner(width, height , num_snakes).get_spawns()
+        self.snakes = []
+        self.controllers = []
+        for start_pos, start_dir in spawns:
+            self.snakes.append(Snake(start_pos, snake_size))
+            self.spawn_generator.remove(start_pos)
+            self.controllers.append(Controller.select('BestFS', start_dir))
+        
+        
         self.food = Food()
-        self.controllers = [Controller.select(controller_type) for _ in range(num_snakes)]
         self.step_count = 0
 
-    def get_start_position(self, width: int) -> Tuple[int, int]:
-        start_x = (width // 2) - 1 if width % 2 == 0 else width // 2
-        return start_x, 0
 
     def update(self) -> bool:
         """

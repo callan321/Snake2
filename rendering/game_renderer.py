@@ -1,13 +1,13 @@
 import pygame
 from config.config import GameConfig
 from collections import deque
-from typing import Tuple
+from typing import Tuple, List, Deque
 
 class GameRenderer:
     def __init__(self, screen, config: GameConfig):
         self.screen = screen
         self.config = config
-        self.WIDTH = config.game_width 
+        self.WIDTH = config.game_width
         self.HEIGHT = config.game_height
 
     def update_offsets(self):
@@ -114,11 +114,12 @@ class GameRenderer:
         rect = pygame.Rect(position, size)
         pygame.draw.rect(self.screen, self.config.FOOD_COLOR, rect)
 
-    def draw(self, snake, last_direction, food):
+    def draw(self, snakes: List[Deque[Tuple[int, int]]], directions: List[Tuple[int, int]], food):
         self.draw_border()
-        self.draw_snake(snake, last_direction)
+        for snake, direction in zip(snakes, directions):
+            self.draw_snake(snake, direction)
         self.draw_food(food)
 
-    def update(self, snake,  last_direction, food):
+    def update(self, snakes: List[Deque[Tuple[int, int]]], directions: List[Tuple[int, int]], food):
         self.update_screen_size()
-        self.draw(snake,  last_direction, food)
+        self.draw(snakes, directions, food)

@@ -1,7 +1,7 @@
 {
     "attributes": {
-        "number_of_cells": 25,
-        "snake_size": 3,
+        "number_of_cells": 50,
+        "snake_size": 5,
         "game_speed": 30,
         "game_speed_mult": 8,
         "p1": "Astar",
@@ -24,15 +24,15 @@
     ],
     "MAPS": {
         "XS": {
-            "number_of_cells": 8,
+            "number_of_cells": 9,
             "snake_size": 2
         },
         "S": {
-            "number_of_cells": 16,
+            "number_of_cells": 18,
             "snake_size": 3
         },
         "M": {
-            "number_of_cells": 25,
+            "number_of_cells": 27,
             "snake_size": 3
         },
         "L": {
@@ -40,7 +40,7 @@
             "snake_size": 4
         },
         "XL": {
-            "number_of_cells": 64,
+            "number_of_cells": 50,
             "snake_size": 5
         }
     },
@@ -51,7 +51,7 @@
     "game_scales": {
         "BORDER_THICKNESS": 10,
         "GAME_WIDTH": 800,
-        "GAME_HEIGHT": 600
+        "GAME_HEIGHT": 800
     },
     "buttons": {
         "STD_WIDTH": 256,

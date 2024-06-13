@@ -23,7 +23,7 @@ class Controller:
         (1, 0)    # RIGHT
     ]
 
-    def __init__(self, starting_direction: Tuple[int, int] = (0, 1)) -> None:
+    def __init__(self, starting_direction) -> None:
         """
         Initialize the Controller with a default direction.
 
@@ -73,7 +73,7 @@ class Controller:
         return direction == self.opposite_direction
 
     @staticmethod
-    def select(controller_type: str) -> "Controller":
+    def select(controller_type: str, starting_direction) -> "Controller":
         """
         Select and return the appropriate controller based on type.
 
@@ -88,18 +88,18 @@ class Controller:
         """
         if controller_type == "BestFS":
             from logic.controller.bfs_controller import BFSController
-            return BFSController()
+            return BFSController(starting_direction)
         elif controller_type == "Astar":
             from logic.controller.astar_controller import AStarController
-            return AStarController()
+            return AStarController(starting_direction)
         elif controller_type == "Arrow":
             from logic.controller.human_controllers import ArrowKeyController
-            return ArrowKeyController()
+            return ArrowKeyController(starting_direction)
         elif controller_type == "WASD":
             from logic.controller.human_controllers import WASDController
-            return WASDController()
+            return WASDController(starting_direction)
         elif controller_type == "Human":
             from logic.controller.human_controllers import CombinedController
-            return CombinedController()
+            return CombinedController(starting_direction)
         else:
             raise ValueError(f"Unknown controller type: {controller_type}")

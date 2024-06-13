@@ -17,19 +17,6 @@ class GameLogicHuman(GameLogic):
         step_count (int): The number of steps taken in the current game.
     """
 
-    def __init__(self, width: int, height: int, controller_type: str = "Human", snake_size: int = 3, num_snakes: int = 1) -> None:
-        """
-        Initialize the game logic with the given parameters.
-
-        Args:
-            width (int): The width of the game area.
-            height (int): The height of the game area.
-            controller_type (str): The type of controller (default is 'Human').
-            snake_size (int): The initial size of the snake (default is 3).
-            num_snakes (int): The number of snakes in the game (default is 1).
-        """
-        super().__init__(width, height, controller_type, snake_size, num_snakes)
-
     def get_direction(self, snake_id: int) -> Tuple[int, int]:
         """
         Get the direction from the controller.

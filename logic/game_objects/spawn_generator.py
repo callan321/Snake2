@@ -7,7 +7,7 @@ class SpawnGenerator:
     A class to manage the generation and removal of spawn points on a game board.
     """
 
-    def __init__(self, width: int, height: int, start_pos: Tuple[int, int]) -> None:
+    def __init__(self, width: int, height: int) -> None:
         """
         Initialize the spawn generator with a board of given width and height,
         and remove the starting position from the available spawn points.
@@ -19,7 +19,7 @@ class SpawnGenerator:
         self.list: List[Tuple[int, int]] = []
         self.map: Dict[Tuple[int, int], int] = {}
         self.init_board(width, height)
-        self.remove(start_pos)
+        
 
     def insert(self, coord: Tuple[int, int]) -> bool:
         """
