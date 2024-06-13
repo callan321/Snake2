@@ -37,8 +37,9 @@ class PlayGame(GameInterface):
     def draw(self) -> None:
         """Update game elements such as UI and renderer dimensions and Draw the game elements."""
         self.ui.draw()
-        snakes = [self.logic.get_snake_body(i) for i in range(self.nsnake)]
-        directions = [self.logic.get_snake_body_and_direction(i)[1] for i in range(self.nsnake)]
+        n = self.logic.get_snake_count()
+        snakes = [self.logic.get_snake_body(i) for i in range(n)]
+        directions = [self.logic.get_snake_body_and_direction(i)[1] for i in range(n)]
         self.game_rd.update(
             snakes,
             directions,

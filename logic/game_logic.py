@@ -20,7 +20,7 @@ class GameLogic:
     """
 
     def __init__(
-        self, width: int, height: int, controller_type: str = "AI", snake_size: int = 3, num_snakes: int = 12
+        self, width: int, height: int, controller_type: str = "Greedy", snake_size: int = 3, num_snakes: int = 12
     ) -> None:
         """
         Initialize the game logic with the given parameters.
@@ -36,14 +36,15 @@ class GameLogic:
         self.height = height
         self.spawn_generator = SpawnGenerator(self.width, self.height)
         spawns = SnakeSpawner(width, height , num_snakes).get_spawns()
-        self.snakes = []
-        self.controllers = []
+        self.snakes : List[Snake]= []
+        self.controllers: List[Controller] = []
         for start_pos, start_dir in spawns:
             self.snakes.append(Snake(start_pos, snake_size))
             self.spawn_generator.remove(start_pos)
-            self.controllers.append(Controller.select('BestFS', start_dir))
+            self.controllers.append(Controller.select('Greedy', start_dir))
         
         
+        self.running = True
         self.food = Food()
         self.step_count = 0
 
@@ -56,17 +57,28 @@ class GameLogic:
             bool: True if the game continues, False if there's a collision.
         """
         self.step_count += 1
-        game_continue = True
         for snake in self.snakes:
             snake.ate = False  # Reset the just_ate flag for each snake
-        for i, snake in enumerate(self.snakes):
+            
+        i = 0
+        while i < len(self.snakes):
+            snake = self.snakes[i]
             self.update_snake(i, snake)
-            self.update_spawns(i, snake)
+            self.update_spawns(snake)
             self.check_food_collision(snake)
             self.update_food()
-            if self.check_collisions(snake):
-                game_continue = False
-        return game_continue
+            
+            if not snake.check_exists():
+                self.snakes.pop(i)
+                self.controllers.pop(i)
+            else:
+                if snake.check_alive():
+                    self.check_collisions(snake)
+                i += 1
+                
+
+
+        return self.running
 
     def update_snake(self, snake_id: int, snake: Snake) -> None:
         """
@@ -77,7 +89,7 @@ class GameLogic:
         )
         snake.update(direction, self.food.get_position())
 
-    def update_spawns(self, snake_id: int, snake: Snake) -> None:
+    def update_spawns(self, snake: Snake) -> None:
         """
         Update the spawn generator.
         """
@@ -108,7 +120,9 @@ class GameLogic:
         Returns:
             bool: True if there is a collision, False otherwise.
         """
-        return snake.check_collision(self.width, self.height)
+        
+             
+        return snake.check_collision(self.width, self.height, self.snakes)
 
     def get_snake_just_ate(self) -> bool:
         """
@@ -186,5 +200,14 @@ class GameLogic:
             Controller: The controller for the specified snake.
         """
         if snake_id < 0 or snake_id >= len(self.controllers):
-            raise IndexError("Snake ID out of range")
+            self.running = False
         return self.controllers[0]
+
+    def get_snake_count(self) -> int:
+        """
+        Get the number of snakes in the game.
+
+        Returns:
+            int: The number of snakes.
+        """
+        return len(self.snakes)

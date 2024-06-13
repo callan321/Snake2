@@ -1,4 +1,4 @@
-from typing import Tuple, Optional, Deque
+from typing import Tuple, Optional, Deque, List
 from logic.game_objects.hash_queue import HashQueue
 
 class Snake:
@@ -18,9 +18,9 @@ class Snake:
         for _ in range(size - 1):
             self.grow()
         self.last_tail: Optional[Tuple[int, int]] = None
-        self.ate = False
-        self.alive = True
-        self.exists = True 
+        self.ate: bool = False
+        self.alive: bool = True
+        self.exists: bool = True 
 
     def update(self, direction: Tuple[int, int], food_pos: Tuple[int, int]) -> None:
         """
@@ -53,25 +53,39 @@ class Snake:
         self.add_head(direction)
         self.remove_tail()
         
-    def add_head(self, direction: Tuple[int, int] ):
+    def add_head(self, direction: Tuple[int, int]) -> None:
+        """
+        Add a new head to the snake in the given direction.
+
+        :param direction: The direction in which the snake moves.
+        """
         x, y = direction
         head_x, head_y = self.get_head()
         new_head: Tuple[int, int] = (head_x + x, head_y + y)
         self.body.add_front(new_head)
         
-    def remove_tail(self):
+    def remove_tail(self) -> None:
+        """
+        Remove the tail of the snake.
+        """
         self.last_tail = self.body.pop_back()
-        # check if there two coords on the tail (just grew or spawned)
+        # check if there are two coordinates on the tail (just grew or spawned)
         if self.check_position_exists(self.last_tail):
             self.last_tail = None
             
-    def remove_tail_dead(self):
-        self.remove_tail 
+    def remove_tail_dead(self) -> None:
+        """
+        Remove the tail of the dead snake.
+        """
+        self.remove_tail()
         if self.get_size() <= 0:
             self.exists = False
             
         
-    def remove_head(self): 
+    def remove_head(self) -> None:
+        """
+        Remove the head of the snake.
+        """
         self.body.pop_front()
         if self.get_size() <= 0:
             self.exists = False
@@ -117,25 +131,41 @@ class Snake:
         """
         return self.last_tail
 
-    def check_collision(self, width: int, height: int) -> bool:
+    def check_collision(self, width: int, height: int, snakes: List['Snake']) -> bool:
         """
         Check if the snake has collided with the walls or itself.
 
         :param width: The width of the game area.
         :param height: The height of the game area.
+        :param snakes: List of snakes in the game.
         :return: True if the snake has collided, False otherwise.
         """
-        if self.check_bounds(width, height, self.get_head()):
-            
-            
+        head = self.get_head()
+
+        # Check collision with other snakes
+        for snake in snakes:
+            if snake is not self and snake.check_position_exists(head):
+                self.die()
+                return True
+
+        # Check collision with walls
+        if self.check_bounds(width, height, head):
+            self.die()
             return True
 
-        return self.check_self()
-    
-    def die(self):
+        # Check collision with itself
+        if self.check_self():
+            self.die()
+            return True
+        
+        return False
+
+    def die(self) -> None:
+        """
+        Mark the snake as dead and remove its head.
+        """
         self.alive = False
         self.remove_head()
-        
         
     def check_bounds(self, width: int, height: int, pos: Tuple[int, int]) -> bool:
         """
@@ -155,7 +185,7 @@ class Snake:
 
         :return: True if the snake has collided with itself, False otherwise.
         """
-        return self.body.check1(self.get_head())
+        return self.body.has_multi(self.get_head())
 
     def check_position_exists(self, pos: Tuple[int, int]) -> bool:
         """
@@ -164,7 +194,7 @@ class Snake:
         :param pos: The position to check.
         :return: True if the position exists in the snake's body, False otherwise.
         """
-        return self.body.check0(pos)
+        return self.body.has_one(pos)
 
     def check_ate(self) -> bool:
         """
@@ -174,8 +204,18 @@ class Snake:
         """
         return self.ate
     
-    def check_alive(self):
+    def check_alive(self) -> bool:
+        """
+        Check if the snake is alive.
+
+        :return: True if the snake is alive, False otherwise.
+        """
         return self.alive
     
-    def check_exists(self):
+    def check_exists(self) -> bool:
+        """
+        Check if the snake exists.
+
+        :return: True if the snake exists, False otherwise.
+        """
         return self.exists

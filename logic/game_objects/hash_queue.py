@@ -59,24 +59,28 @@ class HashQueue:
         if self.hash_map[element] == 0:
             del self.hash_map[element]
         return element
-    
-    def peak_front(self) -> Any:
+
+    def peak_front(self) -> Optional[Any]:
         """
         Return the element at the front of the queue without removing it.
 
-        :return: The element at the front of the queue.
+        :return: The element at the front of the queue, or None if the queue is empty.
         """
+        if not self.data:
+            return None
         return self.data[0]
 
-    def peak_back(self) -> Any:
+    def peak_back(self) -> Optional[Any]:
         """
         Return the element at the back of the queue without removing it.
 
-        :return: The element at the back of the queue.
+        :return: The element at the back of the queue, or None if the queue is empty.
         """
+        if not self.data:
+            return None
         return self.data[-1]
 
-    def check1(self, element: Any) -> bool:
+    def has_multi(self, element: Any) -> bool:
         """
         Check if the element appears more than once in the queue.
 
@@ -85,7 +89,7 @@ class HashQueue:
         """
         return self.hash_map.get(element, 0) > 1
 
-    def check0(self, element: Any) -> bool:
+    def has_one(self, element: Any) -> bool:
         """
         Check if the element appears at least once in the queue.
 

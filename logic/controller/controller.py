@@ -86,7 +86,7 @@ class Controller:
         Raises:
             ValueError: If the controller type is unknown.
         """
-        if controller_type == "BestFS":
+        if controller_type == "Greedy":
             from logic.controller.greedy_controller import GreedyController
             return GreedyController(starting_direction)
         elif controller_type == "Arrow":

@@ -1,6 +1,6 @@
 {
     "attributes": {
-        "number_of_cells": 27,
+        "number_of_cells": 18,
         "snake_size": 3,
         "game_speed": 5,
         "game_speed_mult": 8,
