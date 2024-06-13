@@ -87,11 +87,8 @@ class Controller:
             ValueError: If the controller type is unknown.
         """
         if controller_type == "BestFS":
-            from logic.controller.bfs_controller import BFSController
-            return BFSController(starting_direction)
-        elif controller_type == "Astar":
-            from logic.controller.astar_controller import AStarController
-            return AStarController(starting_direction)
+            from logic.controller.greedy_controller import GreedyController
+            return GreedyController(starting_direction)
         elif controller_type == "Arrow":
             from logic.controller.human_controllers import ArrowKeyController
             return ArrowKeyController(starting_direction)

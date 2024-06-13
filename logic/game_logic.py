@@ -83,8 +83,8 @@ class GameLogic:
         """
         head_pos = snake.get_head()
         tail_pos = snake.get_last_tail()
-        self.spawn_generator.insert(tail_pos)
-        self.spawn_generator.remove(head_pos)
+        self.spawn_generator.update(head_pos, tail_pos)
+
 
     def check_food_collision(self, snake: Snake) -> None:
         """

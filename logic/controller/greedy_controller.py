@@ -37,7 +37,7 @@ class GreedyController(Controller):
 
             next_position = (head[0] + direction[0], head[1] + direction[1])
 
-            if not snake.check_exist(next_position) and not snake.check_bounds(
+            if not snake.check_position_exists(next_position) and not snake.check_bounds(
                 width, height, next_position
             ):
                 if food_pos is None:

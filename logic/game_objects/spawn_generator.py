@@ -19,7 +19,10 @@ class SpawnGenerator:
         self.list: List[Tuple[int, int]] = []
         self.map: Dict[Tuple[int, int], int] = {}
         self.init_board(width, height)
-        
+    
+    def update(self, head_pos, tail_pos):
+        self.insert(head_pos)
+        self.remove(tail_pos)
 
     def insert(self, coord: Tuple[int, int]) -> bool:
         """

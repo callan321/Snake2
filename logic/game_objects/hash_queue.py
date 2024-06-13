@@ -46,6 +46,20 @@ class HashQueue:
             del self.hash_map[element]
         return element
 
+    def pop_front(self) -> Optional[Any]:
+        """
+        Remove and return the element from the front of the queue.
+
+        :return: The element from the front of the queue, or None if the queue is empty.
+        """
+        if not self.data:
+            return None
+        element = self.data.popleft()
+        self.hash_map[element] -= 1
+        if self.hash_map[element] == 0:
+            del self.hash_map[element]
+        return element
+    
     def peak_front(self) -> Any:
         """
         Return the element at the front of the queue without removing it.

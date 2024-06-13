@@ -1,7 +1,7 @@
 class SnakeSpawner:
     def __init__(self, width: int, height: int, nspawns: int) -> None:
-        self.width = width
-        self.height = height
+        self.width = width - 1
+        self.height = height - 1
         self.direction_down = (0, 1)
         self.direction_up = (0, -1)
         self.direction_left = (-1, 0)
@@ -60,7 +60,7 @@ class SnakeSpawner:
     
     def top_left(self):
         y = 0
-        x = self.width // 3
+        x = self.width // 4
         return (x, y), self.direction_down
 
     def top_mid(self):
@@ -70,12 +70,12 @@ class SnakeSpawner:
 
     def top_right(self):
         y = 0
-        x = (2 * self.width) // 3
+        x = 3 * self.width // 4
         return (x, y), self.direction_down
 
     def bottom_left(self):
         y = self.height
-        x = self.width // 3
+        x = self.width // 4
         return (x, y), self.direction_up
 
     def bottom_mid(self):
@@ -85,12 +85,12 @@ class SnakeSpawner:
 
     def bottom_right(self):
         y = self.height
-        x = (2 * self.width) // 3
+        x = 3 * self.width // 4
         return (x, y), self.direction_up
 
     def left_top(self):
         x = 0
-        y = self.height // 3
+        y = self.height // 4
         return (x, y), self.direction_right
 
     def left_mid(self):
@@ -100,12 +100,12 @@ class SnakeSpawner:
 
     def left_bottom(self):
         x = 0
-        y = (2 * self.height) // 3
+        y = 3 * self.height // 4
         return (x, y), self.direction_right
 
     def right_top(self):
         x = self.width
-        y = self.height // 3
+        y = self.height // 4
         return (x, y), self.direction_left
 
     def right_mid(self):
@@ -115,5 +115,5 @@ class SnakeSpawner:
 
     def right_bottom(self):
         x = self.width
-        y = (2 * self.height) // 3
+        y = 3 * self.height // 4
         return (x, y), self.direction_left
