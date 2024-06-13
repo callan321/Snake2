@@ -32,15 +32,20 @@ class GameEventHandler(EventHandler):
 
     def handle_key_down(self, event: pygame.event.Event) -> None:
         """Handle the key down event."""
-        if isinstance(self.play_game.logic.get_controller(0), HumanController):
-            self.play_game.logic.get_controller(0).handle_keydown(event)
-        if isinstance(self.play_game.logic.get_controller(1), HumanController):
-            self.play_game.logic.get_controller(1).handle_keydown(event)
+        for i in range(self.play_game.logic.get_snake_count()):
+            self.play_game.logic.get_controller(i).handle_keydown(event) 
+            self.play_game.logic.get_controller(i).handle_keydown(event) 
+    
+            
+            
+      
+            
         if event.key == pygame.K_p:
             self.play_game.paused = not self.play_game.paused
         elif event.key == pygame.K_SPACE:
             self.play_game.curr_speed *= self.play_game.config.game_speed_mult
             self.play_game.mult = True
+
 
     def handle_key_up(self, event: pygame.event.Event) -> None:
         """Handle the key up event."""

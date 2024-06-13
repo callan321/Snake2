@@ -1,7 +1,7 @@
 {
     "attributes": {
-        "number_of_cells": 27,
-        "snake_size": 3,
+        "number_of_cells": 36,
+        "snake_size": 4,
         "game_speed": 9,
         "game_speed_mult": 2,
         "p1": "Human",
