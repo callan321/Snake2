@@ -1,16 +1,16 @@
 {
     "attributes": {
-        "number_of_cells": 18,
+        "number_of_cells": 27,
         "snake_size": 3,
-        "game_speed": 5,
-        "game_speed_mult": 8,
-        "p1": "Astar",
+        "game_speed": 9,
+        "game_speed_mult": 2,
+        "p1": "Human",
         "p2": "Human"
     },
     "GSPEEDS": [
-        5,
+        9,
         15,
-        30
+        22
     ],
     "CONTROLLER_TYPES": [
         "Human",
@@ -83,11 +83,6 @@
             24,
             30,
             40
-        ],
-        "BACKGROUND_COLOR": [
-            136,
-            175,
-            146
         ],
         "BACKGROUND_GREEN": [
             136,

@@ -27,7 +27,7 @@ class GameUIManager(Renderer):
         self.speed_mult.update(self.center_w - self.config.std_width//2, self.screen_h - self.config.std_height)
 
     def draw(self):
-        self.screen.fill(self.config.BACKGROUND_COLOR)
+        self.screen.fill(self.config.BACKGROUND_GREEN)
         self.draw_objects(self.buttons)
 
 

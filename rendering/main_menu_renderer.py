@@ -43,5 +43,5 @@ class MainMenuUIManager(Renderer):
 
 
     def draw(self):
-        self.screen.fill(self.config.BACKGROUND_COLOR)
+        self.screen.fill(self.config.BACKGROUND_GREEN)
         self.draw_objects(self.buttons + [self.title])

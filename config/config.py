@@ -108,7 +108,6 @@ class GameConfig:
         # colors
         colors = self.settings['colors']
         self.TEXT_COLOR = tuple(colors['TEXT_COLOR'])
-        self.BACKGROUND_COLOR = tuple(colors['BACKGROUND_COLOR'])
         self.BACKGROUND_GREEN = tuple(colors['BACKGROUND_GREEN'])
         self.GREEN_BLACK = tuple(colors['GREEN_BLACK'])
         self.DARK_GREEN = tuple(colors['DARK_GREEN'])

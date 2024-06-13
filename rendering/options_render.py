@@ -56,6 +56,6 @@ class OptRenderer(Renderer):
         
     def draw(self):
         """Display the options menu with the title and buttons."""
-        self.screen.fill(self.config.BACKGROUND_COLOR)
+        self.screen.fill(self.config.BACKGROUND_GREEN)
         self.draw_objects(self.buttons  + [self.heading])
 

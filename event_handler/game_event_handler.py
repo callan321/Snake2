@@ -34,6 +34,8 @@ class GameEventHandler(EventHandler):
         """Handle the key down event."""
         if isinstance(self.play_game.logic.get_controller(0), HumanController):
             self.play_game.logic.get_controller(0).handle_keydown(event)
+        if isinstance(self.play_game.logic.get_controller(1), HumanController):
+            self.play_game.logic.get_controller(1).handle_keydown(event)
         if event.key == pygame.K_p:
             self.play_game.paused = not self.play_game.paused
         elif event.key == pygame.K_SPACE:

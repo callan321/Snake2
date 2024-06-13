@@ -4,11 +4,8 @@ from interfaces.play_game import PlayGame
 from interfaces.options import Options
 from config.config import GameConfig
 
-### next ###
-# add death for snake
-# add colision with other snake
-# better spawn alorithm 
-# game continues untill all snakes die 
+### bugs ###
+# spawn generator goes outside area like due to snake death un expected behaviour 
 
 
 # wall

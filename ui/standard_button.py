@@ -18,7 +18,7 @@ class StandardButton(HoverButton):
 
     def get_default_colors(self):
         """Get the default text and background colors of the menu button."""
-        return self.config.TEXT_COLOR, self.config.BACKGROUND_COLOR
+        return self.config.TEXT_COLOR, self.config.BACKGROUND_GREEN
 
     def get_border_radius(self):
         """Get the border radius of the menu button."""

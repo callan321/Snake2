@@ -16,7 +16,7 @@ class PlayGame(GameInterface):
         self.ui = GameUIManager(screen, config)
         self.game_rd = GameRenderer(screen, config)
         self.event_handler = GameEventHandler(self)
-        self.nsnake = 12
+        self.nsnake = 2
         self.logic = GameLogicHuman(
             config.game_width,
             config.game_height,

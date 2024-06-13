@@ -38,10 +38,22 @@ class GameLogic:
         spawns = SnakeSpawner(width, height , num_snakes).get_spawns()
         self.snakes : List[Snake]= []
         self.controllers: List[Controller] = []
+        i = 0
         for start_pos, start_dir in spawns:
-            self.snakes.append(Snake(start_pos, snake_size))
-            self.spawn_generator.remove(start_pos)
-            self.controllers.append(Controller.select('Greedy', start_dir))
+            if i == 0:
+                self.snakes.append(Snake(start_pos, snake_size))
+                self.spawn_generator.remove(start_pos)
+                self.controllers.append(Controller.select('WASD', start_dir))
+            elif i == 1:
+                self.snakes.append(Snake(start_pos, snake_size))
+                self.spawn_generator.remove(start_pos)
+                self.controllers.append(Controller.select('WASD', start_dir))
+                
+            else:
+                self.snakes.append(Snake(start_pos, snake_size))
+                self.spawn_generator.remove(start_pos)
+                self.controllers.append(Controller.select('Greedy', start_dir))
+            i += 1
         
         
         self.running = True
@@ -85,7 +97,7 @@ class GameLogic:
         Update the snake's position based on the direction.
         """
         direction = self.controllers[snake_id].get_direction(
-            snake, self.food.get_position(), self.width, self.height
+            snake, self.food.get_position(), self.width, self.height, self.snakes
         )
         snake.update(direction, self.food.get_position())
 
@@ -201,6 +213,7 @@ class GameLogic:
         """
         if snake_id < 0 or snake_id >= len(self.controllers):
             self.running = False
+            return
         return self.controllers[0]
 
     def get_snake_count(self) -> int:

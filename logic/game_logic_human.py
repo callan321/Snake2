@@ -33,7 +33,7 @@ class GameLogicHuman(GameLogic):
         
         snake = self.snakes[snake_id]
         return controller.get_direction(
-            snake, self.food.get_position(), self.width, self.height
+            snake, self.food.get_position(), self.width, self.height, self.snakes
         )
 
     def update_snake(self, snake_id: int, snake: Snake) -> None:
