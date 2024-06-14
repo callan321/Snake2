@@ -11,19 +11,17 @@ from config.config import GameConfig
 # better system for handling hovers
 
 # wall
-# 2p
 # np
 # esp
 
-# optional
+### optional ###
 # arrows
 # enter select 
 
-# fsm
-# cm
+# fullscreenmode
+# cheatmode
 # wall
 # metronome
-
 # add hold button
 # hold ff
 # pause overlay

@@ -23,6 +23,7 @@ class OptEventHandler(EventHandler):
         self.options.ui.p1_button.click(event)
         self.options.ui.p2_button.click(event)
         self.options.ui.n_snakes_button.click(event)
+        self.options.ui.mode.click(event)
             
     
     def handle_key_down(self, event: pygame.event.Event) -> None:

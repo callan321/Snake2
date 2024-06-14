@@ -21,7 +21,8 @@ class PlayGame(GameInterface):
             config.game_height,
             controllers =controllers,
             snake_size=config.snake_size,
-            num_snakes= config.n_snakes
+            num_snakes= config.n_snakes,
+            game_mode = config.game_mode 
         )
         self.ui.init()
 

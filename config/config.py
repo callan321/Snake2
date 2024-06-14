@@ -36,13 +36,15 @@ class GameConfig:
         self.p1 = attributes["p1"]
         self.p2 = attributes["p2"]
         self.n_snakes = attributes['n_snakes']
+        self.game_mode = attributes['game_mode']
         
     def load_options(self):
-        self.N_SNAKES = self.settings["N_SNAKES"]
         self.GSPEEDS =  self.settings["GSPEEDS"]
         self.CONTROLLER_TYPES = self.settings["CONTROLLER_TYPES"]
         self.GAME_SPEED_MULT_OPT = self.settings["GAME_SPEED_MULT_OPT"]
         self.GAME_SIZE_BUTTONS = self.settings['MAPS']
+        self.N_SNAKES = self.settings["N_SNAKES"]
+        self.GAME_MODES = self.settings["MODES"]
     
     def set_attribute(self, attribute_name, new_value):
         getattr(self, attribute_name)
