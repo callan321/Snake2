@@ -37,7 +37,7 @@ class GameRenderer:
             self.config.gbt,
         )
 
-    def draw_snake(self, snake, last_direction: Tuple[int, int]):
+    def draw_snake(self, snake, last_direction: Tuple[int, int], color: Tuple[int, int, int]):
         body = snake
 
         if body:
@@ -93,11 +93,11 @@ class GameRenderer:
                                          (position[0] + size // 2 - eye_width, position[1]),
                                          (position[0] + size // 2 + eye_width, position[1])]
                     
-                    pygame.draw.rect(self.screen, self.config.GREEN_SNAKE, left_eye)
-                    pygame.draw.rect(self.screen, self.config.GREEN_SNAKE, right_eye)
+                    pygame.draw.rect(self.screen, color, left_eye)
+                    pygame.draw.rect(self.screen, color, right_eye)
                     pygame.draw.polygon(self.screen, self.config.RED, tongue_points)
                 else:
-                    pygame.draw.rect(self.screen, self.config.GREEN_SNAKE, rect, border_radius=border_radius)
+                    pygame.draw.rect(self.screen, color, rect, border_radius=border_radius)
                     outline_surface = pygame.Surface((size, size), pygame.SRCALPHA)
                     pygame.draw.rect(outline_surface, (*self.config.BORDER_COLOR, self.config.SNAKE_TRANS), outline_surface.get_rect(), 2, border_radius=border_radius)
                     self.screen.blit(outline_surface, position)
@@ -116,8 +116,14 @@ class GameRenderer:
 
     def draw(self, snakes: List[Deque[Tuple[int, int]]], directions: List[Tuple[int, int]], food):
         self.draw_border()
-        for snake, direction in zip(snakes, directions):
-            self.draw_snake(snake, direction)
+        for idx, (snake, direction) in enumerate(zip(snakes, directions)):
+            if idx == 0:
+                color = self.config.GREEN_SNAKE
+            elif idx == 1:
+                color = (139, 0, 0)  # Dark Red
+            else:
+                color = (169, 169, 169)  # Grey
+            self.draw_snake(snake, direction, color)
         self.draw_food(food)
 
     def update(self, snakes: List[Deque[Tuple[int, int]]], directions: List[Tuple[int, int]], food):
