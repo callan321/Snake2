@@ -113,3 +113,19 @@ class HashQueue:
         :return: The length of the queue.
         """
         return len(self.data)
+
+    def __str__(self) -> str:
+        """
+        Return a string representation of the HashQueue.
+
+        :return: A string representing the HashQueue.
+        """
+        return f"HashQueue(data={list(self.data)}, hash_map={self.hash_map})"
+
+    def __repr__(self) -> str:
+        """
+        Return a string representation of the HashQueue.
+
+        :return: A string representing the HashQueue.
+        """
+        return self.__str__()

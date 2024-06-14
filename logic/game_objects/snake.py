@@ -1,6 +1,8 @@
 from typing import Tuple, Optional, Deque, List
 from logic.game_objects.hash_queue import HashQueue
 
+from typing import Tuple, Optional, Deque, List
+
 class Snake:
     """
     A class representing the snake in the game, managing its movement, growth, and collision detection.
@@ -20,7 +22,7 @@ class Snake:
         self.last_tail: Optional[Tuple[int, int]] = None
         self.ate: bool = False
         self.alive: bool = True
-        self.exists: bool = True 
+        self.exists: bool = True
 
     def update(self, direction: Tuple[int, int], food_pos: Tuple[int, int]) -> None:
         """
@@ -52,7 +54,7 @@ class Snake:
         """
         self.add_head(direction)
         self.remove_tail()
-        
+
     def add_head(self, direction: Tuple[int, int]) -> None:
         """
         Add a new head to the snake in the given direction.
@@ -63,16 +65,15 @@ class Snake:
         head_x, head_y = self.get_head()
         new_head: Tuple[int, int] = (head_x + x, head_y + y)
         self.body.add_front(new_head)
-        
+
     def remove_tail(self) -> None:
         """
         Remove the tail of the snake.
         """
         self.last_tail = self.body.pop_back()
-        # check if there are two coordinates on the tail (just grew or spawned)
         if self.check_position_exists(self.last_tail):
             self.last_tail = None
-            
+
     def remove_tail_dead(self) -> None:
         """
         Remove the tail of the dead snake.
@@ -80,8 +81,7 @@ class Snake:
         self.remove_tail()
         if self.get_size() <= 0:
             self.exists = False
-            
-        
+
     def remove_head(self) -> None:
         """
         Remove the head of the snake.
@@ -89,7 +89,7 @@ class Snake:
         self.body.pop_front()
         if self.get_size() <= 0:
             self.exists = False
-            
+
     def get_body(self) -> Deque[Tuple[int, int]]:
         """
         Get the current body of the snake.
@@ -141,23 +141,16 @@ class Snake:
         :return: True if the snake has collided, False otherwise.
         """
         head = self.get_head()
-
-        # Check collision with other snakes
         for snake in snakes:
             if snake is not self and snake.check_position_exists(head):
                 self.die()
                 return True
-
-        # Check collision with walls
         if self.check_bounds(width, height, head):
             self.die()
             return True
-
-        # Check collision with itself
         if self.check_self():
             self.die()
             return True
-        
         return False
 
     def die(self) -> None:
@@ -166,7 +159,7 @@ class Snake:
         """
         self.alive = False
         self.remove_head()
-        
+
     def check_bounds(self, width: int, height: int, pos: Tuple[int, int]) -> bool:
         """
         Check if the position is out of the game bounds.
@@ -203,7 +196,7 @@ class Snake:
         :return: True if the snake has just eaten food, False otherwise.
         """
         return self.ate
-    
+
     def check_alive(self) -> bool:
         """
         Check if the snake is alive.
@@ -211,7 +204,7 @@ class Snake:
         :return: True if the snake is alive, False otherwise.
         """
         return self.alive
-    
+
     def check_exists(self) -> bool:
         """
         Check if the snake exists.
@@ -219,3 +212,20 @@ class Snake:
         :return: True if the snake exists, False otherwise.
         """
         return self.exists
+
+    def __str__(self) -> str:
+        """
+        Return a string representation of the Snake.
+
+        :return: A string representing the Snake.
+        """
+        return f"Snake(body={self.body}, alive={self.alive}, ate={self.ate}, exists={self.exists})"
+
+    def __repr__(self) -> str:
+        """
+        Return a string representation of the Snake.
+
+        :return: A string representing the Snake.
+        """
+        return self.__str__()
+
