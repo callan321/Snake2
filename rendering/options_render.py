@@ -39,7 +39,10 @@ class OptRenderer(Renderer):
         self.buttons = self.buttons + self.gs_buttons
         
     def update_element_positions(self):
-        self.heading.update(self.center_w, self.center_h - self.center_h // 2)
+        self.heading.update(
+            self.center_w,
+            self.center_h - 3 * self.config.std_height,
+        )
 
         button_width = self.config.sm_width
         total_width = len(self.config.GAME_SIZE_BUTTONS) * button_width

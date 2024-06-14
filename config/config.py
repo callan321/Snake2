@@ -68,6 +68,7 @@ class GameConfig:
         # GAME SCALE CONFIG
         game_scales = self.settings['game_scales']
         self.gbt = self.scale_value(game_scales['BORDER_THICKNESS'])
+        self.gbos = self.scale_value(game_scales['BORDER_OFFSET'])
         self.gw = self.scale_value(game_scales['GAME_WIDTH'])
         self.gh = self.scale_value(game_scales['GAME_HEIGHT'])
         

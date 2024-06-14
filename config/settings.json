@@ -1,12 +1,12 @@
 {
     "attributes": {
-        "number_of_cells": 36,
-        "snake_size": 4,
-        "game_speed": 9,
-        "game_speed_mult": 2,
+        "number_of_cells": 27,
+        "snake_size": 3,
+        "game_speed": 8,
+        "game_speed_mult": 8,
         "p1": "Human",
         "p2": "Greedy",
-        "n_snakes": 7,
+        "n_snakes": 4,
         "game_mode": "normal"
     },
     "MODES": [
@@ -14,9 +14,9 @@
         "survival"
     ],
     "GSPEEDS": [
-        9,
-        14,
-        20
+        8,
+        12,
+        18
     ],
     "CONTROLLER_TYPES": [
         "Human",
@@ -69,12 +69,13 @@
     },
     "game_scales": {
         "BORDER_THICKNESS": 10,
+        "BORDER_OFFSET": 2,
         "GAME_WIDTH": 800,
         "GAME_HEIGHT": 800
     },
     "buttons": {
         "STD_WIDTH": 256,
-        "STD_HEIGHT": 94,
+        "STD_HEIGHT": 120,
         "STD_BR": 18,
         "SM_WIDTH": 144,
         "SM_BR": 6,

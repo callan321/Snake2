@@ -29,10 +29,10 @@ class GameRenderer:
             self.screen,
             self.config.BORDER_COLOR,
             pygame.Rect(
-                self.off_x - self.config.gbt,
-                self.off_y - self.config.gbt,
-                self.WIDTH * self.cell_size + self.config.gbt * 2,
-                self.HEIGHT * self.cell_size + self.config.gbt * 2,
+                self.off_x - self.config.gbt - self.config.gbos,
+                self.off_y - self.config.gbt - self.config.gbos,
+                self.WIDTH * self.cell_size + self.config.gbt * 2 + self.config.gbos * 2,
+                self.HEIGHT * self.cell_size + self.config.gbt * 2 + self.config.gbos * 2,
             ),
             self.config.gbt,
         )
