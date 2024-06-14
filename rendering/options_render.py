@@ -7,6 +7,7 @@ from ui.standard_button import StandardButton
 from ui.game_size_button import GameSizeButton
 from ui.p1_button import P1Button
 from ui.p2_button import P2Button
+from ui.snakes_button import SnakesButton
 
 
 class OptRenderer(Renderer):
@@ -24,6 +25,8 @@ class OptRenderer(Renderer):
         self.buttons.append(self.p1_button)
         self.p2_button = P2Button(config)
         self.buttons.append(self.p2_button)
+        self.n_snakes_button = SnakesButton(config)
+        self.buttons.append(self.n_snakes_button)
         button_data = self.config.GAME_SIZE_BUTTONS
         for label, values in button_data.items():
             button = GameSizeButton(label, self.config)
@@ -51,6 +54,10 @@ class OptRenderer(Renderer):
         self.back_button.update(
             self.center_w - self.config.std_width // 2,
             self.center_h + 2 * self.config.std_height,
+        )
+        self.n_snakes_button.update(
+            self.center_w - self.config.std_width // 2,
+            self.center_h - 2 * self.config.std_height,
         )
 
         

@@ -15,14 +15,13 @@ class PlayGame(GameInterface):
         self.ui = GameUIManager(screen, config)
         self.game_rd = GameRenderer(screen, config)
         self.event_handler = GameEventHandler(self)
-        self.nsnake = 1
-        controllers = self.init_controller_types(config, self.nsnake)
+        controllers = self.init_controller_types(config, config.n_snakes)
         self.logic = GameLogicHuman(
             config.game_width,
             config.game_height,
             controllers =controllers,
             snake_size=config.snake_size,
-            num_snakes= self.nsnake
+            num_snakes= config.n_snakes
         )
         self.ui.init()
 

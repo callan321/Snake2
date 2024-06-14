@@ -28,14 +28,17 @@ class GameConfig:
             json.dump(self.settings, file, indent=4)
 
     def load_attributes(self):
-        self.number_of_cells = self.settings['attributes']["number_of_cells"]
-        self.snake_size = self.settings['attributes']["snake_size"]
-        self.game_speed = self.settings['attributes']["game_speed"]
-        self.game_speed_mult = self.settings['attributes']["game_speed_mult"]
-        self.p1 = self.settings['attributes']["p1"]
-        self.p2 = self.settings['attributes']["p2"]
+        attributes =  self.settings["attributes"]
+        self.number_of_cells = attributes["number_of_cells"]
+        self.snake_size = attributes["snake_size"]
+        self.game_speed = attributes["game_speed"]
+        self.game_speed_mult = attributes["game_speed_mult"]
+        self.p1 = attributes["p1"]
+        self.p2 = attributes["p2"]
+        self.n_snakes = attributes['n_snakes']
         
     def load_options(self):
+        self.N_SNAKES = self.settings["N_SNAKES"]
         self.GSPEEDS =  self.settings["GSPEEDS"]
         self.CONTROLLER_TYPES = self.settings["CONTROLLER_TYPES"]
         self.GAME_SPEED_MULT_OPT = self.settings["GAME_SPEED_MULT_OPT"]

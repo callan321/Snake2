@@ -1,11 +1,12 @@
 {
     "attributes": {
-        "number_of_cells": 36,
-        "snake_size": 4,
+        "number_of_cells": 18,
+        "snake_size": 3,
         "game_speed": 9,
         "game_speed_mult": 2,
-        "p1": "Greedy",
-        "p2": "Human"
+        "p1": "Human",
+        "p2": "Human",
+        "n_snakes": 12
     },
     "GSPEEDS": [
         9,
@@ -15,6 +16,20 @@
     "CONTROLLER_TYPES": [
         "Human",
         "Greedy"
+    ],
+    "N_SNAKES": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
     ],
     "GAME_SPEED_MULT_OPT": [
         2,

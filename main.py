@@ -6,7 +6,9 @@ from config.config import GameConfig
 
 ### bugs ###
 # spawn generator goes outside area like due to snake death un expected behaviour 
-
+### update ###
+# make better system for handling button clicks
+# better system for handling hovers
 
 # wall
 # 2p
