@@ -26,7 +26,8 @@ class OptEventHandler(EventHandler):
     
     def handle_key_down(self, event: pygame.event.Event) -> None:
         """Handle the key down event."""
-        pass
+        if event.key == pygame.K_ESCAPE:
+            self.options.running = False
 
     def handle_key_up(self, event: pygame.event.Event) -> None:
         """Handle the key up event."""

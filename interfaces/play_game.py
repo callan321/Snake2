@@ -6,7 +6,6 @@ from logic.game_logic_human import GameLogicHuman
 from config.config import GameConfig
 from event_handler.game_event_handler import GameEventHandler
 from interfaces.game_interface import GameInterface
-
 class PlayGame(GameInterface):
     """Manages the main game loop and game state."""
 
@@ -16,11 +15,12 @@ class PlayGame(GameInterface):
         self.ui = GameUIManager(screen, config)
         self.game_rd = GameRenderer(screen, config)
         self.event_handler = GameEventHandler(self)
-        self.nsnake = 2
+        self.nsnake = 1
+        controllers = self.init_controller_types(config, self.nsnake)
         self.logic = GameLogicHuman(
             config.game_width,
             config.game_height,
-            controller_type=config.p1,
+            controllers =controllers,
             snake_size=config.snake_size,
             num_snakes= self.nsnake
         )
@@ -45,3 +45,18 @@ class PlayGame(GameInterface):
             directions,
             self.logic.get_food_position()
         )
+
+    def init_controller_types(self, config: GameConfig, nsnake: int):
+        controllers = []
+        print()
+        if nsnake == 1:
+            return [config.p1]
+        elif config.p1 == "Human" and config.p2 == "Human":
+            controllers = ["WASD", "Arrow"]
+        elif config.p1 == "Human" or config.p2 == "Human":
+            controllers = ["Human"]
+            
+        for i in range(nsnake - len(controllers)):
+            controllers += ["Greedy"]
+        
+        return controllers

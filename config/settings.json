@@ -4,7 +4,7 @@
         "snake_size": 4,
         "game_speed": 9,
         "game_speed_mult": 2,
-        "p1": "Human",
+        "p1": "Greedy",
         "p2": "Human"
     },
     "GSPEEDS": [
@@ -14,8 +14,7 @@
     ],
     "CONTROLLER_TYPES": [
         "Human",
-        "BestFS",
-        "Astar"
+        "Greedy"
     ],
     "GAME_SPEED_MULT_OPT": [
         2,

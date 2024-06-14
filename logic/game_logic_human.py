@@ -42,3 +42,12 @@ class GameLogicHuman(GameLogic):
         """
         direction = self.get_direction(snake_id)
         snake.update(direction, self.food.get_position())
+
+    def count_human_controllers(self) -> int:
+        """
+        Count the number of controllers that are of type HumanController.
+
+        Returns:
+            int: The number of human controllers.
+        """
+        return sum(1 for controller in self.controllers if isinstance(controller, HumanController))

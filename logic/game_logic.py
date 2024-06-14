@@ -20,7 +20,7 @@ class GameLogic:
     """
 
     def __init__(
-        self, width: int, height: int, controller_type: str = "Greedy", snake_size: int = 3, num_snakes: int = 12
+        self, width: int, height: int, controllers: List[str] = ["Greedy"], snake_size: int = 3, num_snakes: int = 1
     ) -> None:
         """
         Initialize the game logic with the given parameters.
@@ -39,16 +39,11 @@ class GameLogic:
         self.snakes : List[Snake]= []
         self.controllers: List[Controller] = []
 
-        for i, (start_pos, start_dir) in enumerate(spawns):
+        for (start_pos, start_dir), controller in zip(spawns, controllers):
             self.snakes.append(Snake(start_pos, snake_size))
             self.spawn_generator.remove(start_pos)
-            if i == 0:  # The first two snakes use Human controllers
-                self.controllers.append(Controller.select('WASD', start_dir))
-            elif i == 1:
-                self.controllers.append(Controller.select('Arrow', start_dir))
-            else:  # The rest use Greedy controllers
-                self.controllers.append(Controller.select('Greedy', start_dir))
-        
+            self.controllers.append(Controller.select(controller, start_dir))
+
         
         self.running = True
         self.food = Food()
