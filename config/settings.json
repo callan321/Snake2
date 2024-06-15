@@ -1,12 +1,12 @@
 {
     "attributes": {
-        "number_of_cells": 27,
-        "snake_size": 3,
-        "game_speed": 8,
-        "game_speed_mult": 8,
-        "p1": "Human",
+        "number_of_cells": 50,
+        "snake_size": 5,
+        "game_speed": 18,
+        "game_speed_mult": 10,
+        "p1": "Greedy",
         "p2": "Greedy",
-        "n_snakes": 4,
+        "n_snakes": 12,
         "game_mode": "normal"
     },
     "MODES": [
@@ -39,7 +39,7 @@
     "GAME_SPEED_MULT_OPT": [
         2,
         4,
-        8
+        10
     ],
     "MAPS": {
         "XS": {

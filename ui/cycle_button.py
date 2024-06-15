@@ -7,8 +7,13 @@ class CycleButton(StandardButton):
     def __init__(self, config: GameConfig) -> None:
         """Initialize a speed button with text, position, and configuration."""
         super().__init__('', config)
-        self.idx = self.get_options().index(self.get_attr())
+        options = self.get_options()
+        try:
+            self.idx = options.index(self.get_attr())
+        except ValueError:
+            self.idx = 0
         self.change_text(self.get_text(self.get_attr()))
+
         
     @abstractmethod
     def get_options(self):
