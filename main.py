@@ -6,6 +6,7 @@ from config.config import GameConfig
 
 ### bugs ###
 # spawn generator goes outside area like due to snake death un expected behaviour 
+# test an ai can move backwards through itself 
 ### update ###
 # make better system for handling button clicks
 # better system for handling hovers
@@ -22,7 +23,6 @@ from config.config import GameConfig
 # metronome
 # add hold button
 # hold ff
-# pause overlay
 # syn time with bpm
 # metronome 
 
