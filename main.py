@@ -9,7 +9,6 @@ from config.config import GameConfig
 # test an ai can move backwards through itself 
 ### update ###
 # make better system for handling button clicks
-# better system for handling hovers
 
 # wall
 

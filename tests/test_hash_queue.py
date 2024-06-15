@@ -62,14 +62,14 @@ class TestHashQueue(unittest.TestCase):
         """Test checking if an element appears more than once."""
         self.hash_queue.add_back(1)
         self.hash_queue.add_back(1)
-        self.assertTrue(self.hash_queue.check1(1))
-        self.assertFalse(self.hash_queue.check1(2))
+        self.assertTrue(self.hash_queue.has_multi(1))
+        self.assertFalse(self.hash_queue.has_multi(2))
 
     def test_check0(self):
         """Test checking if an element appears at least once."""
         self.hash_queue.add_back(1)
-        self.assertTrue(self.hash_queue.check0(1))
-        self.assertFalse(self.hash_queue.check0(2))
+        self.assertTrue(self.hash_queue.has_one(1))
+        self.assertFalse(self.hash_queue.has_one(2))
 
     def test_get_data(self):
         """Test getting the underlying deque data."""
@@ -90,22 +90,22 @@ class TestHashQueue(unittest.TestCase):
         self.hash_queue.add_back(1)
         
         # Check if check1 and check0 return correct values
-        self.assertTrue(self.hash_queue.check1(1))
-        self.assertTrue(self.hash_queue.check0(1))
+        self.assertTrue(self.hash_queue.has_multi(1))
+        self.assertTrue(self.hash_queue.has_one(1))
 
         # Remove one occurrence of 1
         self.hash_queue.pop_back()
 
         # Check if check1 and check0 return correct values after removal
-        self.assertFalse(self.hash_queue.check1(1))
-        self.assertTrue(self.hash_queue.check0(1))
+        self.assertFalse(self.hash_queue.has_multi(1))
+        self.assertTrue(self.hash_queue.has_one(1))
 
         # Remove the remaining occurrence of 1
         self.hash_queue.pop_back()
 
         # Check if check1 and check0 return correct values after complete removal
-        self.assertFalse(self.hash_queue.check1(1))
-        self.assertFalse(self.hash_queue.check0(1))
+        self.assertFalse(self.hash_queue.has_multi(1))
+        self.assertFalse(self.hash_queue.has_one(1))
 
     """
     Performance Tests
@@ -151,20 +151,20 @@ class TestHashQueue(unittest.TestCase):
         self.hash_queue = HashQueue()
         for i in range(10000):
             self.hash_queue.add_back(i)
-        time = self.measure_time(self.hash_queue.check1, 5000)
+        time = self.measure_time(self.hash_queue.has_multi, 5000)
         print(f"Check1 with element appearing once: {time:.10f} seconds")
         self.hash_queue.add_back(5000)
-        time = self.measure_time(self.hash_queue.check1, 5000)
+        time = self.measure_time(self.hash_queue.has_multi, 5000)
         print(f"Check1 with element appearing twice: {time:.10f} seconds")
 
-    def test_check0_performance(self):
+    def test_has_one_performance(self):
         """Test the performance of checking if an element appears at least once."""
         self.hash_queue = HashQueue()
         for i in range(10000):
             self.hash_queue.add_back(i)
-        time = self.measure_time(self.hash_queue.check0, 5000)
+        time = self.measure_time(self.hash_queue.has_one, 5000)
         print(f"Check0 with element present: {time:.10f} seconds")
-        time = self.measure_time(self.hash_queue.check0, 10000)
+        time = self.measure_time(self.hash_queue.has_one, 10000)
         print(f"Check0 with element not present: {time:.10f} seconds")
 
 
