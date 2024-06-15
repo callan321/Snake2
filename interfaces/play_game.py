@@ -1,4 +1,3 @@
-
 import pygame
 from rendering.game_ui_manager import GameUIManager
 from rendering.game_renderer import GameRenderer
@@ -6,6 +5,7 @@ from logic.game_logic_human import GameLogicHuman
 from config.config import GameConfig
 from event_handler.game_event_handler import GameEventHandler
 from interfaces.game_interface import GameInterface
+
 class PlayGame(GameInterface):
     """Manages the main game loop and game state."""
 
@@ -19,10 +19,10 @@ class PlayGame(GameInterface):
         self.logic = GameLogicHuman(
             config.game_width,
             config.game_height,
-            controllers =controllers,
+            controllers=controllers,
             snake_size=config.snake_size,
-            num_snakes= config.n_snakes,
-            game_mode = config.game_mode 
+            num_snakes=config.n_snakes,
+            game_mode=config.game_mode
         )
         self.ui.init()
 
@@ -37,18 +37,11 @@ class PlayGame(GameInterface):
     def draw(self) -> None:
         """Update game elements such as UI and renderer dimensions and Draw the game elements."""
         self.ui.draw()
-        n = self.logic.get_snake_count()
-        snakes = [self.logic.get_snake_body(i) for i in range(n)]
-        directions = [self.logic.get_snake_body_and_direction(i)[1] for i in range(n)]
-        self.game_rd.update(
-            snakes,
-            directions,
-            self.logic.get_food_position()
-        )
+        snake_data = self.logic.get_all_snakes_body_and_direction()
+        self.game_rd.update(snake_data, self.logic.get_food_position())
 
     def init_controller_types(self, config: GameConfig, nsnake: int):
         controllers = []
-        print()
         if nsnake == 1:
             return [config.p1]
         elif config.p1 == "Human" and config.p2 == "Human":

@@ -1,6 +1,6 @@
 from logic.controller.controller import Controller
 from logic.game_objects.snake import Snake
-from typing import Tuple, List
+from typing import Tuple, List, Dict
 
 
 class GreedyController(Controller):
@@ -14,7 +14,8 @@ class GreedyController(Controller):
         food_pos: Tuple[int, int],
         width: int,
         height: int,
-        snakes: List[Snake],
+        snakes: Dict[int, Snake], 
+        keys: List[int]
     ) -> Tuple[int, int]:
         """
         Determine the best direction based on Breadth-First Search algorithm.
@@ -41,7 +42,7 @@ class GreedyController(Controller):
 
             if not snake.check_bounds(
                 width, height, next_position
-            ) and not self.is_collision_with_other_snakes(next_position, snakes):
+            ) and not self.check_position_in_snakes(next_position, snakes, keys):
 
                 if food_pos is None:
                     self.direction = direction
@@ -70,8 +71,8 @@ class GreedyController(Controller):
         """
         return abs(target[0] - goal[0]) + abs(target[1] - goal[1])
 
-    def is_collision_with_other_snakes(
-        self, position: Tuple[int, int], snakes: List[Snake]
+    def check_position_in_snakes(
+        self, position: Tuple[int, int], snakes: Dict[int, Snake], keys: List[int]
     ) -> bool:
         """
         Check if the position collides with any other snake.
@@ -83,8 +84,10 @@ class GreedyController(Controller):
         Returns:
             bool: True if there is a collision, False otherwise.
         """
-        for other_snake in snakes:
-            if other_snake.check_position_exists(position):
+        
+        for key in keys:
+            snake = snakes[key]
+            if snake.check_position_exists(position):
                 return True
         return False
 

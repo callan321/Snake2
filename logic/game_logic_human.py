@@ -1,6 +1,6 @@
 from logic.controller.human_controllers import HumanController
 from logic.game_objects.snake import Snake
-from typing import Tuple
+from typing import Tuple, Dict, List, Deque
 from logic.game_logic import GameLogic
 
 class GameLogicHuman(GameLogic):
@@ -33,7 +33,7 @@ class GameLogicHuman(GameLogic):
         
         snake = self.snakes[snake_id]
         return controller.get_direction(
-            snake, self.food.get_position(), self.width, self.height, self.snakes
+            snake, self.food.get_position(), self.width, self.height, self.snakes, self.keys
         )
 
     def update_snake(self, snake_id: int, snake: Snake) -> None:
@@ -51,3 +51,24 @@ class GameLogicHuman(GameLogic):
             int: The number of human controllers.
         """
         return sum(1 for controller in self.controllers if isinstance(controller, HumanController))
+    
+    def get_all_snakes_body_and_direction(
+        self
+    ) -> List[Tuple[int, Deque[Tuple[int, int]], Tuple[int, int]]]:
+        """
+        Get the body and the direction of all snakes controlled by their respective controllers.
+
+        Args:
+            snakes (Dict[int, 'Snake']): Dictionary of snake IDs and their corresponding Snake objects.
+            controllers (Dict[int, 'Controller']): Dictionary of snake IDs and their corresponding Controller objects.
+
+        Returns:
+            List[Tuple[int, Deque[Tuple[int, int]], Tuple[int, int]]]: A list of tuples containing snake ID, the body of the snake, and the direction of the controller.
+        """
+        result = []
+        for snake_id, snake in self.snakes.items():
+            if snake_id in self.controllers:  
+                snake_body = snake.get_body() 
+                snake_direction = self.get_controller(snake_id).get_current_direction()  
+                result.append((snake_id, snake_body, snake_direction))
+        return result

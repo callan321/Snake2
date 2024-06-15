@@ -1,7 +1,7 @@
 import pygame
 from config.config import GameConfig
 from collections import deque
-from typing import Tuple, List, Deque
+from typing import Tuple, List, Deque, Dict
 
 class GameRenderer:
     def __init__(self, screen, config: GameConfig):
@@ -38,7 +38,7 @@ class GameRenderer:
             self.config.gbt,
         )
 
-    def draw_snake(self, snake, last_direction: Tuple[int, int], color: Tuple[int, int, int]):
+    def draw_snake(self, snake: Deque[Tuple[int, int]], last_direction: Tuple[int, int], color: Tuple[int, int, int]):
         body = snake
 
         if body:
@@ -132,22 +132,21 @@ class GameRenderer:
             )
         )
 
-    def draw(self, snakes: List[Deque[Tuple[int, int]]], directions: List[Tuple[int, int]], food, paused=False):
+    def draw(self, snake_data: List[Tuple[int, Deque[Tuple[int, int]], Tuple[int, int]]], food, paused=False):
         self.draw_border()
-        for idx, (snake, direction) in enumerate(zip(snakes, directions)):
-            if idx == 0:
+        for snake_id, snake_body, snake_direction in snake_data:
+            if snake_id == 0:
                 color = self.config.GREEN_SNAKE
-            elif idx == 1:
+            elif snake_id == 1:
                 color = (129, 0, 0)  # Dark Red
             else:
                 color = (169, 169, 169)  # Grey
-            self.draw_snake(snake, direction, color)
+            self.draw_snake(snake_body, snake_direction, color)
         self.draw_food(food)
         if self.paused:
             self.draw_paused_overlay()
 
-    def update(self, snakes: List[Deque[Tuple[int, int]]], directions: List[Tuple[int, int]], food, paused=False):
+    def update(self, snake_data: List[Tuple[int, Deque[Tuple[int, int]], Tuple[int, int]]], food, paused=False):
         self.update_screen_size()
-        self.draw(snakes, directions, food, paused)
-
+        self.draw(snake_data, food, paused)
 

@@ -1,7 +1,7 @@
 from typing import Tuple, Optional, Deque, List
 from logic.game_objects.hash_queue import HashQueue
 
-from typing import Tuple, Optional, Deque, List
+from typing import Tuple, Optional, Deque, List, Dict
 
 class Snake:
     """
@@ -131,18 +131,24 @@ class Snake:
         """
         return self.last_tail
 
-    def check_collision(self, width: int, height: int, snakes: List['Snake']) -> bool:
+
+
+    def check_collision(
+        self, width: int, height: int, snakes: Dict[int, 'Snake'], keys: List[int]
+    ) -> bool:
         """
         Check if the snake has collided with the walls or itself.
 
         :param width: The width of the game area.
         :param height: The height of the game area.
-        :param snakes: List of snakes in the game.
+        :param snakes: Dictionary of snakes in the game.
+        :param keys: List of keys to look up the snakes.
         :return: True if the snake has collided, False otherwise.
         """
         head = self.get_head()
-        for snake in snakes:
-            if snake is not self and snake.check_position_exists(head):
+        for key in keys:
+            snake = snakes[key]
+            if snake and snake is not self and snake.check_position_exists(head):
                 self.die()
                 return True
         if self.check_bounds(width, height, head):
@@ -152,6 +158,7 @@ class Snake:
             self.die()
             return True
         return False
+
 
     def die(self) -> None:
         """
