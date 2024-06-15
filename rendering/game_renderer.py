@@ -9,6 +9,7 @@ class GameRenderer:
         self.config = config
         self.WIDTH = config.game_width
         self.HEIGHT = config.game_height
+        self.paused = False 
 
     def update_offsets(self):
         self.cell_size = self.config.cell_size
@@ -114,18 +115,39 @@ class GameRenderer:
         rect = pygame.Rect(position, size)
         pygame.draw.rect(self.screen, self.config.FOOD_COLOR, rect)
 
-    def draw(self, snakes: List[Deque[Tuple[int, int]]], directions: List[Tuple[int, int]], food):
+    def draw_paused_overlay(self):
+        overlay = pygame.Surface(
+            (
+                self.WIDTH * self.cell_size + self.config.gbt * 2 + self.config.gbos * 2,
+                self.HEIGHT * self.cell_size + self.config.gbt * 2 + self.config.gbos * 2
+            ),
+            pygame.SRCALPHA
+        )
+        overlay.fill((0, 0, 0, 128))  # Semi-transparent black overlay
+        self.screen.blit(
+            overlay,
+            (
+                self.off_x - self.config.gbt - self.config.gbos,
+                self.off_y - self.config.gbt - self.config.gbos
+            )
+        )
+
+    def draw(self, snakes: List[Deque[Tuple[int, int]]], directions: List[Tuple[int, int]], food, paused=False):
         self.draw_border()
         for idx, (snake, direction) in enumerate(zip(snakes, directions)):
             if idx == 0:
                 color = self.config.GREEN_SNAKE
             elif idx == 1:
-                color = (139, 0, 0)  # Dark Red
+                color = (129, 0, 0)  # Dark Red
             else:
                 color = (169, 169, 169)  # Grey
             self.draw_snake(snake, direction, color)
         self.draw_food(food)
+        if self.paused:
+            self.draw_paused_overlay()
 
-    def update(self, snakes: List[Deque[Tuple[int, int]]], directions: List[Tuple[int, int]], food):
+    def update(self, snakes: List[Deque[Tuple[int, int]]], directions: List[Tuple[int, int]], food, paused=False):
         self.update_screen_size()
-        self.draw(snakes, directions, food)
+        self.draw(snakes, directions, food, paused)
+
+

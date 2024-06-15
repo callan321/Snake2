@@ -37,6 +37,7 @@ class GameEventHandler(EventHandler):
                   
         if event.key == pygame.K_p:
             self.play_game.paused = not self.play_game.paused
+            self.play_game.game_rd.paused = self.play_game.paused
         elif event.key == pygame.K_SPACE:
             self.play_game.curr_speed *= self.play_game.config.game_speed_mult
             self.play_game.mult = True

@@ -11,7 +11,6 @@ from config.config import GameConfig
 # better system for handling hovers
 
 # wall
-# esp
 
 ### optional ###
 # arrows
