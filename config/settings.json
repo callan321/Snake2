@@ -2,11 +2,11 @@
     "attributes": {
         "number_of_cells": 9,
         "snake_size": 2,
-        "game_speed": 8,
+        "game_speed": 6,
         "game_speed_mult": 10,
         "p1": "Human",
-        "p2": "Greedy",
-        "n_snakes": 12,
+        "p2": "Human",
+        "n_snakes": 2,
         "game_mode": "normal"
     },
     "MODES": [
@@ -14,9 +14,9 @@
         "survival"
     ],
     "GSPEEDS": [
-        8,
-        12,
-        18
+        6,
+        10,
+        17
     ],
     "CONTROLLER_TYPES": [
         "Human",

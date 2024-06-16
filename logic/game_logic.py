@@ -4,7 +4,7 @@ from logic.game_objects.spawn_generator import SpawnGenerator
 from logic.game_objects.snake_spawner import SnakeSpawner
 from logic.controller.controller import Controller
 from typing import Tuple, List, Deque, Dict
-
+from random import  sample
 class GameLogic:
     """
     Manages the game logic for a snake game controlled by AI.
@@ -53,6 +53,8 @@ class GameLogic:
         self.step_count = 0
         self.game_mode = game_mode
 
+ 
+
     def update(self) -> bool:
         """
         Update the game state for the next frame.
@@ -78,8 +80,9 @@ class GameLogic:
         """
         #nned to update eat 
 
-        
-        for key in self.keys:
+        # iterate in random order to balance who has prio
+        for key in sample(self.keys, len(self.keys)):
+
             snake = self.snakes[key]
             self.update_snake(key, snake)
 
