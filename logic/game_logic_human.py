@@ -1,8 +1,14 @@
+from logic.controller.controller import Controller
 from logic.controller.human_controllers import HumanController
 from logic.game_objects.snake import Snake
 from typing import Tuple, Dict, List, Deque
 from logic.game_logic import GameLogic
-
+from logic.game_objects.snake import Snake
+from logic.game_objects.food import Food
+from logic.game_objects.spawn_generator import SpawnGenerator
+from logic.game_objects.snake_spawner import SnakeSpawner
+from logic.controller.controller import Controller
+from typing import Tuple, List, Deque, Dict
 class GameLogicHuman(GameLogic):
     """
     Manages the game logic for a snake game controlled by a human.
@@ -16,6 +22,15 @@ class GameLogicHuman(GameLogic):
         controllers (List[Controller]): The controllers for the snakes' movement.
         step_count (int): The number of steps taken in the current game.
     """
+    def __init__(
+        self, width: int, height: int, controllers: List[str] = ["Greedy"], snake_size: int = 3, num_snakes: int = 1, game_mode: str = 'survival'
+    ) -> None:
+        super().__init__(width, height, controllers, snake_size, num_snakes, game_mode)
+        self.human_controllers = []
+        for key in self.keys:
+            if isinstance(self.controllers[key], HumanController):
+                self.human_controllers.append(key)
+
 
     def get_direction(self, snake_id: int) -> Tuple[int, int]:
         """
@@ -43,15 +58,7 @@ class GameLogicHuman(GameLogic):
         direction = self.get_direction(snake_id)
         snake.update(direction, self.food.get_position())
 
-    def count_human_controllers(self) -> int:
-        """
-        Count the number of controllers that are of type HumanController.
 
-        Returns:
-            int: The number of human controllers.
-        """
-        return sum(1 for controller in self.controllers if isinstance(controller, HumanController))
-    
     def get_all_snakes_body_and_direction(
         self
     ) -> List[Tuple[int, Deque[Tuple[int, int]], Tuple[int, int]]]:
@@ -72,3 +79,10 @@ class GameLogicHuman(GameLogic):
                 snake_direction = self.get_controller(snake_id).get_current_direction()  
                 result.append((snake_id, snake_body, snake_direction))
         return result
+
+
+    def remove_key(self, key):
+        super().remove_key(key)
+        if key in self.human_controllers:
+            self.human_controllers.remove(key)
+            

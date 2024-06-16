@@ -32,8 +32,8 @@ class GameEventHandler(EventHandler):
 
     def handle_key_down(self, event: pygame.event.Event) -> None:
         """Handle the key down event."""
-        if 0 in self.play_game.logic.controllers:
-                self.play_game.logic.get_controller(0).handle_keydown(event)
+        for key in self.play_game.logic.human_controllers:
+            self.play_game.logic.get_controller(key).handle_keydown(event)
         
 
                   
